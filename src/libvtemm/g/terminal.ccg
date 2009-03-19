@@ -1,0 +1,107 @@
+/* terminal.cc
+ *
+ * Copyright (C) 2008 libvtemm Development Team
+ *
+ * This file is part of libvtemm.
+ *
+ * libvtemm is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * libvtemm is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser Public License
+ * along with libvtemm.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#include <vte/vte.h>
+
+namespace Gnome
+{
+
+namespace Vte
+{
+
+namespace Private
+{
+
+gboolean SignalProxy_selected_gtk_callback(VteTerminal *terminal, glong column, glong row, gpointer data)
+{
+  bool selected = true;
+  Gnome::Vte::Terminal::SlotSelectedCallback* the_slot = static_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(data);
+  //Gnome::Vte::Terminal temp(terminal);
+  //Gnome::Vte::Terminal temp = *(Glib::wrap(terminal, true));
+#ifdef GLIBMM_EXCEPTIONS_ENABLED
+  try
+  {
+#endif // GLIBMM_EXCEPTIONS_ENABLED
+    // true or false, hm?
+    selected = (*the_slot)(*(Glib::wrap(terminal)), column, row);
+#ifdef GLIBMM_EXCEPTIONS_ENABLED
+  }
+  catch (...)
+  {
+    Glib::exception_handlers_invoke();
+  }
+#endif // GLIBMM_EXCEPTIONS_ENABLED
+  return static_cast<int>(selected);
+}
+} // namespace Private
+
+TextAndCharAttrs Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
+{
+  GArray* array = g_array_new(FALSE, FALSE, sizeof(VteCharAttributes));
+  Glib::ustring text(vte_terminal_get_text(gobj(), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array));
+  // shallow, because release_c_type function body is empty, so there's no use of deep ownership.
+  ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), array->len, Glib::OWNERSHIP_SHALLOW);
+  g_array_free(array, FALSE);
+  return TextAndCharAttrs(text, attributes);
+}
+
+TextAndCharAttrs Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
+{
+  GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
+  Glib::ustring text(vte_terminal_get_text_include_trailing_spaces(gobj(), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array));
+  // shallow, because release_c_type function body is empty, so there's no use of deep ownership.
+  ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), static_cast<size_t>(array->len), Glib::OWNERSHIP_SHALLOW);
+  g_array_free(array, FALSE);
+  return TextAndCharAttrs(text, attributes);
+}
+
+TextAndCharAttrs Terminal::get_text_range(long start_row, long start_col, long end_row, long end_col, const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
+{
+  GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
+  Glib::ustring text(vte_terminal_get_text_range(gobj(), start_row, start_col, end_row, end_col, &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array));
+  // shallow, because release_c_type function body is empty, so there's no use of deep ownership.
+  ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), static_cast<size_t>(array->len), Glib::OWNERSHIP_SHALLOW);
+  g_array_free(array, FALSE);
+  return TextAndCharAttrs(text, attributes);
+}
+
+void Terminal::set_colors(const Gdk::Color& foreground, const Gdk::Color& background, const Gdk::ArrayHandle_Color& palette)
+{
+  vte_terminal_set_colors(gobj(), foreground.gobj(), background.gobj(), palette.data(), palette.size());
+}
+
+void Terminal::feed(const Glib::ustring& data)
+{
+  vte_terminal_feed(gobj(), data.data(), data.size());
+}
+
+void Terminal::feed_child(const Glib::ustring& text)
+{
+  vte_terminal_feed_child(gobj(), text.data(), text.size());
+}
+
+void Terminal::feed_child_binary(const std::string& data)
+{
+  vte_terminal_feed_child_binary(gobj(), data.data(), data.size());
+}
+
+} // namespace Vte
+
+} // namespace Gnome

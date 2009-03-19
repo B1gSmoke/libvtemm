@@ -1,0 +1,8 @@
+0.19.1:
+
+2009-03-19  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*libvtemm: most changes backported from 0.17.2 - look into
+	Changelogs in old_news_and_changelogs directory.
+
+0.19.0:

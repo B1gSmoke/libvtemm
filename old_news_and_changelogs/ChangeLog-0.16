@@ -1,0 +1,76 @@
+0.16.5:
+
+2009-03-19  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*configure.ac: cleanup, moved some scripts to macros.m4. Changed mail in
+	AC_INIT to svn.gnome.org one. Changed depends gtkmm-2.4 version to 2.6.0
+	- vte 0.16.14 needs gtk+ in at least 2.6.0. Added explicit glibmm
+	dependency.
+	*scripts/macros.m4: added some scripts from configure.ac
+	*docs/reference/Doxyfile.in: changed INPUT option due to change in
+	configure.ac.
+	*src/libvtemm-1.0.pc.in: added missing -I flag in cflags.
+	*docs/reference/Makefile.am: changed refdir directory to have
+	libvtemm-1.0 in datadir/doc, instead of only libvtemm.
+	*libvtemm: added autogen.sh - it just executes autoreconf and configure.
+	*Makefile.am: added autogen.sh and HACKING to EXTRA_DIST.
+	*MAINTAINTERS:
+	*AUTHORS: changed mail to svn.gnome.org one and changed Userid.
+	*README: s/libvte/vte/
+
+0.16.4:
+
+2009-03-13  Krzesimir Nowak <qdlacz@gmail.com>
+
+	*libvtemm: put Vte namespace inside Gnome namespace.
+	Well, seems I was joking with this not breaking API.
+	Wrapped functions from vte/pty.h.
+	Added config header file.
+
+0.16.3:
+
+2009-03-12  Krzesimir Nowak <qdlacz@gmail.com>
+
+	*libvtemm: corrected changelog entries [libvte->libvtemm].
+	New build system. I didn't like the previous one.
+	With this release, API/ABI breaking will cease, until API/ABI break
+	in vte.
+	*src/libvtemm/g/terminal.[h|cc]g: removed hack.
+
+0.16.2:
+
+2009-03-02  Krzesimir Nowak <qdlacz@gmail.com>
+
+	*libvtemm: docs are installable at last.
+
+0.16.1:
+
+2009-02-29  Krzesimir Nowak <qdlacz@gmail.com>
+
+	*libvtemm: added docs. Woo!
+
+0.16.0:
+
+2009-02-27  Krzesimir Nowak <qdlacz@gmail.com>
+
+	* libvtemm: removed libvtemmmconfig.h.in - I don't see if it is needed.
+	* libvte/src/terminalaccessible.hg: class now inherits also from
+	interfaces it implement.
+	* configure.ac: removed maintainer mode.
+	* autogen.sh: not needed now.
+
+0.0.2:
+
+2008-05-08  Krzesimir Nowak <qdlacz@gmail.com>
+
+	* libvte/src/terminal.hg: removed Private namespace (don't confuse with
+	Vte::Private one), so API may be broken with earlier version.
+	* libvte/src/terminal.ccg: removed staticness of gtk callback function
+	in Vte::Private namespace
+
+0.0.1:
+
+2008-05-05  Krzesimir Nowak <qdlacz@gmail.com>
+
+	* libvtemm: first release
+
