@@ -1,0 +1,45 @@
+/* reaper.h
+ *
+ * Copyright (C) 2008 libvtemm Development Team
+ *
+ * This file is part of libvtemm.
+ *
+ * libvtemm is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * libvtemm is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser Public License
+ * along with libvtemm.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+_DEFS(libvtemm,libvte)
+_PINCLUDE(glibmm/private/object_p.h)
+
+namespace Gnome
+{
+
+namespace Vte
+{
+
+/** Reaper - A singleton object which catches <tt>SIGCHLD</tt> signals and converts them into GObject-style "child-exited" signals.
+ */
+class Reaper : public Glib::Object
+{
+	_CLASS_GOBJECT(Reaper, VteReaper, VTE_REAPER, Glib::Object, GObject)
+	private:
+		Reaper();
+	public:
+		_WRAP_METHOD(static const Glib::RefPtr<Reaper> get(), vte_reaper_get)
+		_WRAP_METHOD(static int add_child(GPid pid), vte_reaper_add_child)
+		_WRAP_SIGNAL(void child_exited(int pid, int status), "child-exited", no_default_handler)
+};
+
+} // namespace Vte
+
+} // namespace Gnome

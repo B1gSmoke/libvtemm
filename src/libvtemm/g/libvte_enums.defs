@@ -1,0 +1,23 @@
+;; From /usr/include/vte/vte.h
+
+(define-enum-extended TerminalEraseBinding
+  (in-module "Vte")
+  (c-name "VteTerminalEraseBinding")
+  (values
+    '("auto" "VTE_ERASE_AUTO" "0")
+    '("ascii-backspace" "VTE_ERASE_ASCII_BACKSPACE" "1")
+    '("ascii-delete" "VTE_ERASE_ASCII_DELETE" "2")
+    '("delete-sequence" "VTE_ERASE_DELETE_SEQUENCE" "3")
+  )
+)
+
+(define-enum-extended TerminalAntiAlias
+  (in-module "Vte")
+  (c-name "VteTerminalAntiAlias")
+  (values
+    '("use-default" "VTE_ANTI_ALIAS_USE_DEFAULT" "0")
+    '("force-enable" "VTE_ANTI_ALIAS_FORCE_ENABLE" "1")
+    '("force-disable" "VTE_ANTI_ALIAS_FORCE_DISABLE" "2")
+  )
+)
+

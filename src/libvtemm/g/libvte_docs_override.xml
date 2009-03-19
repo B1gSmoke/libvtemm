@@ -1,0 +1,290 @@
+<root>
+
+<function name="vte_terminal_feed">
+<description>
+Interprets @data as if it were data received from a child process.  This
+can either be used to drive the terminal without a child process, or just
+to mess with your users.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> a string in the terminal&apos;s current encoding
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_feed_child_binary">
+<description>
+Sends a block of binary data to the child.
+
+Since: 0.12.1
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> data to send to the child
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_feed_child">
+<description>
+Sends a block of UTF-8 text to the child as if it were entered by the user
+at the keyboard.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="text">
+<parameter_description> data to send to the child
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_colors">
+<description>
+The terminal widget uses a 28-color model comprised of the default foreground
+and background colors, the bold foreground color, the dim foreground
+color, an eight color palette, bold versions of the eight color palette,
+and a dim version of the the eight color palette.
+
+Size of @palette must be either 0, 8, 16, or 24.  If @foreground is %NULL and
+size of @palette is greater than 0, the new foreground color is taken from
+@palette[7].  If @background is %NULL and size of @palette is greater than 0,
+the new background color is taken from @palette[0].  If
+size of @palette is 8 or 16, the third (dim) and possibly the second (bold)
+8-color palettes are extrapolated from the new background color and the items
+in @palette.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="foreground">
+<parameter_description> the new foreground color, or %NULL
+</parameter_description>
+</parameter>
+<parameter name="background">
+<parameter_description> the new background color, or %NULL
+</parameter_description>
+</parameter>
+<parameter name="palette">
+<parameter_description> the color palette
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_text_include_trailing_spaces">
+<description>
+Extracts a view of the visible part of the terminal.  If @slot is not
+%NULL, characters will only be read if @slot returns %TRUE after being
+passed the column and row, respectively.  A #VteCharAttributes structure
+is added to #TextAndCharAttrs return value for each byte added to the returned
+string detailing the character&apos;s position, colors, and other
+characteristics. This function differs from vte_terminal_get_text in that
+trailing spaces at the end of lines are included.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="slot">
+<parameter_description> a slot for callback
+</parameter_description>
+</parameter>
+</parameters>
+<return> a #TextAndCharAttrs with text that may be empty and stored text
+attributes.
+</return>
+</function>
+
+<function name="vte_terminal_get_text">
+<description>
+Extracts a view of the visible part of the terminal.  If @slot is not
+%NULL, characters will only be read if @slot returns %TRUE after being
+passed the column and row, respectively.  A #VteCharAttributes structure
+is added to #TextAndCharAttrs return value for each byte added to the returned
+string detailing the character&apos;s position, colors, and other
+characteristics.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="slot">
+<parameter_description> a slot for callback
+</parameter_description>
+</parameter>
+</parameters>
+<return> a #TextAndCharAttrs with text that may be empty and stored text
+attributes.
+</return>
+</function>
+
+<function name="vte_terminal_get_text_range">
+<description>
+Extracts a view of the visible part of the terminal.  If @slot is not
+%NULL, characters will only be read if @slot returns %TRUE after being
+passed the column and row, respectively.  A #VteCharAttributes structure
+is added to #TextAndCharAttrs return value for each byte added to the returned
+string detailing the character&apos;s position, colors, and other
+characteristics. The entire scrollback buffer is scanned, so it is possible to
+read the entire contents of the buffer using this function.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="start_row">
+<parameter_description> first row to search for data
+</parameter_description>
+</parameter>
+<parameter name="start_col">
+<parameter_description> first column to search for data
+</parameter_description>
+</parameter>
+<parameter name="end_row">
+<parameter_description> last row to search for data
+</parameter_description>
+</parameter>
+<parameter name="end_col">
+<parameter_description> last column to search for data
+</parameter_description>
+</parameter>
+<parameter name="slot">
+<parameter_description> a slot for callback
+</parameter_description>
+</parameter>
+</parameters>
+<return> a #TextAndCharAttrs with text that may be empty and stored text
+attributes.
+</return>
+</function>
+
+<function name="vte_terminal_forkpty">
+<description>
+Starts a new child process under a newly-allocated controlling
+pseudo-terminal.  TERM is automatically set to reflect the terminal widget&apos;s
+emulation setting.  If @lastlog, @utmp, or @wtmp are %TRUE, logs the session
+to the specified system log files.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="envv">
+<parameter_description> an empty string terminated list of environment variables to be
+added to the environment before starting returning in the child process
+</parameter_description>
+</parameter>
+<parameter name="directory">
+<parameter_description> the name of a directory the child process should change to, or
+empty string
+</parameter_description>
+</parameter>
+<parameter name="lastlog">
+<parameter_description> %TRUE if the session should be logged to the lastlog
+</parameter_description>
+</parameter>
+<parameter name="utmp">
+<parameter_description> %TRUE if the session should be logged to the utmp/utmpx log
+</parameter_description>
+</parameter>
+<parameter name="wtmp">
+<parameter_description> %TRUE if the session should be logged to the wtmp/wtmpx log
+</parameter_description>
+</parameter>
+</parameters>
+<return> the ID of the new process in the parent
+
+Since: 0.11.11
+</return>
+</function>
+
+<function name="vte_terminal_fork_command">
+<description>
+Starts the specified command under a newly-allocated controlling
+pseudo-terminal.  The @argv and @envv lists should be empty string terminated, and
+argv[0] is expected to be the name of the file being run, as it would be if
+execve() were being called. TERM is automatically set to reflect the
+terminal widget&apos;s emulation setting.  If @lastlog, @utmp, or @wtmp are %TRUE,
+logs the session to the specified system log files.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="command">
+<parameter_description> the name of a binary to run, or %NULL to get user&apos;s shell
+</parameter_description>
+</parameter>
+<parameter name="argv">
+<parameter_description> the empty string terminated argument list to be passed to @command
+</parameter_description>
+</parameter>
+<parameter name="envv">
+<parameter_description> an empty string terminated list of environment variables to be
+added to the environment before starting @command
+</parameter_description>
+</parameter>
+<parameter name="directory">
+<parameter_description> the name of a directory the command should start in, or empty string
+</parameter_description>
+</parameter>
+<parameter name="lastlog">
+<parameter_description> %TRUE if the session should be logged to the lastlog
+</parameter_description>
+</parameter>
+<parameter name="utmp">
+<parameter_description> %TRUE if the session should be logged to the utmp/utmpx log
+</parameter_description>
+</parameter>
+<parameter name="wtmp">
+<parameter_description> %TRUE if the session should be logged to the wtmp/wtmpx log
+</parameter_description>
+</parameter>
+</parameters>
+<return> the ID of the new process
+</return>
+</function>
+
+</root>

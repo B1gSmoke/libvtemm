@@ -1,0 +1,59 @@
+/* terminalaccessible.h
+ *
+ * Copyright (C) 2008 libvtemm Development Team
+ *
+ * This file is part of libvtemm.
+ *
+ * libvtemm is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * libvtemm is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser Public License
+ * along with libvtemm.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+_DEFS(libvtemm,libvte)
+_PINCLUDE(atkmm/private/object_p.h)
+
+#include <libvtemm/terminal.h>
+#include <atkmm/object.h>
+#include <atkmm/action.h>
+#include <atkmm/component.h>
+#include <atkmm/text.h>
+
+namespace Gnome
+{
+
+namespace Vte
+{
+/** TerminalAccessible - Accessibility peer of #Gnome::Vte::Terminal.
+ */
+class TerminalAccessible
+:	public Atk::Object,
+	public Atk::Component,
+	public Atk::Action,
+	public Atk::Text
+{
+	_CLASS_GOBJECT(TerminalAccessible, VteTerminalAccessible, VTE_TERMINAL_ACCESSIBLE, Atk::Object, AtkObject)
+	_IMPLEMENTS_INTERFACE(Atk::Component)
+	_IMPLEMENTS_INTERFACE(Atk::Action)
+	_IMPLEMENTS_INTERFACE(Atk::Text)
+	protected:
+		_WRAP_CTOR(TerminalAccessible(const Terminal& terminal), vte_terminal_accessible_new)
+	public:
+/** Creates a new accessibility peer for the terminal widget.
+ * @param terminal #Gnome::Vte::Terminal widget for which accessibility peer should be created.
+ * @return The new #TerminalAccessible
+ */
+		_WRAP_CREATE(const Terminal& terminal)
+};
+
+} // namespace Vte
+
+} // namespace Gnome
