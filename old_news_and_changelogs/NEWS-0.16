@@ -26,3 +26,7 @@
 
 * previous news was a joke. now Vte is part of Gnome namespace. pty functions
 are wrapped. (Krzesimir Nowak)
+
+0.16.5:
+
+* mostly build system tweaks and bugfixes. (Krzesimir Nowak)

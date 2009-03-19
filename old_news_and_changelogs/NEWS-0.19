@@ -2,3 +2,7 @@
 
 * wrapped 0.19.4 version of vte.
   API/ABI compatible with 0.16.4 and 0.17.1. (Krzesimir Nowak)
+
+0.19.1
+
+* most changes backported from 0.17.2. (Krzesimir Nowak)

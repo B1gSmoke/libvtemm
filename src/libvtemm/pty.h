@@ -21,8 +21,6 @@
 #ifndef _LIBVTEMM_PTY_H_
 #define _LIBVTEMM_PTY_H_
 
-#include <libvtemmconfig.h>
-
 #include <glibmm.h>
 #include <string>
 

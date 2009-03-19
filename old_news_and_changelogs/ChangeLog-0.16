@@ -1,9 +1,22 @@
-0.17.0:
+0.16.5:
 
-2009-03-12  Krzesimir Nowak <qdlacz@gmail.com>
+2009-03-19  Krzesimir Nowak <krnowak@svn.gnome.org>
 
-	*libvtemm: wrapped for vte 0.17.4. API/ABI compatible with
-	libvtemm 0.16.3.
+	*configure.ac: cleanup, moved some scripts to macros.m4. Changed mail in
+	AC_INIT to svn.gnome.org one. Changed depends gtkmm-2.4 version to 2.6.0
+	- vte 0.16.14 needs gtk+ in at least 2.6.0. Added explicit glibmm
+	dependency.
+	*scripts/macros.m4: added some scripts from configure.ac
+	*docs/reference/Doxyfile.in: changed INPUT option due to change in
+	configure.ac.
+	*src/libvtemm-1.0.pc.in: added missing -I flag in cflags.
+	*docs/reference/Makefile.am: changed refdir directory to have
+	libvtemm-1.0 in datadir/doc, instead of only libvtemm.
+	*libvtemm: added autogen.sh - it just executes autoreconf and configure.
+	*Makefile.am: added autogen.sh and HACKING to EXTRA_DIST.
+	*MAINTAINTERS:
+	*AUTHORS: changed mail to svn.gnome.org one and changed Userid.
+	*README: s/libvte/vte/
 
 0.16.4:
 

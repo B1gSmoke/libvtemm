@@ -3,7 +3,11 @@
 * wrapped 0.17.4 version of vte.
   API/ABI compatible with 0.16.3. (Krzesimir Nowak)
 
-0.17.1
+0.17.1:
 
 * yet another API break, blah blah blah, nobody reads it.
   GOTO ChangeLog(-0\.16)?
+
+0.17.2:
+
+* most changes backported from 0.16.5.

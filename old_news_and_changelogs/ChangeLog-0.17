@@ -1,9 +1,9 @@
-0.19.0:
+0.17.2:
 
-2009-03-16  Krzesimir Nowak <qdlacz@gmail.com>
+2009-03-19  Krzesimir Nowak <krnowak@svn.gnome.org>
 
-	*libvtemm: wrapped for vte 0.19.4. API/ABI compatible with
-	libvtemm 0.17.1 and 0.16.3.
+	*libvtemm: most changes backported from 0.16.5 - look into
+	Changelog-0.16 in old_news_and_changelogs directory.
 
 0.17.1:
 
@@ -14,3 +14,9 @@
 	Read ChangeLog-0.16 for changes.
 
 0.17.0:
+
+2009-03-12  Krzesimir Nowak <qdlacz@gmail.com>
+
+	*libvtemm: wrapped for vte 0.17.4. API/ABI compatible with
+	libvtemm 0.16.3.
+

@@ -18,8 +18,6 @@
  * along with libvtemm.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-_CONFIGINCLUDE(libvtemmconfig.h)
-
 _DEFS(libvtemm,libvte)
 
 #include <gdkmm.h>

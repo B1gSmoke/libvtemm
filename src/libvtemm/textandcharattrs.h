@@ -21,8 +21,6 @@
 #ifndef _LIBVTEMM_TEXT_AND_CHAR_ATTRS_H_
 #define _LIBVTEMM_TEXT_AND_CHAR_ATTRS_H_
 
-#include <libvtemmconfig.h>
-
 #include <glibmm/arrayhandle.h>
 #include <libvtemm/charattributes.h>
 

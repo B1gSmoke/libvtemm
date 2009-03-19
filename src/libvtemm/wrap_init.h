@@ -21,8 +21,6 @@
 #ifndef _LIBVTEMM_WRAP_INIT_H_
 #define _LIBVTEMM_WRAP_INIT_H_
 
-#include <libvtemmconfig.h>
-
 namespace Gnome
 {
 

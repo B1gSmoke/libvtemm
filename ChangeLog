@@ -1,1 +1,16 @@
+0.20.1:
+
+2009-03-19  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*libvtemm: some changes backported from 0.19.1 - look into
+	Changelogs in old_news_and_changelogs directory.
+	*src/libvtemm/wrap_init.h:
+	*src/libvtemm/init.h:
+	*src/libvtemm/pty.h:
+	*src/libvtemm/textandcharattrs.h:
+	*src/libvtemm/g/charattributes.hg:
+	*src/libvtemm/g/terminalaccessible.hg: removed including
+	libvtemmconfig.h - not needed.
+	
+
 0.20.0:
