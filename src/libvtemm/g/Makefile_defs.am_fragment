@@ -1,0 +1,5 @@
+## Copyright (c) 2009
+## The libvtemm development team.
+
+files_defs = libvte.defs libvte_methods.defs libvte_signals.defs \
+             libvte_enums.defs libvte_docs.xml libvte_docs_override.xml

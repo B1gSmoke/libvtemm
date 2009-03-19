@@ -1,0 +1,22 @@
+0.17.2:
+
+2009-03-19  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*libvtemm: most changes backported from 0.16.5 - look into
+	Changelog-0.16 in old_news_and_changelogs directory.
+
+0.17.1:
+
+2009-03-12  Krzesimir Nowak <qdlacz@gmail.com>
+
+	*libvtemm: yet another API break, now it's compatible
+	with 0.16.4. Most changed backported from 0.16.4.
+	Read ChangeLog-0.16 for changes.
+
+0.17.0:
+
+2009-03-12  Krzesimir Nowak <qdlacz@gmail.com>
+
+	*libvtemm: wrapped for vte 0.17.4. API/ABI compatible with
+	libvtemm 0.16.3.
+

@@ -1,0 +1,32 @@
+0.0.1:
+
+* first release. (Krzesimir Nowak)
+
+0.0.2
+
+* fixed minor bugs, but API break possible. (Krzesimir Nowak)
+
+0.16.0:
+
+* wrapped 0.16.14 version of vte. (Krzesimir Nowak)
+
+0.16.1:
+
+* added documentation. (Krzesimir Nowak)
+
+0.16.2:
+
+* made documentation installable (Krzesimir Nowak)
+
+0.16.3:
+
+* now API/ABI won't break until API/ABI break in vte. (Krzesimir Nowak)
+
+0.16.4:
+
+* previous news was a joke. now Vte is part of Gnome namespace. pty functions
+are wrapped. (Krzesimir Nowak)
+
+0.16.5:
+
+* mostly build system tweaks and bugfixes. (Krzesimir Nowak)

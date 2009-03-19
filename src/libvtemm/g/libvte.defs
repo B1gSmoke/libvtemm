@@ -1,0 +1,3 @@
+(include libvte_methods.defs)
+(include libvte_signals.defs)
+(include libvte_enums.defs)

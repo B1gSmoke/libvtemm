@@ -1,0 +1,2254 @@
+<root>
+<function name="vte_terminal_set_allow_bold">
+<description>
+Controls whether or not the terminal will attempt to draw bold text by
+repainting text with a different offset.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="allow_bold">
+<parameter_description> %TRUE if the terminal should attempt to draw bold text
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_reset">
+<description>
+Resets as much of the terminal&apos;s internal state as possible, discarding any
+unprocessed input data, resetting character attributes, cursor state,
+national character set state, status line, terminal modes (insert/delete),
+selection state, and encoding.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="full">
+<parameter_description> %TRUE to reset tabstops
+</parameter_description>
+</parameter>
+<parameter name="clear_history">
+<parameter_description> %TRUE to empty the terminal&apos;s scrollback buffer
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_match_clear_all">
+<description>
+Clears the list of regular expressions the terminal uses to highlight text
+when the user moves the mouse cursor.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_char_descent">
+<description>
+An accessor function provided for the benefit of language bindings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the contents of @terminal&apos;s char_descent field
+</return>
+</function>
+
+<function name="vte_terminal_forkpty">
+<description>
+Starts a new child process under a newly-allocated controlling
+pseudo-terminal.  TERM is automatically set to reflect the terminal widget&apos;s
+emulation setting.  If @lastlog, @utmp, or @wtmp are %TRUE, logs the session
+to the specified system log files.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="envv">
+<parameter_description> a list of environment variables to be added to the environment before
+starting returning in the child process, or %NULL
+</parameter_description>
+</parameter>
+<parameter name="directory">
+<parameter_description> the name of a directory the child process should change to, or
+%NULL
+</parameter_description>
+</parameter>
+<parameter name="lastlog">
+<parameter_description> %TRUE if the session should be logged to the lastlog
+</parameter_description>
+</parameter>
+<parameter name="utmp">
+<parameter_description> %TRUE if the session should be logged to the utmp/utmpx log
+</parameter_description>
+</parameter>
+<parameter name="wtmp">
+<parameter_description> %TRUE if the session should be logged to the wtmp/wtmpx log
+</parameter_description>
+</parameter>
+</parameters>
+<return> the ID of the new process in the parent, 0 in the child, and -1 if
+there was an error
+
+Since: 0.11.11
+</return>
+</function>
+
+<function name="vte_terminal_match_check">
+<description>
+Checks if the text in and around the specified position matches any of the
+regular expressions previously set using vte_terminal_match_add().  If a
+match exists, the text string is returned and if @tag is not %NULL, the number
+associated with the matched regular expression will be stored in @tag.
+
+If more than one regular expression has been set with
+vte_terminal_match_add(), then expressions are checked in the order in
+which they were added.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="column">
+<parameter_description> the text column
+</parameter_description>
+</parameter>
+<parameter name="row">
+<parameter_description> the text row
+</parameter_description>
+</parameter>
+<parameter name="tag">
+<parameter_description> pointer to an integer
+</parameter_description>
+</parameter>
+</parameters>
+<return> a string which matches one of the previously set regular
+expressions, and which must be freed by the caller.
+</return>
+</function>
+
+<function name="vte_terminal_get_adjustment">
+<description>
+An accessor function provided for the benefit of language bindings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the contents of @terminal&apos;s adjustment field
+</return>
+</function>
+
+<function name="vte_terminal_set_color_highlight">
+<description>
+Sets the background color for text which is highlighted.  If %NULL,
+highlighted text (which is usually highlighted because it is selected) will
+be drawn with foreground and background colors reversed.
+
+Since: 0.11.11
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="highlight_background">
+<parameter_description> the new color to use for highlighted text
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_mouse_autohide">
+<description>
+Determines the value of the terminal&apos;s mouse autohide setting.  When
+autohiding is enabled, the mouse cursor will be hidden when the user presses
+a key and shown when the user moves the mouse.  This setting can be changed
+using vte_terminal_set_mouse_autohide().
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> %TRUE if autohiding is enabled, %FALSE if not.
+</return>
+</function>
+
+<function name="vte_pty_get_size">
+<description>
+Attempts to read the pseudo terminal&apos;s window size.
+
+
+</description>
+<parameters>
+<parameter name="master">
+<parameter_description> the file descriptor of the pty master
+</parameter_description>
+</parameter>
+<parameter name="columns">
+<parameter_description> a place to store the number of columns
+</parameter_description>
+</parameter>
+<parameter name="rows">
+<parameter_description> a place to store the number of rows
+</parameter_description>
+</parameter>
+</parameters>
+<return> 0 on success, -1 on failure.
+</return>
+</function>
+
+<function name="vte_terminal_set_background_image">
+<description>
+Sets a background image for the widget.  Text which would otherwise be
+drawn using the default background color will instead be drawn over the
+specified image.  If necessary, the image will be tiled to cover the
+widget&apos;s entire visible area. If specified by
+vte_terminal_set_background_saturation(), the terminal will tint its
+in-memory copy of the image before applying it to the terminal.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="image">
+<parameter_description> a #GdkPixbuf to use, or %NULL to cancel
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="_vte_ring_append">
+<description>
+Appends a new item to the ring.  If an item must be removed to make room for
+the new item, it is freed.
+
+
+</description>
+<parameters>
+<parameter name="ring">
+<parameter_description> a #VteRing
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> the new item
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_default_colors">
+<description>
+Reset the terminal palette to reasonable compiled-in defaults.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_color_dim">
+<description>
+Sets the color used to draw dim text in the default foreground color.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="dim">
+<parameter_description> the new dim color
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_window_title">
+<description>
+An accessor function provided for the benefit of language bindings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the contents of @terminal&apos;s window_title field
+</return>
+</function>
+
+<function name="vte_terminal_get_padding">
+<description>
+Determines the amount of additional space the widget is using to pad the
+edges of its visible area.  This is necessary for cases where characters in
+the selected font don&apos;t themselves include a padding area and the text
+itself would otherwise be contiguous with the window border.  Applications
+which use the widget&apos;s #row_count, #column_count, #char_height, and
+#char_width fields to set geometry hints using
+gtk_window_set_geometry_hints() will need to add this value to the base
+size.  The values returned in @xpad and @ypad are the total padding used in
+each direction, and do not need to be doubled.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="xpad">
+<parameter_description> address in which to store left/right-edge padding
+</parameter_description>
+</parameter>
+<parameter name="ypad">
+<parameter_description> address in which to store top/bottom-edge ypadding
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_emulation">
+<description>
+Queries the terminal for its current emulation, as last set by a call to
+vte_terminal_set_emulation().
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the name of the terminal type the widget is attempting to emulate
+</return>
+</function>
+
+<function name="vte_terminal_set_cursor_blinks">
+<description>
+Sets whether or not the cursor will blink.
+
+Deprecated: 0.16.15 Use vte_terminal_set_cursor_blink_mode() instead.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="blink">
+<parameter_description> %TRUE if the cursor should blink
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_cursor_blink_mode">
+<description>
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return>the cursor blink mode.
+
+Since: 0.16.15
+</return>
+</function>
+
+<function name="vte_terminal_set_background_transparent">
+<description>
+Sets the terminal&apos;s background image to the pixmap stored in the root
+window, adjusted so that if there are no windows below your application,
+the widget will appear to be transparent.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="transparent">
+<parameter_description> %TRUE if the terminal should fake transparency
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_text_include_trailing_spaces">
+<description>
+Extracts a view of the visible part of the terminal.  If @is_selected is not
+%NULL, characters will only be read if @is_selected returns %TRUE after being
+passed the column and row, respectively.  A #VteCharAttributes structure
+is added to @attributes for each byte added to the returned string detailing
+the character&apos;s position, colors, and other characteristics. This function
+differs from vte_terminal_get_text in that trailing spaces at the end of
+lines are included.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="is_selected">
+<parameter_description> a callback
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> user data to be passed to the callback
+</parameter_description>
+</parameter>
+<parameter name="attributes">
+<parameter_description> location for storing text attributes
+</parameter_description>
+</parameter>
+</parameters>
+<return> a text string which must be freed by the caller, or %NULL.
+
+Since: 0.11.11
+</return>
+</function>
+
+<function name="vte_terminal_set_color_cursor">
+<description>
+Sets the background color for text which is under the cursor.  If %NULL, text
+under the cursor will be drawn with foreground and background colors
+reversed.
+
+Since: 0.11.11
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="cursor_background">
+<parameter_description> the new color to use for the text cursor
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_scroll_background">
+<description>
+Controls whether or not the terminal will scroll the background image (if
+one is set) when the text in the window must be scrolled.
+
+Since: 0.11
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="scroll">
+<parameter_description> %TRUE if the terminal should scroll the background image along with
+text.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_match_set_cursor">
+<description>
+Sets which cursor the terminal will use if the pointer is over the pattern
+specified by @tag.  The terminal keeps a reference to @cursor.
+
+Since: 0.11
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="tag">
+<parameter_description> the tag of the regex which should use the specified cursor
+</parameter_description>
+</parameter>
+<parameter name="cursor">
+<parameter_description> the #GdkCursor which the terminal should use when the pattern is
+highlighted
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_match_set_cursor_name">
+<description>
+Sets which cursor the terminal will use if the pointer is over the pattern
+specified by @tag.
+
+Since: 0.16.15
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="tag">
+<parameter_description> the tag of the regex which should use the specified cursor
+</parameter_description>
+</parameter>
+<parameter name="cursor_name">
+<parameter_description> the name of the cursor
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_scrollback_lines">
+<description>
+Sets the length of the scrollback buffer used by the terminal.  The size of
+the scrollback buffer will be set to the larger of this value and the number
+of visible rows the widget can display, so 0 can safely be used to disable
+scrollback.  Note that this setting only affects the normal screen buffer.
+For terminal types which have an alternate screen buffer, no scrollback is
+allowed on the alternate screen buffer.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="lines">
+<parameter_description> the length of the history buffer
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_scroll_on_output">
+<description>
+Controls whether or not the terminal will forcibly scroll to the bottom of
+the viewable history when the new data is received from the child.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="scroll">
+<parameter_description> %TRUE if the terminal should scroll on output
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_accessible_new">
+<description>
+Creates a new accessibility peer for the terminal widget.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the new #AtkObject
+</return>
+</function>
+
+<function name="_vte_ring_insert_preserve">
+<description>
+Inserts a new item (@data) into @ring at the @position&apos;th offset.  If @ring
+already has an item stored at the desired location, it (and any successive
+items) will be moved down, items that need to be removed will be removed
+from the *top*.
+
+
+</description>
+<parameters>
+<parameter name="ring">
+<parameter_description> a #VteRing
+</parameter_description>
+</parameter>
+<parameter name="position">
+<parameter_description> an index
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> the new item
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_visible_bell">
+<description>
+Checks whether or not the terminal will present a visible bell to the
+user when the child outputs the &quot;bl&quot; sequence.  The terminal
+will clear itself to the default foreground color and then repaint itself.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> %TRUE if visible bell is enabled, %FALSE if not
+</return>
+</function>
+
+<function name="vte_terminal_get_char_height">
+<description>
+An accessor function provided for the benefit of language bindings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the contents of @terminal&apos;s char_height field
+</return>
+</function>
+
+<function name="vte_terminal_get_using_xft">
+<description>
+A #VteTerminal can use multiple methods to draw text.  This function
+allows an application to determine whether or not the current method uses
+fontconfig to find fonts.  This setting cannot be changed by the caller,
+but in practice usually matches the behavior of GTK+ itself.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> %TRUE if the terminal is using fontconfig to find fonts, %FALSE if
+the terminal is using PangoX.
+</return>
+</function>
+
+<function name="vte_terminal_set_cursor_blink_mode">
+<description>
+Sets whether or not the cursor will blink. Using VTE_CURSOR_BLINK_SYSTEM
+will use the #GtkSettings::gtk-cursor-blink setting.
+
+Since: 0.16.15
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="mode">
+<parameter_description> the #VteTerminalCursorBlinkMode to use
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_font_from_string_full">
+<description>
+A convenience function which converts @name into a #PangoFontDescription and
+passes it to vte_terminal_set_font_full().
+
+Since: 0.11.11
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="name">
+<parameter_description> A string describing the font.
+</parameter_description>
+</parameter>
+<parameter name="antialias">
+<parameter_description> Whether or not to antialias the font (if possible).
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_new">
+<description>
+Create a new terminal widget.
+
+
+</description>
+<parameters>
+</parameters>
+<return> a new #VteTerminal object
+</return>
+</function>
+
+<function name="vte_terminal_feed">
+<description>
+Interprets @data as if it were data received from a child process.  This
+can either be used to drive the terminal without a child process, or just
+to mess with your users.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> a string in the terminal&apos;s current encoding
+</parameter_description>
+</parameter>
+<parameter name="length">
+<parameter_description> the length of the string
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_paste_clipboard">
+<description>
+Sends the contents of the #GDK_SELECTION_CLIPBOARD selection to the
+terminal&apos;s child.  If necessary, the data is converted from UTF-8 to the
+terminal&apos;s current encoding. It&apos;s called on paste menu item, or when
+user presses Shift+Insert.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_mouse_autohide">
+<description>
+Changes the value of the terminal&apos;s mouse autohide setting.  When autohiding
+is enabled, the mouse cursor will be hidden when the user presses a key and
+shown when the user moves the mouse.  This setting can be read using
+vte_terminal_get_mouse_autohide().
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="setting">
+<parameter_description> %TRUE if the autohide should be enabled
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_default_emulation">
+<description>
+Queries the terminal for its default emulation, which is attempted if the
+terminal type passed to vte_terminal_set_emulation() is %NULL.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the name of the default terminal type the widget attempts to emulate
+
+Since: 0.11.11
+</return>
+</function>
+
+<function name="_vte_ring_remove">
+<description>
+Removes the @position&apos;th item from @ring, freeing it only if @free_element is
+%TRUE.
+
+
+</description>
+<parameters>
+<parameter name="ring">
+<parameter_description> a #VteRing
+</parameter_description>
+</parameter>
+<parameter name="position">
+<parameter_description> an index
+</parameter_description>
+</parameter>
+<parameter name="free_element">
+<parameter_description> %TRUE if the item should be freed
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="_vte_ring_insert">
+<description>
+Inserts a new item (@data) into @ring at the @position&apos;th offset.  If @ring
+already has an item stored at the desired location, it will be freed before
+being replaced by the new @data.
+
+
+</description>
+<parameters>
+<parameter name="ring">
+<parameter_description> a #VteRing
+</parameter_description>
+</parameter>
+<parameter name="position">
+<parameter_description> an index
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> the new item
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_is_word_char">
+<description>
+Checks if a particular character is considered to be part of a word or not,
+based on the values last passed to vte_terminal_set_word_chars().
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="c">
+<parameter_description> a candidate Unicode code point
+</parameter_description>
+</parameter>
+</parameters>
+<return> %TRUE if the character is considered to be part of a word
+</return>
+</function>
+
+<function name="vte_terminal_set_encoding">
+<description>
+Changes the encoding the terminal will expect data from the child to
+be encoded with.  For certain terminal types, applications executing in the
+terminal can change the encoding.  The default encoding is defined by the
+application&apos;s locale settings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="codeset">
+<parameter_description> a valid #g_iconv target
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="_vte_ring_new">
+<description>
+Allocates a new ring capable of holding up to @max_elements elements at a
+time, using @free to free them when they are removed from the ring.  The
+@data pointer is passed to the @free callback whenever it is called.
+
+
+</description>
+<parameters>
+<parameter name="max_elements">
+<parameter_description> the maximum size the new ring will be allowed to reach
+</parameter_description>
+</parameter>
+<parameter name="free">
+<parameter_description> a #VteRingFreeFunc
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> user data for @free
+</parameter_description>
+</parameter>
+</parameters>
+<return> a new ring
+</return>
+</function>
+
+<function name="vte_terminal_copy_clipboard">
+<description>
+Places the selected text in the terminal in the #GDK_SELECTION_CLIPBOARD
+selection.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_row_count">
+<description>
+An accessor function provided for the benefit of language bindings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the contents of @terminal&apos;s row_count field
+</return>
+</function>
+
+<function name="vte_terminal_set_colors">
+<description>
+The terminal widget uses a 28-color model comprised of the default foreground
+and background colors, the bold foreground color, the dim foreground
+color, an eight color palette, bold versions of the eight color palette,
+and a dim version of the the eight color palette.
+
+@palette_size must be either 0, 8, 16, or 24.  If @foreground is %NULL and
+@palette_size is greater than 0, the new foreground color is taken from
+@palette[7].  If @background is %NULL and @palette_size is greater than 0,
+the new background color is taken from @palette[0].  If
+@palette_size is 8 or 16, the third (dim) and possibly the second (bold)
+8-color palettes are extrapolated from the new background color and the items
+in @palette.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="foreground">
+<parameter_description> the new foreground color, or %NULL
+</parameter_description>
+</parameter>
+<parameter name="background">
+<parameter_description> the new background color, or %NULL
+</parameter_description>
+</parameter>
+<parameter name="palette">
+<parameter_description> the color palette
+</parameter_description>
+</parameter>
+<parameter name="palette_size">
+<parameter_description> the number of entries in @palette
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_match_set_cursor_type">
+<description>
+Sets which cursor the terminal will use if the pointer is over the pattern
+specified by @tag.
+
+Since: 0.11.9
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="tag">
+<parameter_description> the tag of the regex which should use the specified cursor
+</parameter_description>
+</parameter>
+<parameter name="cursor_type">
+<parameter_description> a #GdkCursorType
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_im_append_menuitems">
+<description>
+Appends menu items for various input methods to the given menu.  The
+user can select one of these items to modify the input method used by
+the terminal.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="menushell">
+<parameter_description> a GtkMenuShell
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_cursor_position">
+<description>
+Reads the location of the insertion cursor and returns it.  The row
+coordinate is absolute.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="column">
+<parameter_description> long which will hold the column
+</parameter_description>
+</parameter>
+<parameter name="row">
+<parameter_description> long which will hold the row
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_fork_command">
+<description>
+Starts the specified command under a newly-allocated controlling
+pseudo-terminal.  The @argv and @envv lists should be %NULL-terminated, and
+argv[0] is expected to be the name of the file being run, as it would be if
+execve() were being called.  TERM is automatically set to reflect the
+terminal widget&apos;s emulation setting.  If @lastlog, @utmp, or @wtmp are %TRUE,
+logs the session to the specified system log files.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="command">
+<parameter_description> the name of a binary to run, or %NULL to get user&apos;s shell
+</parameter_description>
+</parameter>
+<parameter name="argv">
+<parameter_description> the argument list to be passed to @command, or %NULL
+</parameter_description>
+</parameter>
+<parameter name="envv">
+<parameter_description> a list of environment variables to be added to the environment before
+starting @command, or %NULL
+</parameter_description>
+</parameter>
+<parameter name="directory">
+<parameter_description> the name of a directory the command should start in, or %NULL
+</parameter_description>
+</parameter>
+<parameter name="lastlog">
+<parameter_description> %TRUE if the session should be logged to the lastlog
+</parameter_description>
+</parameter>
+<parameter name="utmp">
+<parameter_description> %TRUE if the session should be logged to the utmp/utmpx log
+</parameter_description>
+</parameter>
+<parameter name="wtmp">
+<parameter_description> %TRUE if the session should be logged to the wtmp/wtmpx log
+</parameter_description>
+</parameter>
+</parameters>
+<return> the ID of the new process
+</return>
+</function>
+
+<function name="vte_terminal_paste_primary">
+<description>
+Sends the contents of the #GDK_SELECTION_PRIMARY selection to the terminal&apos;s
+child.  If necessary, the data is converted from UTF-8 to the terminal&apos;s
+current encoding.  The terminal will call also paste the
+#GDK_SELECTION_PRIMARY selection when the user clicks with the the second
+mouse button.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_char_ascent">
+<description>
+An accessor function provided for the benefit of language bindings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the contents of @terminal&apos;s char_ascent field
+</return>
+</function>
+
+<function name="vte_reaper_add_child">
+<description>
+Ensures that child-exited signals will be emitted when @pid exits.  This is
+necessary for correct operation when running with glib versions &amp;gt;= 2.4.
+
+
+</description>
+<parameters>
+<parameter name="pid">
+<parameter_description> the ID of a child process which will be monitored
+</parameter_description>
+</parameter>
+</parameters>
+<return> the new source ID
+
+Since 0.11.11
+</return>
+</function>
+
+<function name="vte_terminal_copy_primary">
+<description>
+Places the selected text in the terminal in the #GDK_SELECTION_PRIMARY
+selection.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_audible_bell">
+<description>
+Checks whether or not the terminal will beep when the child outputs the
+&quot;bl&quot; sequence.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> %TRUE if audible bell is enabled, %FALSE if not
+</return>
+</function>
+
+<function name="vte_terminal_set_pty">
+<description>
+Attach an existing PTY master side to the terminal widget.  Use
+instead of vte_terminal_fork_command() or vte_terminal_forkpty().
+
+Since: 0.12.1
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="pty_master">
+<parameter_description> a file descriptor of the master end of a PTY
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_allow_bold">
+<description>
+Checks whether or not the terminal will attempt to draw bold text by
+repainting text with a one-pixel offset.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> %TRUE if bolding is enabled, %FALSE if not
+</return>
+</function>
+
+<function name="vte_terminal_set_opacity">
+<description>
+Sets the opacity of the terminal background, were 0 means completely
+transparent and 65535 means completely opaque.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="opacity">
+<parameter_description> the new opacity
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_encoding">
+<description>
+Determines the name of the encoding in which the terminal expects data to be
+encoded.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the current encoding for the terminal.
+</return>
+</function>
+
+<function name="vte_terminal_set_audible_bell">
+<description>
+Controls whether or not the terminal will beep when the child outputs the
+&quot;bl&quot; sequence.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="is_audible">
+<parameter_description> %TRUE if the terminal should beep
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_scroll_on_keystroke">
+<description>
+Controls whether or not the terminal will forcibly scroll to the bottom of
+the viewable history when the user presses a key.  Modifier keys do not
+trigger this behavior.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="scroll">
+<parameter_description> %TRUE if the terminal should scroll on keystrokes
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_feed_child_binary">
+<description>
+Sends a block of binary data to the child.
+
+Since: 0.12.1
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> data to send to the child
+</parameter_description>
+</parameter>
+<parameter name="length">
+<parameter_description> length of @data
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_text">
+<description>
+Extracts a view of the visible part of the terminal.  If @is_selected is not
+%NULL, characters will only be read if @is_selected returns %TRUE after being
+passed the column and row, respectively.  A #VteCharAttributes structure
+is added to @attributes for each byte added to the returned string detailing
+the character&apos;s position, colors, and other characteristics.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="is_selected">
+<parameter_description> a callback
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> user data to be passed to the callback
+</parameter_description>
+</parameter>
+<parameter name="attributes">
+<parameter_description> location for storing text attributes
+</parameter_description>
+</parameter>
+</parameters>
+<return> a text string which must be freed by the caller, or %NULL.
+</return>
+</function>
+
+<function name="vte_terminal_set_color_foreground">
+<description>
+Sets the foreground color used to draw normal text
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="foreground">
+<parameter_description> the new foreground color
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_font_full">
+<description>
+Sets the font used for rendering all text displayed by the terminal,
+overriding any fonts set using gtk_widget_modify_font().  The terminal
+will immediately attempt to load the desired font, retrieve its
+metrics, and attempt to resize itself to keep the same number of rows
+and columns.
+
+Since: 0.11.11
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="font_desc">
+<parameter_description> The #PangoFontDescription of the desired font.
+</parameter_description>
+</parameter>
+<parameter name="antialias">
+<parameter_description> Specify if anti aliasing of the fonts is to be used or not.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_text_range">
+<description>
+Extracts a view of the visible part of the terminal.  If @is_selected is not
+%NULL, characters will only be read if @is_selected returns %TRUE after being
+passed the column and row, respectively.  A #VteCharAttributes structure
+is added to @attributes for each byte added to the returned string detailing
+the character&apos;s position, colors, and other characteristics.  The
+entire scrollback buffer is scanned, so it is possible to read the entire
+contents of the buffer using this function.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="start_row">
+<parameter_description> first row to search for data
+</parameter_description>
+</parameter>
+<parameter name="start_col">
+<parameter_description> first column to search for data
+</parameter_description>
+</parameter>
+<parameter name="end_row">
+<parameter_description> last row to search for data
+</parameter_description>
+</parameter>
+<parameter name="end_col">
+<parameter_description> last column to search for data
+</parameter_description>
+</parameter>
+<parameter name="is_selected">
+<parameter_description> a callback
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> user data to be passed to the callback
+</parameter_description>
+</parameter>
+<parameter name="attributes">
+<parameter_description> location for storing text attributes
+</parameter_description>
+</parameter>
+</parameters>
+<return> a text string which must be freed by the caller, or %NULL.
+</return>
+</function>
+
+<function name="vte_terminal_set_word_chars">
+<description>
+When the user double-clicks to start selection, the terminal will extend
+the selection on word boundaries.  It will treat characters included in @spec
+as parts of words, and all other characters as word separators.  Ranges of
+characters can be specified by separating them with a hyphen.
+
+As a special case, if @spec is %NULL or the empty string, the terminal will
+treat all graphic non-punctuation non-space characters as word characters.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="spec">
+<parameter_description> a specification
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_font">
+<description>
+Sets the font used for rendering all text displayed by the terminal,
+overriding any fonts set using gtk_widget_modify_font().  The terminal
+will immediately attempt to load the desired font, retrieve its
+metrics, and attempt to resize itself to keep the same number of rows
+and columns.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="font_desc">
+<parameter_description> The #PangoFontDescription of the desired font.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_match_add">
+<description>
+Adds a regular expression to the list of matching expressions.  When the
+user moves the mouse cursor over a section of displayed text which matches
+this expression, the text will be highlighted.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="match">
+<parameter_description> a regular expression
+</parameter_description>
+</parameter>
+</parameters>
+<return> an integer associated with this expression
+
+@Deprecated: 0.16.15
+</return>
+</function>
+
+<function name="vte_capability_init">
+<description>
+Initializes the vte_terminal_capability_strings and
+vte_xterm_capability_strings structures used by the terminal.  Can
+be called multiple times without ill effect.
+
+
+</description>
+<parameters>
+</parameters>
+<return> void
+</return>
+</function>
+
+<function name="_vte_bg_resize_pixbuf">
+<description>
+The background pixbuf may be tiled, and if it is tiled, it may be very, very
+small.  This function creates a pixbuf consisting of the passed-in pixbuf
+tiled to a usable size.
+
+
+</description>
+<parameters>
+<parameter name="pixmap">
+<parameter_description> a #GdkPixbuf, or %NULL
+</parameter_description>
+</parameter>
+<parameter name="min_width">
+<parameter_description> the requested minimum_width
+</parameter_description>
+</parameter>
+<parameter name="min_height">
+<parameter_description> the requested minimum_height
+</parameter_description>
+</parameter>
+</parameters>
+<return> a new #GdkPixbuf, unrefs @pixbuf.
+</return>
+</function>
+
+<function name="vte_terminal_get_icon_title">
+<description>
+An accessor function provided for the benefit of language bindings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the contents of @terminal&apos;s icon_title field
+</return>
+</function>
+
+<function name="vte_terminal_get_char_width">
+<description>
+An accessor function provided for the benefit of language bindings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the contents of @terminal&apos;s char_width field
+</return>
+</function>
+
+<function name="vte_terminal_set_visible_bell">
+<description>
+Controls whether or not the terminal will present a visible bell to the
+user when the child outputs the &quot;bl&quot; sequence.  The terminal
+will clear itself to the default foreground color and then repaint itself.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="is_visible">
+<parameter_description> %TRUE if the terminal should flash
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="_vte_pty_close">
+<description>
+Cleans up the PTY associated with the descriptor, specifically any logging
+performed for the session.  The descriptor itself remains open.
+
+</description>
+<parameters>
+<parameter name="pty">
+<parameter_description> the pty master descriptor.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_has_selection">
+<description>
+Checks if the terminal currently contains selected text.  Note that this
+is different from determining if the terminal is the owner of any
+#GtkClipboard items.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> %TRUE if part of the text in the terminal is selected.
+</return>
+</function>
+
+<function name="_vte_pty_set_utf8">
+<description>
+Tells the kernel whether the terminal is UTF-8 or not, in case it can make
+use of the info.  Linux 2.6.5 or so defines IUTF8 to make the line
+discipline do multibyte backspace correctly.
+
+</description>
+<parameters>
+<parameter name="pty">
+<parameter_description> The pty master descriptor.
+</parameter_description>
+</parameter>
+<parameter name="utf8">
+<parameter_description> Whether or not the pty is in UTF-8 mode.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_background_image_file">
+<description>
+Sets a background image for the widget.  If specified by
+vte_terminal_set_background_saturation(), the terminal will tint its
+in-memory copy of the image before applying it to the terminal.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="path">
+<parameter_description> path to an image file
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_font_from_string">
+<description>
+A convenience function which converts @name into a #PangoFontDescription and
+passes it to vte_terminal_set_font().
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="name">
+<parameter_description> A string describing the font.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_backspace_binding">
+<description>
+Modifies the terminal&apos;s backspace key binding, which controls what
+string or control sequence the terminal sends to its child when the user
+presses the backspace key.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="binding">
+<parameter_description> a #VteTerminalEraseBinding for the backspace key
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_color_background">
+<description>
+Sets the background color for text which does not have a specific background
+color assigned.  Only has effect when no background image is set and when
+the terminal is not transparent.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="background">
+<parameter_description> the new background color
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_column_count">
+<description>
+An accessor function provided for the benefit of language bindings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the contents of @terminal&apos;s column_count field
+</return>
+</function>
+
+<function name="vte_terminal_set_delete_binding">
+<description>
+Modifies the terminal&apos;s delete key binding, which controls what
+string or control sequence the terminal sends to its child when the user
+presses the delete key.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="binding">
+<parameter_description> a #VteTerminalEraseBinding for the delete key
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_select_none">
+<description>
+Clears the current selection.
+
+Since: 0.16
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_emulation">
+<description>
+Sets what type of terminal the widget attempts to emulate by scanning for
+control sequences defined in the system&apos;s termcap file.  Unless you
+are interested in this feature, always use &quot;xterm&quot;.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="emulation">
+<parameter_description> the name of a terminal description
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_select_all">
+<description>
+Selects all text within the terminal (including the scrollback buffer).
+
+Since: 0.16
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_match_add_gregex">
+<description>
+Adds the regular expression @regex to the list of matching expressions.  When the
+user moves the mouse cursor over a section of displayed text which matches
+this expression, the text will be highlighted.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="regex">
+<parameter_description> a #GRegex
+</parameter_description>
+</parameter>
+<parameter name="flags">
+<parameter_description> the #GRegexMatchFlags to use when matching the regex
+</parameter_description>
+</parameter>
+</parameters>
+<return> an integer associated with this expression
+
+Since: 0.16.15
+</return>
+</function>
+
+<function name="vte_terminal_set_background_saturation">
+<description>
+If a background image has been set using
+vte_terminal_set_background_image(),
+vte_terminal_set_background_image_file(), or
+vte_terminal_set_background_transparent(), and the saturation value is less
+than 1.0, the terminal will adjust the colors of the image before drawing
+the image.  To do so, the terminal will create a copy of the background
+image (or snapshot of the root window) and modify its pixel values.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="saturation">
+<parameter_description> a floating point value between 0.0 and 1.0.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_background_tint_color">
+<description>
+If a background image has been set using
+vte_terminal_set_background_image(),
+vte_terminal_set_background_image_file(), or
+vte_terminal_set_background_transparent(), and the value set by
+vte_terminal_set_background_saturation() is less than one, the terminal
+will adjust the color of the image before drawing the image.  To do so,
+the terminal will create a copy of the background image (or snapshot of
+the root window) and modify its pixel values.  The initial tint color
+is black.
+
+Since: 0.11
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="color">
+<parameter_description> a color which the terminal background should be tinted to if its
+saturation is not 1.0.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_feed_child">
+<description>
+Sends a block of UTF-8 text to the child as if it were entered by the user
+at the keyboard.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="text">
+<parameter_description> data to send to the child
+</parameter_description>
+</parameter>
+<parameter name="length">
+<parameter_description> length of @text in bytes, or -1 if @text is NUL-terminated
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_pty_set_size">
+<description>
+Attempts to resize the pseudo terminal&apos;s window size.  If successful, the
+OS kernel will send #SIGWINCH to the child process group.
+
+
+</description>
+<parameters>
+<parameter name="master">
+<parameter_description> the file descriptor of the pty master
+</parameter_description>
+</parameter>
+<parameter name="columns">
+<parameter_description> the desired number of columns
+</parameter_description>
+</parameter>
+<parameter name="rows">
+<parameter_description> the desired number of rows
+</parameter_description>
+</parameter>
+</parameters>
+<return> 0 on success, -1 on failure.
+</return>
+</function>
+
+<function name="_vte_pty_open">
+<description>
+Starts a new copy of @command running under a psuedo-terminal, optionally in
+the supplied @directory, with window size set to @rows x @columns
+and variables in @env_add added to its environment.  If any combination of
+@lastlog, @utmp, and @wtmp is set, then the session is logged in the
+corresponding system files.
+
+
+</description>
+<parameters>
+<parameter name="child">
+<parameter_description> location to store the new process&apos;s ID
+</parameter_description>
+</parameter>
+<parameter name="env_add">
+<parameter_description> a list of environment variables to add to the child&apos;s environment
+</parameter_description>
+</parameter>
+<parameter name="command">
+<parameter_description> name of the binary to run
+</parameter_description>
+</parameter>
+<parameter name="argv">
+<parameter_description> arguments to pass to @command
+</parameter_description>
+</parameter>
+<parameter name="directory">
+<parameter_description> directory to start the new command in, or %NULL
+</parameter_description>
+</parameter>
+<parameter name="columns">
+<parameter_description> desired window columns
+</parameter_description>
+</parameter>
+<parameter name="rows">
+<parameter_description> desired window rows
+</parameter_description>
+</parameter>
+<parameter name="lastlog">
+<parameter_description> %TRUE if the lastlog should be updated
+</parameter_description>
+</parameter>
+<parameter name="utmp">
+<parameter_description> %TRUE if the utmp or utmpx log should be updated
+</parameter_description>
+</parameter>
+<parameter name="wtmp">
+<parameter_description> %TRUE if the wtmp or wtmpx log should be updated
+</parameter_description>
+</parameter>
+</parameters>
+<return> an open file descriptor for the pty master, -1 on failure
+</return>
+</function>
+
+<function name="vte_terminal_get_status_line">
+<description>
+Some terminal emulations specify a status line which is separate from the
+main display area, and define a means for applications to move the cursor
+to the status line and back.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the current contents of the terminal&apos;s status line.  For terminals
+like &quot;xterm&quot;, this will usually be the empty string.  The string must not
+be modified or freed by the caller.
+</return>
+</function>
+
+<function name="vte_terminal_get_font">
+<description>
+Queries the terminal for information about the fonts which will be
+used to draw text in the terminal.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> a #PangoFontDescription describing the font the terminal is
+currently using to render text.
+</return>
+</function>
+
+<function name="vte_bg_get">
+<description>
+Finds the address of the global #VteBg object, creating the object if
+necessary.
+
+
+</description>
+<parameters>
+<parameter name="screen">
+<parameter_description> A #GdkScreen.
+</parameter_description>
+</parameter>
+</parameters>
+<return> the global #VteBg object
+</return>
+</function>
+
+<function name="vte_reaper_get">
+<description>
+Finds the address of the global #VteReaper object, creating the object if
+necessary.
+
+
+</description>
+<parameters>
+</parameters>
+<return> the global #VteReaper object, which should not be unreffed.
+</return>
+</function>
+
+<function name="vte_terminal_set_color_bold">
+<description>
+Sets the color used to draw bold text in the default foreground color.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="bold">
+<parameter_description> the new bold color
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_match_remove">
+<description>
+Removes the regular expression which is associated with the given @tag from
+the list of expressions which the terminal will highlight when the user
+moves the mouse cursor over matching text.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="tag">
+<parameter_description> the tag of the regex to remove
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_size">
+<description>
+Attempts to change the terminal&apos;s size in terms of rows and columns.  If
+the attempt succeeds, the widget will resize itself to the proper size.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="columns">
+<parameter_description> the desired number of columns
+</parameter_description>
+</parameter>
+<parameter name="rows">
+<parameter_description> the desired number of rows
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="_vte_ring_free">
+<description>
+Frees the ring and, optionally, each of the items it contains.
+
+
+</description>
+<parameters>
+<parameter name="ring">
+<parameter_description> a #VteRing
+</parameter_description>
+</parameter>
+<parameter name="free_elements">
+<parameter_description> %TRUE if items in the ring should be freed
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+</root>

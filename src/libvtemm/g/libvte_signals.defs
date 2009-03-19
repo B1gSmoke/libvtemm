@@ -1,0 +1,425 @@
+;; From VteTerminal
+
+(define-signal child-exited
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal set-scroll-adjustments
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+  (parameters
+    '("GtkAdjustment*" "p0")
+    '("GtkAdjustment*" "p1")
+  )
+)
+
+(define-signal eof
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal window-title-changed
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal icon-title-changed
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal encoding-changed
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+; documentation says it's gchar*, not const gchar*.
+(define-signal commit
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+  (parameters
+    '("gchar*" "p0")
+    '("guint" "p1")
+  )
+)
+
+(define-signal emulation-changed
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal char-size-changed
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+  (parameters
+    '("guint" "p0")
+    '("guint" "p1")
+  )
+)
+
+(define-signal selection-changed
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal contents-changed
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal cursor-moved
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal deiconify-window
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal iconify-window
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal raise-window
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal lower-window
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal refresh-window
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal restore-window
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal maximize-window
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal resize-window
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+  (parameters
+    '("guint" "p0")
+    '("guint" "p1")
+  )
+)
+
+(define-signal move-window
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+  (parameters
+    '("guint" "p0")
+    '("guint" "p1")
+  )
+)
+
+(define-signal status-line-changed
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal increase-font-size
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal decrease-font-size
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal text-modified
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal text-inserted
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal text-deleted
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal text-scrolled
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+  (parameters
+    '("gint" "p0")
+  )
+)
+
+(define-signal copy-clipboard
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-signal paste-clipboard
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
+(define-property user-data
+  (of-object "VteTerminal")
+  (prop-type "GParamPointer")
+  (docs "Anonymous User Data Pointer")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property name
+  (of-object "VteTerminal")
+  (prop-type "GParamString")
+  (docs "The name of the widget")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property parent
+  (of-object "VteTerminal")
+  (prop-type "GParamObject")
+  (docs "The parent widget of this widget. Must be a Container widget")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property width-request
+  (of-object "VteTerminal")
+  (prop-type "GParamInt")
+  (docs "Override for width request of the widget, or -1 if natural request should be used")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property height-request
+  (of-object "VteTerminal")
+  (prop-type "GParamInt")
+  (docs "Override for height request of the widget, or -1 if natural request should be used")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property visible
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether the widget is visible")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property sensitive
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether the widget responds to input")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property app-paintable
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether the application will paint directly on the widget")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property can-focus
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether the widget can accept the input focus")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property has-focus
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether the widget has the input focus")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property is-focus
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether the widget is the focus widget within the toplevel")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property can-default
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether the widget can be the default widget")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property has-default
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether the widget is the default widget")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property receives-default
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "If TRUE, the widget will receive the default action when it is focused")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property composite-child
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether the widget is part of a composite widget")
+  (readable #t)
+  (writable #f)
+  (construct-only #f)
+)
+
+(define-property style
+  (of-object "VteTerminal")
+  (prop-type "GParamObject")
+  (docs "The style of the widget, which contains information about how it will look (colors etc)")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property events
+  (of-object "VteTerminal")
+  (prop-type "GParamFlags")
+  (docs "The event mask that decides what kind of GdkEvents this widget gets")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property extension-events
+  (of-object "VteTerminal")
+  (prop-type "GParamEnum")
+  (docs "The mask that decides what kind of extension events this widget gets")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property no-show-all
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether gtk_widget_show_all() should not affect this widget")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property has-tooltip
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether this widget has a tooltip")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property tooltip-markup
+  (of-object "VteTerminal")
+  (prop-type "GParamString")
+  (docs "The contents of the tooltip for this widget")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property tooltip-text
+  (of-object "VteTerminal")
+  (prop-type "GParamString")
+  (docs "The contents of the tooltip for this widget")
+  (readable #t)
+  (writable #t)
+  (construct-only #f)
+)
+
+(define-property window
+  (of-object "VteTerminal")
+  (prop-type "GParamObject")
+  (docs "The widget's window if it is realized")
+  (readable #t)
+  (writable #f)
+  (construct-only #f)
+)
+
+;; From VteReaper
+
+(define-signal child-exited
+  (of-object "VteReaper")
+  (return-type "void")
+  (when "last")
+  (parameters
+    '("gint" "p0")
+    '("gint" "p1")
+  )
+)
+

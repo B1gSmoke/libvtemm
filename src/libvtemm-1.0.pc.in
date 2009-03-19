@@ -1,0 +1,11 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: @LIBVTEMM_PACKAGE_NAME@
+Description: @LIBVTEMM_DESCRIPTION@
+Requires: @LIBVTEMM_REQUIRES@
+Version: @LIBVTEMM_VERSION@
+Libs: -L${libdir} -l@LIBVTEMM_C_PACKAGE_NAME@mm-@LIBVTEMM_API_VERSION@
+Cflags: -I${includedir}/@LIBVTEMM_PACKAGE_NAME@-@LIBVTEMM_API_VERSION@ -I${libdir}/@LIBVTEMM_PACKAGE_NAME@-@LIBVTEMM_API_VERSION@/include

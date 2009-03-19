@@ -1,0 +1,12 @@
+include $(top_srcdir)/src/Makefile_sublib.am_fragment
+
+local_lib = $(top_builddir)/src/$(sublib_name)/$(sublib_name)-$(sublib_api_version).la
+
+LIBS = $(local_lib) @LIBVTEMM_LIBS@
+
+all_includes = -I$(top_builddir)/src -I$(top_srcdir)/src @LIBVTEMM_CFLAGS@
+
+DEFS = @DEFS@
+DEFAULT_INCLUDES =
+INCLUDES = -I. -I$(srcdir) $(strip $(all_includes))
+

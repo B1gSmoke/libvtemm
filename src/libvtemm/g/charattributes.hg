@@ -1,0 +1,112 @@
+/* charattributes.h
+ *
+ * Copyright (C) 2008 libvtemm Development Team
+ *
+ * This file is part of libvtemm.
+ *
+ * libvtemm is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * libvtemm is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser Public License
+ * along with libvtemm.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+_DEFS(libvtemm,libvte)
+
+// only in vte/vte.h is a declaration of VteCharAttributes.
+// extern VteCharAttributes?
+#include <vte/vte.h>
+#include <gdkmm/color.h>
+
+namespace Gnome
+{
+
+namespace Vte
+{
+/** CharAttributes - class storing attributes of single char in string.
+ */
+class CharAttributes
+{
+	_CLASS_GENERIC(CharAttributes, VteCharAttributes)
+	protected:
+		CharAttributes();
+	public:
+		explicit CharAttributes(VteCharAttributes* castitem, bool take_copy = true);
+		CharAttributes(const CharAttributes& src);
+
+		~CharAttributes();
+
+		CharAttributes& operator=(const CharAttributes& src);
+
+/** Gets row of a char.
+ * @return row of a char.
+ */
+		_MEMBER_GET(row, row, long, long)
+/** Gets column of a char.
+ * @return column of a char.
+ */
+		_MEMBER_GET(column, column, long, long)
+/** Gets color of a char.
+ * @return color of a char.
+ */
+		_MEMBER_GET(fore, fore, Gdk::Color, GdkColor)
+/** Gets background color of a char.
+ * @return background color of a char.
+ */
+		_MEMBER_GET(back, back, Gdk::Color, GdkColor)
+/** Checks whether or not a char is underlined.
+ * @return <tt>true</tt> if char is underlined, otherwise <tt>false</tt>.
+ */
+		_MEMBER_GET(underline, underline, bool, guint)
+/** Checks whether or not a char is strokethrough.
+ * @return <tt>true</tt> if char is strokethrough, otherwise <tt>false</tt>.
+ */
+		_MEMBER_GET(strikethrough, strikethrough, bool, guint)
+
+		///Provides access to the underlying C GtkObject.
+		VteCharAttributes* gobj() {return gobject_;}
+		///Provides access to the underlying C GtkObject.
+		VteCharAttributes* const gobj() const {return gobject_;}
+	protected:
+		VteCharAttributes* gobject_;
+};
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+struct CharAttributesTraits
+{
+	typedef Gnome::Vte::CharAttributes CppType;
+	typedef VteCharAttributes CType;
+	typedef VteCharAttributes CTypeNonConst;
+
+	static CType to_c_type(const CppType& obj) { return *(obj.gobj()); }
+	static CType to_c_type(const CType& obj) { return obj; }
+	static CppType to_cpp_type(const CType& obj) { return CppType(const_cast<CType*>(&obj), true); }
+	static void release_c_type(const CType&) {}
+};
+#endif
+typedef Glib::ArrayHandle<Gnome::Vte::CharAttributes, Gnome::Vte::CharAttributesTraits> ArrayHandle_CharAttributes;
+
+} // namespace Vte
+
+} // namespace Gnome
+
+namespace Glib
+{
+
+/** A Glib::wrap() method for this object.
+ * 
+ * @param object The C instance.
+ * @param take_copy False if the result should take ownership of the C instance. True if it should take a new copy or ref.
+ * @result A C++ instance that wraps this C instance.
+ *
+ * @relates Gnome::Vte::CharAttributes
+ */
+Gnome::Vte::CharAttributes wrap(VteCharAttributes* object, bool take_copy = false);
+
+} // namespace Glib
