@@ -1,3 +1,11 @@
+2009-03-29 Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*src/libvtemm/textandcharattrs.h:
+	*src/libvtemm/textandcharattrs.cc:
+	*src/libvtemm/g/terminal.hg:
+	*src/libvtemm/g/terminal.ccg: Added const versions of getters. I forgot
+	to add them earlier...
+
 0.20.1:
 
 2009-03-19  Krzesimir Nowak <krnowak@svn.gnome.org>

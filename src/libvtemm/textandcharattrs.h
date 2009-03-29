@@ -47,10 +47,18 @@ public:
  * @return Stored string.
  */
   Glib::ustring get_text();
+/** Gets stored string.
+ * @return Stored string.
+ */
+  Glib::ustring get_text() const;
 /** Gets stored attributes.
  * @return Stored attributes.
  */
   ArrayHandle_CharAttributes get_attributes();
+/** Gets stored attributes.
+ * @return Stored attributes.
+ */
+  ArrayHandle_CharAttributes get_attributes() const;
   // well, setters are not needed.
 };
 

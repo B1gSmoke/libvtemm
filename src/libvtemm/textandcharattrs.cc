@@ -41,7 +41,17 @@ inline Glib::ustring TextAndCharAttrs::get_text()
   return text;
 }
 
+inline Glib::ustring TextAndCharAttrs::get_text() const
+{
+  return text;
+}
+
 inline ArrayHandle_CharAttributes TextAndCharAttrs::get_attributes()
+{
+  return attributes;
+}
+
+inline ArrayHandle_CharAttributes TextAndCharAttrs::get_attributes() const
 {
   return attributes;
 }

@@ -62,6 +62,11 @@ TextAndCharAttrs Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCall
   return TextAndCharAttrs(text, attributes);
 }
 
+TextAndCharAttrs Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
+{
+	return const_cast<Terminal*>(this)->get_text(slot);
+}
+
 TextAndCharAttrs Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
@@ -72,6 +77,11 @@ TextAndCharAttrs Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Te
   return TextAndCharAttrs(text, attributes);
 }
 
+TextAndCharAttrs Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
+{
+	return const_cast<Terminal*>(this)->get_text_include_trailing_spaces(slot);
+}
+
 TextAndCharAttrs Terminal::get_text_range(long start_row, long start_col, long end_row, long end_col, const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
@@ -80,6 +90,11 @@ TextAndCharAttrs Terminal::get_text_range(long start_row, long start_col, long e
   ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), static_cast<size_t>(array->len), Glib::OWNERSHIP_SHALLOW);
   g_array_free(array, FALSE);
   return TextAndCharAttrs(text, attributes);
+}
+
+TextAndCharAttrs Terminal::get_text_range(long start_row, long start_col, long end_row, long end_col, const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
+{
+	return const_cast<Terminal*>(this)->get_text_range(start_row, start_col, end_row, end_col, slot);
 }
 
 void Terminal::set_colors(const Gdk::Color& foreground, const Gdk::Color& background, const Gdk::ArrayHandle_Color& palette)
