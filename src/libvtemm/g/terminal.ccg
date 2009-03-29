@@ -55,9 +55,10 @@ gboolean SignalProxy_selected_gtk_callback(VteTerminal *terminal, glong column, 
 TextAndCharAttrs Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(VteCharAttributes));
-  Glib::ustring text(vte_terminal_get_text(gobj(), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array));
-  // shallow, because release_c_type function body is empty, so there's no use of deep ownership.
-  ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), array->len, Glib::OWNERSHIP_SHALLOW);
+  char* c_text = vte_terminal_get_text(gobj(), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
+  Glib::ustring text(c_text);
+  g_free(c_text);
+  ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), array->len, Glib::OWNERSHIP_DEEP);
   g_array_free(array, FALSE);
   return TextAndCharAttrs(text, attributes);
 }
@@ -70,9 +71,10 @@ TextAndCharAttrs Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCall
 TextAndCharAttrs Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
-  Glib::ustring text(vte_terminal_get_text_include_trailing_spaces(gobj(), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array));
-  // shallow, because release_c_type function body is empty, so there's no use of deep ownership.
-  ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), static_cast<size_t>(array->len), Glib::OWNERSHIP_SHALLOW);
+  char* c_text = vte_terminal_get_text_include_trailing_spaces(gobj(), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
+  Glib::ustring text(c_text);
+  g_free(c_text);
+  ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), static_cast<size_t>(array->len), Glib::OWNERSHIP_DEEP);
   g_array_free(array, FALSE);
   return TextAndCharAttrs(text, attributes);
 }
@@ -85,9 +87,10 @@ TextAndCharAttrs Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Te
 TextAndCharAttrs Terminal::get_text_range(long start_row, long start_col, long end_row, long end_col, const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
-  Glib::ustring text(vte_terminal_get_text_range(gobj(), start_row, start_col, end_row, end_col, &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array));
-  // shallow, because release_c_type function body is empty, so there's no use of deep ownership.
-  ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), static_cast<size_t>(array->len), Glib::OWNERSHIP_SHALLOW);
+  char* c_text = vte_terminal_get_text_range(gobj(), start_row, start_col, end_row, end_col, &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
+  Glib::ustring text(c_text);
+  g_free(c_text);
+  ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), static_cast<size_t>(array->len), Glib::OWNERSHIP_DEEP);
   g_array_free(array, FALSE);
   return TextAndCharAttrs(text, attributes);
 }
@@ -95,6 +98,14 @@ TextAndCharAttrs Terminal::get_text_range(long start_row, long start_col, long e
 TextAndCharAttrs Terminal::get_text_range(long start_row, long start_col, long end_row, long end_col, const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
 {
 	return const_cast<Terminal*>(this)->get_text_range(start_row, start_col, end_row, end_col, slot);
+}
+
+Glib::ustring Terminal::match_check(long column, long row, int& tag)
+{
+	char* c_text = vte_terminal_match_check(gobj(), column, row, &tag);
+	Glib::ustring text(c_text);
+	g_free(c_text);
+	return text;
 }
 
 void Terminal::set_colors(const Gdk::Color& foreground, const Gdk::Color& background, const Gdk::ArrayHandle_Color& palette)

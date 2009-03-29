@@ -1,8 +1,9 @@
 src/libvtemm/g/terminal.(h|cc)g:
-	remove nonconst getter functions, when it will be possible.
-	fix possible memleaks in get_text functions.
+	1. wrap commit signal by hand, when it will be possible.
+	("char, int" -> ("std::string"|"Glib::ustring"))
+	2. remove nonconst getter functions, when it will be possible.
 src/libvtemm/textandcharattrs.(h|cc):
-	remove nonconst getter functions, when it will be possible.
+	1. remove nonconst getter functions, when it will be possible.
 src/libvtemm/g/*.(h|cc)g:
 src/libvtemm/*.(cc|h):
-	squashing bugs. as always.
+	1. squashing bugs. as always.

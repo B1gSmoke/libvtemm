@@ -287,4 +287,40 @@ added to the environment before starting @command
 </return>
 </function>
 
+<function name="vte_terminal_match_check">
+<description>
+Checks if the text in and around the specified position matches any of the
+regular expressions previously set using vte_terminal_match_add().  If a
+match exists, the text string is returned and the number associated with
+the matched regular expression will be stored in @tag.
+
+If more than one regular expression has been set with
+vte_terminal_match_add(), then expressions are checked in the order in
+which they were added.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="column">
+<parameter_description> the text column
+</parameter_description>
+</parameter>
+<parameter name="row">
+<parameter_description> the text row
+</parameter_description>
+</parameter>
+<parameter name="tag">
+<parameter_description> pointer to an integer
+</parameter_description>
+</parameter>
+</parameters>
+<return> a string which matches one of the previously set regular
+expressions.
+</return>
+</function>
+
 </root>

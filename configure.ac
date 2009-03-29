@@ -16,7 +16,7 @@
 #########################################################################
 m4_define([PACKAGEMM_MAJOR_VERSION], [0])
 m4_define([PACKAGEMM_MINOR_VERSION], [20])
-m4_define([PACKAGEMM_MICRO_VERSION], [1])
+m4_define([PACKAGEMM_MICRO_VERSION], [2])
 m4_define([PACKAGEMM_RELEASE], [PACKAGEMM_MAJOR_VERSION.PACKAGEMM_MINOR_VERSION])
 m4_define([PACKAGEMM_VERSION], [PACKAGEMM_RELEASE.PACKAGEMM_MICRO_VERSION])
 m4_define([PACKAGEMM_API_MAJOR_VERSION], [1])
@@ -26,6 +26,7 @@ m4_define([PACKAGEMM_C_NAME], [vte])
 m4_define([PACKAGEMM_NAME], [lib]PACKAGEMM_C_NAME[mm])
 AC_INIT(PACKAGEMM_NAME, PACKAGEMM_VERSION, [krnowak@svn.gnome.org])
 AC_CONFIG_SRCDIR([src/]PACKAGEMM_NAME[.h])
+AC_CONFIG_MACRO_DIR([scripts])
 
 #
 # +1 : ? : +1  == new interface that does not break old one
@@ -34,7 +35,7 @@ AC_CONFIG_SRCDIR([src/]PACKAGEMM_NAME[.h])
 #  ? :+1 : ?   == just some internal changes, nothing breaks but might work 
 #                 better
 # CURRENT : REVISION : AGE
-LIBVTEMM_SO_VERSION=5:0:3
+LIBVTEMM_SO_VERSION=6:0:4
 
 AC_SUBST([LIBVTEMM_SO_VERSION])
 

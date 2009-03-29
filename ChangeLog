@@ -1,10 +1,28 @@
-2009-03-29 Krzesimir Nowak <krnowak@svn.gnome.org>
+0.20.2:
+
+2009-03-29  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*configure.ac: added AC_CONFIG_MACRO_DIR to remove warning from libtool
+	2.2.6a.
+	*autogen.sh: removed -f flag from autoreconf command.
+	*src/libvtemm/g/terminal.ccg: added missing Terminal:: in match_check().
+
+2009-03-29  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*src/libvtemm/g/terminal.hg:
+	*src/libvtemm/g/terminal.ccg: fixed memleaks in get_text(),
+	get_text_include_trailing_spaces, get_text_range and match_check()
+	returned string from c functions had to be freed [match_check is
+	wrapped by hand].
+	*src/libvtemm/g/libvte_docs_override: added overriden docs for
+	match_check().
+
+2009-03-29  Krzesimir Nowak <krnowak@svn.gnome.org>
 
 	*src/libvtemm/textandcharattrs.h:
 	*src/libvtemm/textandcharattrs.cc:
 	*src/libvtemm/g/terminal.hg:
-	*src/libvtemm/g/terminal.ccg: Added const versions of getters. I forgot
-	to add them earlier...
+	*src/libvtemm/g/terminal.ccg: added const versions of getters.
 
 0.20.1:
 

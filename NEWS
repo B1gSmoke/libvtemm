@@ -6,3 +6,8 @@
 0.20.1
 
 * most changes backported from 0.19.1. (Krzesimir Nowak)
+
+0.20.2
+
+* added new API (const getter methods) and fixed some memleaks.
+  (Krzesimir Nowak)

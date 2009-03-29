@@ -9,7 +9,7 @@ then
 fi
 
 echo "Running autoreconf."
-autoreconf -v -i -s -f || exit $?
+autoreconf -v -i -s || exit $?
 echo "Running configure."
 ./configure "$@" || exit $?
 echo
