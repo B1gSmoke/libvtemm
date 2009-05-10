@@ -1,0 +1,46 @@
+2009-03-29  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*configure.ac: bump to 0.20.3.
+
+0.20.2:
+
+2009-03-29  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*configure.ac: added AC_CONFIG_MACRO_DIR to remove warning from libtool
+	2.2.6a.
+	*autogen.sh: removed -f flag from autoreconf command.
+	*src/libvtemm/g/terminal.ccg: added missing Terminal:: in match_check().
+
+2009-03-29  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*src/libvtemm/g/terminal.hg:
+	*src/libvtemm/g/terminal.ccg: fixed memleaks in get_text(),
+	get_text_include_trailing_spaces, get_text_range and match_check()
+	returned string from c functions had to be freed [match_check is
+	wrapped by hand].
+	*src/libvtemm/g/libvte_docs_override: added overriden docs for
+	match_check().
+
+2009-03-29  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*src/libvtemm/textandcharattrs.h:
+	*src/libvtemm/textandcharattrs.cc:
+	*src/libvtemm/g/terminal.hg:
+	*src/libvtemm/g/terminal.ccg: added const versions of getters.
+
+0.20.1:
+
+2009-03-19  Krzesimir Nowak <krnowak@svn.gnome.org>
+
+	*libvtemm: some changes backported from 0.19.1 - look into
+	Changelogs in old_news_and_changelogs directory.
+	*src/libvtemm/wrap_init.h:
+	*src/libvtemm/init.h:
+	*src/libvtemm/pty.h:
+	*src/libvtemm/textandcharattrs.h:
+	*src/libvtemm/g/charattributes.hg:
+	*src/libvtemm/g/terminalaccessible.hg: removed including
+	libvtemmconfig.h - not needed.
+	
+
+0.20.0:
