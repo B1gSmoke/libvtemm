@@ -26,3 +26,5 @@ dist-hook:
 	echo "**********************************************************"; \
 	echo; echo
 
+
+-include $(top_srcdir)/git.mk

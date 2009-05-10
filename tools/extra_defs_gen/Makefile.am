@@ -6,3 +6,5 @@ LIBS = @LIBVTEMM_LIBS@ -lglibmm_generate_extra_defs-2.4
 
 noinst_PROGRAMS = generate_extra_defs
 generate_extra_defs_SOURCES = generate_defs_vte.cc
+
+-include $(top_srcdir)/git.mk

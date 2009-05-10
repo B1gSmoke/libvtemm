@@ -6,3 +6,5 @@ noinst_PROGRAMS = example
 example_SOURCES = main.cc simple.cc simple.h
 
 
+
+-include $(top_srcdir)/git.mk

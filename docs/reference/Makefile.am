@@ -58,3 +58,5 @@ uninstall-local: uninstall-reference
 # In doxywizard, disable EXTRACT_ALL to get warnings about undocumented methods.
 doxygen-warnings: html-clean html/index.html
 
+
+-include $(top_srcdir)/git.mk

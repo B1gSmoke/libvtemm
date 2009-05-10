@@ -16,3 +16,5 @@ libvtemm_config_DATA = $(sublib_name)config.h
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = $(sublib_libname).pc
 
+
+-include $(top_srcdir)/git.mk

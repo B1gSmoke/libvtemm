@@ -6,3 +6,5 @@ EXTRA_DIST = $(files_tools_m4) Makefile_list_of_sources.am_fragment
 
 tools_m4_includedir = $(libdir)/@LIBVTEMM_PACKAGE_NAME@-@LIBVTEMM_API_VERSION@/proc/m4
 tools_m4_include_HEADERS = $(files_tools_m4)
+
+-include $(top_srcdir)/git.mk

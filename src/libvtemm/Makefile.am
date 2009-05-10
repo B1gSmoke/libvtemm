@@ -62,3 +62,5 @@ libvtemm_1_0_la_LIBADD = @LIBVTEMM_LIBS@
 #
 # end of "should be shared"
 # # # #
+
+-include $(top_srcdir)/git.mk

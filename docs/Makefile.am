@@ -7,3 +7,5 @@ if BUILD_REFERENCE
 SUBDIRS = reference
 endif
 DIST_SUBDIRS = reference
+
+-include $(top_srcdir)/git.mk

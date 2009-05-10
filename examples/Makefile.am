@@ -6,3 +6,5 @@ SUBDIRS = simple
 EXTRA_DIST = Makefile.am_fragment README
 
 
+
+-include $(top_srcdir)/git.mk
