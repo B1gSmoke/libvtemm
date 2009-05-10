@@ -102,12 +102,10 @@ public:
 
   _WRAP_METHOD(void set_cursor_blinks(bool blink), vte_terminal_set_cursor_blinks, deprecated "Use set_cursor_blink_mode instead")
   _WRAP_METHOD(void set_cursor_blink_mode(TerminalCursorBlinkMode mode), vte_terminal_set_cursor_blink_mode)
-  _WRAP_METHOD(TerminalCursorBlinkMode get_cursor_blink_mode(), vte_terminal_get_cursor_blink_mode)
-  _WRAP_METHOD(TerminalCursorBlinkMode get_cursor_blink_mode() const, vte_terminal_get_cursor_blink_mode, constversion)
+  _WRAP_METHOD(TerminalCursorBlinkMode get_cursor_blink_mode() const, vte_terminal_get_cursor_blink_mode)
   
   _WRAP_METHOD(void set_cursor_shape(TerminalCursorShape shape), vte_terminal_set_cursor_shape)
-  _WRAP_METHOD(TerminalCursorShape get_cursor_shape(), vte_terminal_get_cursor_shape)
-  _WRAP_METHOD(TerminalCursorShape get_cursor_shape() const, vte_terminal_get_cursor_shape, constversion)
+  _WRAP_METHOD(TerminalCursorShape get_cursor_shape() const, vte_terminal_get_cursor_shape)
 
   _WRAP_METHOD(void set_scrollback_lines(long lines), vte_terminal_set_scrollback_lines)
 
@@ -117,16 +115,12 @@ public:
   _WRAP_METHOD(void set_font_full(const Pango::FontDescription& font_desc, TerminalAntiAlias antialias), vte_terminal_set_font_full, deprecated)
   _WRAP_METHOD(void set_font_from_string(const Glib::ustring& name), vte_terminal_set_font_from_string)
   _WRAP_METHOD(void set_font_from_string_full(const Glib::ustring name, TerminalAntiAlias antialias), vte_terminal_set_font_from_string_full, deprecated)
-  _WRAP_METHOD(const Pango::FontDescription get_font(), vte_terminal_get_font)
-  _WRAP_METHOD(const Pango::FontDescription get_font() const, vte_terminal_get_font, constversion)
-  _WRAP_METHOD(bool get_using_xft(), vte_terminal_get_using_xft, deprecated)
-  _WRAP_METHOD(bool get_using_xft() const, vte_terminal_get_using_xft, constversion, deprecated)
+  _WRAP_METHOD(const Pango::FontDescription get_font() const, vte_terminal_get_font)
+  _WRAP_METHOD(bool get_using_xft() const, vte_terminal_get_using_xft, deprecated)
   _WRAP_METHOD(void set_allow_bold(bool allow_bold), vte_terminal_set_allow_bold)
-  _WRAP_METHOD(bool get_allow_bold(), vte_terminal_get_allow_bold)
-  _WRAP_METHOD(bool get_allow_bold() const, vte_terminal_get_allow_bold, constversion)
+  _WRAP_METHOD(bool get_allow_bold() const, vte_terminal_get_allow_bold)
 
-  _WRAP_METHOD(bool get_has_selection(), vte_terminal_get_has_selection)
-  _WRAP_METHOD(bool get_has_selection() const, vte_terminal_get_has_selection, constversion)
+  _WRAP_METHOD(bool get_has_selection() const, vte_terminal_get_has_selection)
 
   _WRAP_METHOD(void set_word_chars(const Glib::ustring& spec), vte_terminal_set_word_chars)
   _WRAP_METHOD(bool is_word_char(gunichar c), vte_terminal_is_word_char)
@@ -135,23 +129,28 @@ public:
   _WRAP_METHOD(void set_delete_binding(TerminalEraseBinding binding), vte_terminal_set_delete_binding)
 
   _WRAP_METHOD(void set_mouse_autohide(bool setting), vte_terminal_set_mouse_autohide)
-  _WRAP_METHOD(bool get_mouse_autohide() const, vte_terminal_get_mouse_autohide, constversion)
+  _WRAP_METHOD(bool get_mouse_autohide() const, vte_terminal_get_mouse_autohide)
 
   _WRAP_METHOD(void reset(bool full, bool clear_history), vte_terminal_reset)
 
   typedef sigc::slot<bool, Terminal& /* terminal */, long /* column */, long /* row */> SlotSelectedCallback;
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_text)
-  TextAndCharAttrs get_text(const SlotSelectedCallback& slot);
   TextAndCharAttrs get_text(const SlotSelectedCallback& slot) const;
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_text_include_trailing_spaces)
-  TextAndCharAttrs get_text_include_trailing_spaces(const SlotSelectedCallback& slot);
   TextAndCharAttrs get_text_include_trailing_spaces(const SlotSelectedCallback& slot) const;
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_text_range)
-  TextAndCharAttrs get_text_range(long start_row, long start_col, long end_row, long end_col, const SlotSelectedCallback& slot);
   TextAndCharAttrs get_text_range(long start_row, long start_col, long end_row, long end_col, const SlotSelectedCallback& slot) const;
   _IGNORE(vte_terminal_get_text, vte_terminal_get_text_include_trailing_spaces, vte_terminal_get_text_range)
-  _WRAP_METHOD(void get_cursor_position(long& column, long& row), vte_terminal_get_cursor_position)
-  _WRAP_METHOD(void get_cursor_position(long& column, long& row) const, vte_terminal_get_cursor_position, constversion)
+  _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_cursor_position)
+/** @struct CursorPosition - simple struct holding cursor position.
+ * It contains two members describing cursor position - column and row.
+ */
+  struct CursorPosition
+  {
+  	long column;
+  	long row;
+  };
+  CursorPosition get_cursor_position() const;
 
   _WRAP_METHOD(void match_clear_all(), vte_terminal_match_clear_all)
 
@@ -169,46 +168,31 @@ public:
   _IGNORE(vte_terminal_match_check)
 
   _WRAP_METHOD(void set_emulation(const Glib::ustring& emulation), vte_terminal_set_emulation)
-  _WRAP_METHOD(const Glib::ustring get_emulation(), vte_terminal_get_emulation)
-  _WRAP_METHOD(const Glib::ustring get_emulation() const, vte_terminal_get_emulation, constversion)
-  _WRAP_METHOD(const Glib::ustring get_default_emulation(), vte_terminal_get_default_emulation)
-  _WRAP_METHOD(const Glib::ustring get_default_emulation() const, vte_terminal_get_default_emulation, constversion)
+  _WRAP_METHOD(const Glib::ustring get_emulation() const, vte_terminal_get_emulation)
+  _WRAP_METHOD(const Glib::ustring get_default_emulation() const, vte_terminal_get_default_emulation)
 
   _WRAP_METHOD(void set_encoding(const Glib::ustring& codeset), vte_terminal_set_encoding)
-  _WRAP_METHOD(const Glib::ustring get_encoding(), vte_terminal_get_encoding)
-  _WRAP_METHOD(const Glib::ustring get_encoding() const, vte_terminal_get_encoding, constversion)
+  _WRAP_METHOD(const Glib::ustring get_encoding() const, vte_terminal_get_encoding)
 
-  _WRAP_METHOD(const Glib::ustring get_status_line(), vte_terminal_get_status_line)
-  _WRAP_METHOD(const Glib::ustring get_status_line() const, vte_terminal_get_status_line, constversion)
+  _WRAP_METHOD(const Glib::ustring get_status_line() const, vte_terminal_get_status_line)
 
-  _WRAP_METHOD(void get_padding(int& xpad, int& ypad), vte_terminal_get_padding)
-  _WRAP_METHOD(void get_padding(int& xpad, int& ypad) const, vte_terminal_get_padding, constversion)
+  _WRAP_METHOD(void get_padding(int& xpad, int& ypad) const, vte_terminal_get_padding)
 
   _WRAP_METHOD(void set_pty(int pty_master), vte_terminal_set_pty)
-  _WRAP_METHOD(int get_pty(), vte_terminal_get_pty)
-  _WRAP_METHOD(int get_pty() const, vte_terminal_get_pty, constversion)
+  _WRAP_METHOD(int get_pty() const, vte_terminal_get_pty)
 
   _WRAP_METHOD(Gtk::Adjustment* get_adjustment(), vte_terminal_get_adjustment)
   _WRAP_METHOD(Gtk::Adjustment const* get_adjustment() const, vte_terminal_get_adjustment, constversion)
-  _WRAP_METHOD(long get_char_width(), vte_terminal_get_char_width)
-  _WRAP_METHOD(long get_char_width() const, vte_terminal_get_char_width, constversion)
-  _WRAP_METHOD(long get_char_height(), vte_terminal_get_char_height)
-  _WRAP_METHOD(long get_char_height() const, vte_terminal_get_char_height, constversion)
-  _WRAP_METHOD(long get_char_descent(), vte_terminal_get_char_descent, deprecated)
-  _WRAP_METHOD(long get_char_descent() const, vte_terminal_get_char_descent, deprecated, constversion)
-  _WRAP_METHOD(long get_char_ascent(), vte_terminal_get_char_ascent, deprecated)
-  _WRAP_METHOD(long get_char_ascent() const, vte_terminal_get_char_ascent, deprecated, constversion)
-  _WRAP_METHOD(long get_row_count(), vte_terminal_get_row_count)
-  _WRAP_METHOD(long get_row_count() const, vte_terminal_get_row_count, constversion)
-  _WRAP_METHOD(long get_column_count(), vte_terminal_get_column_count)
-  _WRAP_METHOD(long get_column_count() const, vte_terminal_get_column_count, constversion)
-  _WRAP_METHOD(const Glib::ustring get_window_title(), vte_terminal_get_window_title)
-  _WRAP_METHOD(const Glib::ustring get_window_title() const, vte_terminal_get_window_title, constversion)
-  _WRAP_METHOD(const Glib::ustring get_icon_title(), vte_terminal_get_icon_title)
-  _WRAP_METHOD(const Glib::ustring get_icon_title() const, vte_terminal_get_icon_title, constversion)
+  _WRAP_METHOD(long get_char_width() const, vte_terminal_get_char_width)
+  _WRAP_METHOD(long get_char_height() const, vte_terminal_get_char_height)
+  _WRAP_METHOD(long get_char_descent() const, vte_terminal_get_char_descent, deprecated)
+  _WRAP_METHOD(long get_char_ascent() const, vte_terminal_get_char_ascent, deprecated)
+  _WRAP_METHOD(long get_row_count() const, vte_terminal_get_row_count)
+  _WRAP_METHOD(long get_column_count() const, vte_terminal_get_column_count)
+  _WRAP_METHOD(Glib::ustring get_window_title() const, vte_terminal_get_window_title)
+  _WRAP_METHOD(Glib::ustring get_icon_title() const, vte_terminal_get_icon_title)
   
-  _WRAP_METHOD(int get_child_exit_status(), vte_terminal_get_child_exit_status)
-  _WRAP_METHOD(int get_child_exit_status() const, vte_terminal_get_child_exit_status, const)
+  _WRAP_METHOD(int get_child_exit_status() const, vte_terminal_get_child_exit_status)
 
   _WRAP_SIGNAL(void eof(), "eof")
   _WRAP_SIGNAL(void child_exited(), "child-exited")

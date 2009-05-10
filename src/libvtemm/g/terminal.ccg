@@ -29,7 +29,8 @@ namespace Vte
 namespace Private
 {
 
-gboolean SignalProxy_selected_gtk_callback(VteTerminal *terminal, glong column, glong row, gpointer data)
+gboolean
+SignalProxy_selected_gtk_callback(VteTerminal *terminal, glong column, glong row, gpointer data)
 {
   bool selected = true;
   Gnome::Vte::Terminal::SlotSelectedCallback* the_slot = static_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(data);
@@ -52,7 +53,8 @@ gboolean SignalProxy_selected_gtk_callback(VteTerminal *terminal, glong column, 
 }
 } // namespace Private
 
-TextAndCharAttrs Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
+TextAndCharAttrs
+Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(VteCharAttributes));
   char* c_text = vte_terminal_get_text(gobj(), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
@@ -63,12 +65,8 @@ TextAndCharAttrs Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCall
   return TextAndCharAttrs(text, attributes);
 }
 
-TextAndCharAttrs Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
-{
-	return const_cast<Terminal*>(this)->get_text(slot);
-}
-
-TextAndCharAttrs Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
+TextAndCharAttrs
+Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
   char* c_text = vte_terminal_get_text_include_trailing_spaces(gobj(), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
@@ -79,12 +77,8 @@ TextAndCharAttrs Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Te
   return TextAndCharAttrs(text, attributes);
 }
 
-TextAndCharAttrs Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
-{
-	return const_cast<Terminal*>(this)->get_text_include_trailing_spaces(slot);
-}
-
-TextAndCharAttrs Terminal::get_text_range(long start_row, long start_col, long end_row, long end_col, const Gnome::Vte::Terminal::SlotSelectedCallback& slot)
+TextAndCharAttrs
+Terminal::get_text_range(long start_row, long start_col, long end_row, long end_col, const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
   char* c_text = vte_terminal_get_text_range(gobj(), start_row, start_col, end_row, end_col, &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
@@ -95,17 +89,12 @@ TextAndCharAttrs Terminal::get_text_range(long start_row, long start_col, long e
   return TextAndCharAttrs(text, attributes);
 }
 
-TextAndCharAttrs Terminal::get_text_range(long start_row, long start_col, long end_row, long end_col, const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
-{
-	return const_cast<Terminal*>(this)->get_text_range(start_row, start_col, end_row, end_col, slot);
-}
-
 Glib::ustring Terminal::match_check(long column, long row, int& tag)
 {
-	char* c_text = vte_terminal_match_check(gobj(), column, row, &tag);
-	Glib::ustring text(c_text);
-	g_free(c_text);
-	return text;
+  char* c_text = vte_terminal_match_check(gobj(), column, row, &tag);
+  Glib::ustring text(c_text);
+  g_free(c_text);
+  return text;
 }
 
 void Terminal::set_colors(const Gdk::Color& foreground, const Gdk::Color& background, const Gdk::ArrayHandle_Color& palette)
