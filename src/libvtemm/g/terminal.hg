@@ -50,9 +50,10 @@ class Terminal : public Gtk::Widget
   _CLASS_GTKOBJECT(Terminal, VteTerminal, VTE_TERMINAL, Gtk::Widget, GtkWidget)
 public:
   _CTOR_DEFAULT()
-  _WRAP_METHOD(Glib::Pid fork_command(const std::string& command, const Glib::StringArrayHandle& argv, const Glib::StringArrayHandle& envv, const std::string& directory, bool lastlog, bool utmp, bool wtmp), vte_terminal_fork_command)
+  typedef Glib::ArrayHandle<std::string> StdStringArrayHandle;
+  _WRAP_METHOD(Glib::Pid fork_command(const std::string& command, const StdStringArrayHandle& argv, const StdStringArrayHandle& envv, const std::string& directory, bool lastlog, bool utmp, bool wtmp), vte_terminal_fork_command)
 
-  _WRAP_METHOD(Glib::Pid forkpty(const Glib::StringArrayHandle& envv, const std::string& directory, bool lastlog, bool utmp, bool wtmp), vte_terminal_forkpty)
+  _WRAP_METHOD(Glib::Pid forkpty(const StdStringArrayHandle& envv, const std::string& directory, bool lastlog, bool utmp, bool wtmp), vte_terminal_forkpty)
 
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_feed)
   void feed(const Glib::ustring& data);

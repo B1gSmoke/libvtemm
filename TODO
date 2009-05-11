@@ -1,8 +1,6 @@
 src/libvtemm/g/terminal.(h|cc)g:
 	1. wrap commit signal by hand, when it will be possible.
 	("char, int" -> ("std::string"|"Glib::ustring"))
-	2. change Glib::StringArrayHandles to ArrayHandles<std::string>
-	or something where appropriate.
 src/libvtemm/g/*.(h|cc)g:
 src/libvtemm/*.(cc|h):
 	1. squashing bugs. as always.
