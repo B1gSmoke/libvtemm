@@ -1,6 +1,6 @@
 /* simple.cc
  *
- * Copyright (C) 2008 libvtemm Development Team
+ * Copyright (C) 2008, 2009 libvtemm Development Team
  *
  * This file is part of Terminal Example.
  *
@@ -18,36 +18,52 @@
  * along with Terminal Example.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "simple.h"
 #include <vector>
 #include <string>
 
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+
+#include "simple.h"
+
+static
+std::string get_shell();
+
 Simple::Simple()
-: m_terminal()
+:
+  m_terminal()
 {
-	/*
-	we are making a NULL terminated string vector. as we are passing neither
-	argv nor envv, the string vector contains one empty string only.
-	*/
-	std::vector<std::string> nil;
-	nil.push_back(std::string());
-	std::string command("sh");
-	set_title("Simple Gnome::Vte::Terminal example");
-	m_terminal.fork_command(command, nil, nil, std::string(), false, false, false);
-	m_terminal.set_size(80, 24);
-	m_terminal.signal_child_exited().connect(sigc::mem_fun(*this, &Simple::on_child_exited));
-	add(m_terminal);
-	m_terminal.set_flags(Gtk::CAN_DEFAULT);
-	m_terminal.grab_default();
-	show_all_children();
+  /*
+  we are making a NULL terminated string vector. as we are passing neither
+  argv nor envv, the string vector contains one empty string only.
+  */
+  std::vector<std::string> nil(1, std::string());
+  std::string command(get_shell());
+  set_title("Simple Gnome::Vte::Terminal example");
+  m_terminal.fork_command(command, nil, nil, std::string(), false, false, false);
+  m_terminal.set_size(80, 24);
+  m_terminal.signal_child_exited().connect(sigc::mem_fun(*this, &Simple::on_child_exited));
+  add(m_terminal);
+  m_terminal.set_flags(Gtk::CAN_DEFAULT);
+  m_terminal.grab_default();
+  show_all_children();
 }
 
 Simple::~Simple()
-{
-	
-}
+{}
 
 void Simple::on_child_exited()
 {
-	hide();
+  hide();
+}
+
+// static
+
+static
+std::string get_shell()
+{
+  uid_t uid(getuid());
+  passwd* pwd(getpwuid(uid));
+  return pwd->pw_shell;
 }

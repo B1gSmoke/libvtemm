@@ -1,6 +1,6 @@
 /* textandcharattrs.cc
  *
- * Copyright (C) 2008 libvtemm Development Team
+ * Copyright (C) 2008, 2009 libvtemm Development Team
  *
  * This file is part of libvtemm.
  *
@@ -36,12 +36,12 @@ TextAndCharAttrs::~TextAndCharAttrs()
 {
 }
 
-inline Glib::ustring TextAndCharAttrs::get_text() const
+Glib::ustring TextAndCharAttrs::get_text() const
 {
   return text;
 }
 
-inline ArrayHandle_CharAttributes TextAndCharAttrs::get_attributes() const
+ArrayHandle_CharAttributes TextAndCharAttrs::get_attributes() const
 {
   return attributes;
 }

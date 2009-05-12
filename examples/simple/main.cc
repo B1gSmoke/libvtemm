@@ -1,6 +1,6 @@
 /* main.cc
  *
- * Copyright (C) 2008 libvtemm Development Team
+ * Copyright (C) 2008, 2009 libvtemm Development Team
  *
  * This file is part of Terminal Example.
  *
@@ -18,15 +18,14 @@
  * along with Terminal Example.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <gtkmm/main.h>
+#include <gtkmm.h>
 #include "simple.h"
-#include <libvtemm/init.h>
 
 int main(int argc, char *argv[])
 {
-	Gtk::Main kit(argc, argv);
-	Gnome::Vte::init();
-	Simple window;
-	Gtk::Main::run(window);
-	return 0;
+  Gtk::Main kit(argc, argv);
+  Gnome::Vte::init();
+  Simple window;
+  Gtk::Main::run(window);
+  return 0;
 }

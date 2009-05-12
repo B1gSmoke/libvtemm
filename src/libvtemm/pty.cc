@@ -1,6 +1,6 @@
 /* pty.cc
  *
- * Copyright (C) 2008 libvtemm Development Team
+ * Copyright (C) 2008, 2009 libvtemm Development Team
  *
  * This file is part of libvtemm.
  *

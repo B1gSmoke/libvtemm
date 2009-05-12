@@ -1,6 +1,6 @@
 /* simple.h
  *
- * Copyright (C) 2008 libvtemm Development Team
+ * Copyright (C) 2008, 2009 libvtemm Development Team
  *
  * This file is part of Terminal Example.
  *
@@ -21,21 +21,21 @@
 #ifndef LIBVTEMM_EXAMPLE_SIMPLE_H
 #define LIBVTEMM_EXAMPLE_SIMPLE_H
 
-#include <gtkmm/window.h>
-#include <libvtemm/terminal.h>
+#include <gtkmmh>
+#include <libvtemm.h>
 
 class Simple : public Gtk::Window
 {
-	public:
-		Simple();
-		virtual ~Simple();
+public:
+  Simple();
+  virtual ~Simple();
 
-	protected:
-		//Signal handlers:
-		virtual void on_child_exited();
+protected:
+  //Signal handlers:
+  virtual void on_child_exited();
 
-		//Member widgets:
-		Gnome::Vte::Terminal m_terminal;
+  //Member widgets:
+  Gnome::Vte::Terminal m_terminal;
 };
 
 #endif // LIBVTEMM_EXAMPLE_SIMPLE_H

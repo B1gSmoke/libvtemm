@@ -1,6 +1,6 @@
 /* textandcharattrs.h
  *
- * Copyright (C) 2008 libvtemm Development Team
+ * Copyright (C) 2008, 2009 libvtemm Development Team
  *
  * This file is part of libvtemm.
  *
@@ -33,16 +33,13 @@ namespace Vte
  */
 class TextAndCharAttrs
 {
-private:
-  ArrayHandle_CharAttributes attributes;
-  Glib::ustring text;
 public:
 /** The only way to fill #Gnome::Vte::TextAndCharAttrs class.
  * @param src_text String to store.
  * @param src_attributes Array of string's attributes.
  */
   TextAndCharAttrs(const Glib::ustring& src_text, const ArrayHandle_CharAttributes& src_attributes);
-  ~TextAndCharAttrs();
+  virtual ~TextAndCharAttrs();
 
 /** Gets stored string.
  * @return Stored string.
@@ -54,6 +51,9 @@ public:
  */
   ArrayHandle_CharAttributes get_attributes() const;
   // well, setters are not needed.
+private:
+  ArrayHandle_CharAttributes attributes;
+  Glib::ustring text;
 };
 
 } // namespace Vte

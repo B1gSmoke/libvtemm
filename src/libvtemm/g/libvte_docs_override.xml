@@ -323,4 +323,20 @@ expressions.
 </return>
 </function>
 
+<function name="vte_terminal_get_cursor_position">
+<description>
+Reads the location of the insertion cursor and returns it.  The row
+coordinate is absolute.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> #Gnome::Vte::CursorPosition instance holding both coordinates</return>
+</function>
+
 </root>

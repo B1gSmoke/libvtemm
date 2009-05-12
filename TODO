@@ -1,6 +1,3 @@
-src/libvtemm/g/terminal.(h|cc)g:
-	1. wrap commit signal by hand, when it will be possible.
-	("char, int" -> ("std::string"|"Glib::ustring"))
 src/libvtemm/g/*.(h|cc)g:
-src/libvtemm/*.(cc|h):
+src/libvtemm/*.(h|cc):
 	1. squashing bugs. as always.

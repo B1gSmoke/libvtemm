@@ -1,6 +1,6 @@
 /* terminal.cc
  *
- * Copyright (C) 2008 libvtemm Development Team
+ * Copyright (C) 2008, 2009 libvtemm Development Team
  *
  * This file is part of libvtemm.
  *
@@ -89,7 +89,16 @@ Terminal::get_text_range(long start_row, long start_col, long end_row, long end_
   return TextAndCharAttrs(text, attributes);
 }
 
-Glib::ustring Terminal::match_check(long column, long row, int& tag)
+CursorPosition
+Terminal::get_cursor_position() const
+{
+  long column(0), row(0);
+  vte_terminal_get_cursor_position(gobj(), &column, &row);
+  return CursorPosition(column, row);
+}
+
+Glib::ustring
+Terminal::match_check(long column, long row, int& tag)
 {
   char* c_text = vte_terminal_match_check(gobj(), column, row, &tag);
   Glib::ustring text(c_text);
@@ -97,22 +106,26 @@ Glib::ustring Terminal::match_check(long column, long row, int& tag)
   return text;
 }
 
-void Terminal::set_colors(const Gdk::Color& foreground, const Gdk::Color& background, const Gdk::ArrayHandle_Color& palette)
+void
+Terminal::set_colors(const Gdk::Color& foreground, const Gdk::Color& background, const Gdk::ArrayHandle_Color& palette)
 {
   vte_terminal_set_colors(gobj(), foreground.gobj(), background.gobj(), palette.data(), palette.size());
 }
 
-void Terminal::feed(const Glib::ustring& data)
+void
+Terminal::feed(const Glib::ustring& data)
 {
   vte_terminal_feed(gobj(), data.data(), data.size());
 }
 
-void Terminal::feed_child(const Glib::ustring& text)
+void
+Terminal::feed_child(const Glib::ustring& text)
 {
   vte_terminal_feed_child(gobj(), text.data(), text.size());
 }
 
-void Terminal::feed_child_binary(const std::string& data)
+void
+Terminal::feed_child_binary(const std::string& data)
 {
   vte_terminal_feed_child_binary(gobj(), data.data(), data.size());
 }
