@@ -207,7 +207,37 @@ public:
   _WRAP_SIGNAL(void cursor_moved(), "cursor-moved")
   _WRAP_SIGNAL(void status_line_changed(), "status-line-changed")
   // the one below could just send std::string...
-  _WRAP_SIGNAL(void commit(char* text, guint size), "commit")
+//  _WRAP_SIGNAL(void commit(char* text, guint size), "commit")
+  _IGNORE_SIGNAL(commit)
+#m4begin
+dnl // WRAP_SIGNAL "commit"
+dnl // C++ prototype: void commit(const Glib::ustring& text)
+dnl // C prototype: void commit(const gchar* text, gint size)
+
+  _SIGNAL_PROXY(
+      commit, void, `const gchar* text, gint size',
+      commit, void, `const Glib::ustring&',dnl // C++ prototype
+      `Glib::ustring(text, text + size)',`dnl // C -> C++ conversion
+      /**
+       * @param const Glib::ustring& text
+       * @return void
+       */')
+
+  _SIGNAL_H(commit, void, `const Glib::ustring& text')
+  _SIGNAL_PH(commit, void, `VteTerminal* self, const gchar* text, gint size')
+
+  _SIGNAL_CC(
+      commit, commit, void, void,
+      `const Glib::ustring& text',dnl // C++ arguments
+      `text.data(), text.bytes()')dnl // C++ -> C conversion
+
+  _SIGNAL_PCC(
+      commit, commit, void, void,
+      `VteTerminal* self, const gchar* text, gint size',dnl // C arguments
+      `self, text, size',dnl // C argument names
+      `Glib::ustring(text, text + size)',dnl // C -> C++ conversion
+      self)
+#m4end
   
   _WRAP_SIGNAL(void deiconify_window(), "deiconify-window")
   _WRAP_SIGNAL(void iconify_window(), "iconify-window")
