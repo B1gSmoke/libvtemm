@@ -21,7 +21,7 @@
 #ifndef LIBVTEMM_EXAMPLE_SIMPLE_H
 #define LIBVTEMM_EXAMPLE_SIMPLE_H
 
-#include <gtkmmh>
+#include <gtkmm.h>
 #include <libvtemm.h>
 
 class Simple : public Gtk::Window
