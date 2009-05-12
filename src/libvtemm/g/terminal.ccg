@@ -57,7 +57,7 @@ TextAndCharAttrs
 Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(VteCharAttributes));
-  char* c_text = vte_terminal_get_text(gobj(), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
+  char* c_text = vte_terminal_get_text(const_cast<VteTerminal*>(gobj()), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
   Glib::ustring text(c_text);
   g_free(c_text);
   ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), array->len, Glib::OWNERSHIP_DEEP);
@@ -69,7 +69,7 @@ TextAndCharAttrs
 Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
-  char* c_text = vte_terminal_get_text_include_trailing_spaces(gobj(), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
+  char* c_text = vte_terminal_get_text_include_trailing_spaces(const_cast<VteTerminal*>(gobj()), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
   Glib::ustring text(c_text);
   g_free(c_text);
   ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), static_cast<size_t>(array->len), Glib::OWNERSHIP_DEEP);
@@ -81,7 +81,7 @@ TextAndCharAttrs
 Terminal::get_text_range(long start_row, long start_col, long end_row, long end_col, const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
 {
   GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
-  char* c_text = vte_terminal_get_text_range(gobj(), start_row, start_col, end_row, end_col, &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
+  char* c_text = vte_terminal_get_text_range(const_cast<VteTerminal*>(gobj()), start_row, start_col, end_row, end_col, &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
   Glib::ustring text(c_text);
   g_free(c_text);
   ArrayHandle_CharAttributes attributes(reinterpret_cast<VteCharAttributes*>(array->data), static_cast<size_t>(array->len), Glib::OWNERSHIP_DEEP);
@@ -93,7 +93,7 @@ CursorPosition
 Terminal::get_cursor_position() const
 {
   long column(0), row(0);
-  vte_terminal_get_cursor_position(gobj(), &column, &row);
+  vte_terminal_get_cursor_position(const_cast<VteTerminal*>(gobj()), &column, &row);
   return CursorPosition(column, row);
 }
 
