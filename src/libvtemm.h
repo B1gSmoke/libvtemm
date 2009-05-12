@@ -23,6 +23,7 @@
 
 #include <gtkmm.h>
 #include <libvtemm/charattributes.h>
+#include <libvtemm/cursorposition.h>
 #include <libvtemm/init.h>
 #include <libvtemm/pty.h>
 #include <libvtemm/reaper.h>
