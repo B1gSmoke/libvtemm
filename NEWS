@@ -11,3 +11,14 @@
 
 * added new API (const getter methods) and fixed some memleaks.
   (Krzesimir Nowak)
+
+0.20.3
+
+* API is incompatible with previous versions, so it is bumped to version 1.1.
+Mostly recompilation is enough, but if you use commit signal, or cursor
+position getter then a change in sources is needed.)
+* SO version is also bumped.
+* libvtemm-1.1 is parallel-installable with version 1.0.
+* Dependencies: vte >= 0.20, gtkmm-2.4 >= 2.14, glibmm-2.4 >= 2.18.
+(I'm not sure about the last, maybe lower would work, but that needs
+change in configure.ac).
