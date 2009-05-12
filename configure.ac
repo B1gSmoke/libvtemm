@@ -131,7 +131,7 @@ AC_CONFIG_FILES([
 
   src/Makefile
   src/libvtemmconfig.h
-  src/libvtemm-1.0.pc
+  src/libvtemm-1.1.pc
     src/libvtemm/Makefile
       src/libvtemm/g/Makefile
       src/libvtemm/private/Makefile
