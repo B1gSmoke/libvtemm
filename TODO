@@ -1,6 +1,3 @@
-build system:
-	1. tweak it to avoid regeneration of terminal.cc
-	or just return to standard one.
 src/libvtemm/g/*.(h|cc)g:
 src/libvtemm/*.(h|cc):
 	1. squashing bugs. as always.
