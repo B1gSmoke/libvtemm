@@ -357,6 +357,7 @@ used in each direction, and do not need to be doubled.
 <parameter name="terminal">
 <parameter_description> a #VteTerminal
 </parameter_description>
+</parameter>
 </parameters>
 <return>#Gnome::Vte::Padding instance holding both paddings</return>
 </function>
