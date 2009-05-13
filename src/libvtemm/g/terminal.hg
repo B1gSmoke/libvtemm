@@ -49,6 +49,12 @@ _WRAP_ENUM(TerminalCursorShape, VteTerminalCursorShape)
 class Terminal : public Gtk::Widget
 {
   _CLASS_GTKOBJECT(Terminal, VteTerminal, VTE_TERMINAL, Gtk::Widget, GtkWidget)
+  _IGNORE(vte_terminal_feed, vte_terminal_feed_child, vte_terminal_feed_child_binary,
+          vte_terminal_set_colors, vte_terminal_get_text, vte_terminal_get_text_include_trailing_spaces,
+          vte_terminal_get_text_range, vte_terminal_get_cursor_position, vte_terminal_match_check)
+  _IGNORE(vte_terminal_set_cursor_blinks, vte_terminal_set_font_full, vte_terminal_get_using_xft,
+          vte_terminal_set_font_from_string_full, vte_terminal_match_add, vte_terminal_get_char_ascent,
+          vte_terminal_get_char_descent)
 public:
   _CTOR_DEFAULT()
   typedef Glib::ArrayHandle<std::string> StdStringArrayHandle;
@@ -62,7 +68,6 @@ public:
   void feed_child(const Glib::ustring& text);
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_feed_child_binary)
   void feed_child_binary(const std::string& data);
-  _IGNORE(vte_terminal_feed, vte_terminal_feed_child, vte_terminal_feed_child_binary)
 
   _WRAP_METHOD(void copy_clipboard(), vte_terminal_copy_clipboard)
   _WRAP_METHOD(void paste_clipboard(), vte_terminal_paste_clipboard)
@@ -92,7 +97,6 @@ public:
   _WRAP_METHOD(void set_color_highlight(const Gdk::Color& highlight_background), vte_terminal_set_color_highlight)
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_set_colors)
   void set_colors(const Gdk::Color& foreground, const Gdk::Color& background, const Gdk::ArrayHandle_Color& palette);
-  _IGNORE(vte_terminal_set_colors)
   _WRAP_METHOD(void set_default_colors(), vte_terminal_set_default_colors)
 
   _WRAP_METHOD(void set_background_image(const Glib::RefPtr<Gdk::Pixbuf>& image), vte_terminal_set_background_image)
@@ -144,7 +148,6 @@ public:
   TextAndCharAttrs get_text_range(long start_row, long start_col, long end_row, long end_col, const SlotSelectedCallback& slot) const;
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_cursor_position)
   CursorPosition get_cursor_position() const;
-  _IGNORE(vte_terminal_get_text, vte_terminal_get_text_include_trailing_spaces, vte_terminal_get_text_range, vte_terminal_get_cursor_position)
 
   _WRAP_METHOD(void match_clear_all(), vte_terminal_match_clear_all)
 
@@ -159,7 +162,6 @@ public:
 
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_match_check)
   Glib::ustring match_check(long column, long row, int& tag);
-  _IGNORE(vte_terminal_match_check)
 
   _WRAP_METHOD(void set_emulation(const Glib::ustring& emulation), vte_terminal_set_emulation)
   _WRAP_METHOD(const Glib::ustring get_emulation() const, vte_terminal_get_emulation)
