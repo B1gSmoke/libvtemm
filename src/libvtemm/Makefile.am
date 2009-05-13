@@ -3,8 +3,8 @@
 
 SUBDIRS = g private
 
-files_extra_h = cursorposition.h init.h pty.h textandcharattrs.h wrap_init.h
-files_extra_cc = cursorposition.cc init.cc pty.cc textandcharattrs.cc
+files_extra_h = cursorposition.h init.h padding.h pty.h textandcharattrs.h wrap_init.h
+files_extra_cc = cursorposition.cc init.cc padding.cc pty.cc textandcharattrs.cc
 
 include $(top_srcdir)/build_shared/Makefile_shared.am_fragment
 #defined:

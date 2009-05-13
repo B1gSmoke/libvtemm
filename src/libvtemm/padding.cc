@@ -1,6 +1,6 @@
-/* libvtemm.h
+/* padding.cc
  *
- * Copyright (C) 2008 libvtemm Development Team
+ * Copyright (C) 2008, 2009 libvtemm Development Team
  *
  * This file is part of libvtemm.
  *
@@ -18,19 +18,35 @@
  * along with libvtemm.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _LIBVTEMM_H_
-#define _LIBVTEMM_H_
-
-#include <gtkmm.h>
-#include <libvtemm/charattributes.h>
-#include <libvtemm/cursorposition.h>
-#include <libvtemm/init.h>
 #include <libvtemm/padding.h>
-#include <libvtemm/pty.h>
-//#include <libvtemm/reaper.h>
-#include <libvtemm/terminal.h>
-#include <libvtemm/terminalaccessible.h>
-#include <libvtemm/textandcharattrs.h>
-#include <libvtemm/wrap_init.h>
 
-#endif // _LIBVTEMM_H_
+namespace Gnome
+{
+
+namespace Vte
+{
+
+Padding::Padding(int x_pad, int y_pad)
+:
+  m_x_pad(x_pad),
+  m_y_pad(y_pad)
+{
+}
+
+Padding::~Padding()
+{
+}
+
+int Padding::get_x_pad() const
+{
+  return m_x_pad;
+}
+
+int Padding::get_y_pad() const
+{
+  return m_y_pad;
+}
+
+} // namespace Vte
+
+} // namespace Gnome

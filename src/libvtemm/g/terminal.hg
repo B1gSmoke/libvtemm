@@ -27,6 +27,7 @@ _PINCLUDE(gtkmm/private/widget_p.h)
 #include <glibmm.h>
 #include <gtkmm.h>
 #include <libvtemm/cursorposition.h>
+#include <libvtemm/padding.h>
 #include <libvtemm/textandcharattrs.h>
 #include <pangomm.h>
 #include <sigc++/sigc++.h>
@@ -51,7 +52,8 @@ class Terminal : public Gtk::Widget
   _CLASS_GTKOBJECT(Terminal, VteTerminal, VTE_TERMINAL, Gtk::Widget, GtkWidget)
   _IGNORE(vte_terminal_feed, vte_terminal_feed_child, vte_terminal_feed_child_binary,
           vte_terminal_set_colors, vte_terminal_get_text, vte_terminal_get_text_include_trailing_spaces,
-          vte_terminal_get_text_range, vte_terminal_get_cursor_position, vte_terminal_match_check)
+          vte_terminal_get_text_range, vte_terminal_get_cursor_position, vte_terminal_match_check,
+          vte_terminal_get_padding)
   _IGNORE(vte_terminal_set_cursor_blinks, vte_terminal_set_font_full, vte_terminal_get_using_xft,
           vte_terminal_set_font_from_string_full, vte_terminal_match_add, vte_terminal_get_char_ascent,
           vte_terminal_get_char_descent)
@@ -172,7 +174,8 @@ public:
 
   _WRAP_METHOD(const Glib::ustring get_status_line() const, vte_terminal_get_status_line)
 
-  _WRAP_METHOD(void get_padding(int& xpad, int& ypad) const, vte_terminal_get_padding)
+  _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_padding)
+  Padding get_padding() const;
 
   _WRAP_METHOD(void set_pty(int pty_master), vte_terminal_set_pty)
   _WRAP_METHOD(int get_pty() const, vte_terminal_get_pty)

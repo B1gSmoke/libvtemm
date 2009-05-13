@@ -339,4 +339,26 @@ coordinate is absolute.
 <return> #Gnome::Vte::CursorPosition instance holding both coordinates</return>
 </function>
 
+<function name="vte_terminal_get_padding">
+<description>
+Determines the amount of additional space the widget is using to pad the
+edges of its visible area. This is necessary for cases where characters in
+the selected font don't themselves include a padding area and the text
+itself would otherwise be contiguous with the window border. Applications
+which use the widget's row count, column count, char height, and
+char width fields to set geometry hints using
+#Gtk::Window::set_geometry_hints() will need to add this value to the base
+size. The values returned in #Gnome::Vte::Padding are the total padding
+used in each direction, and do not need to be doubled.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameters>
+<return>#Gnome::Vte::Padding instance holding both paddings</return>
+</function>
+
 </root>
