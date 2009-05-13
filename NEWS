@@ -14,11 +14,10 @@
 
 0.20.3
 
-* API is incompatible with previous versions, so it is bumped to version 1.1.
-Mostly recompilation is enough, but if you use commit signal, or cursor
-position getter then a change in sources is needed.)
-* SO version is also bumped.
-* libvtemm-1.1 is parallel-installable with version 1.0.
+* In this release API/ABI is _incompatible_ with previous releases.
+(deprecated methods and reaper were removed, beep signal have a default
+signal handler, 'commit' signal and get_cursor_position have changed
+prototypes.)
+* API is bumped to version 1.1.
+* libvtemm-1.1 is can be installed in parallel with version 1.0.
 * Dependencies: vte >= 0.20, gtkmm-2.4 >= 2.14, glibmm-2.4 >= 2.18.
-(I'm not sure about the last, maybe lower would work, but that needs
-change in configure.ac).

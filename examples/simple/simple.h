@@ -18,8 +18,8 @@
  * along with Terminal Example.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIBVTEMM_EXAMPLE_SIMPLE_H
-#define LIBVTEMM_EXAMPLE_SIMPLE_H
+#ifndef _LIBVTEMM_EXAMPLE_SIMPLE_H_
+#define _LIBVTEMM_EXAMPLE_SIMPLE_H_
 
 #include <gtkmm.h>
 #include <libvtemm.h>
@@ -38,4 +38,4 @@ protected:
   Gnome::Vte::Terminal m_terminal;
 };
 
-#endif // LIBVTEMM_EXAMPLE_SIMPLE_H
+#endif // _LIBVTEMM_EXAMPLE_SIMPLE_H_

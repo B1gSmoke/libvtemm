@@ -26,7 +26,7 @@
 #include <libvtemm/cursorposition.h>
 #include <libvtemm/init.h>
 #include <libvtemm/pty.h>
-#include <libvtemm/reaper.h>
+//#include <libvtemm/reaper.h>
 #include <libvtemm/terminal.h>
 #include <libvtemm/terminalaccessible.h>
 #include <libvtemm/textandcharattrs.h>

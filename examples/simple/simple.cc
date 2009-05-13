@@ -47,6 +47,10 @@ Simple::Simple()
   add(m_terminal);
   m_terminal.set_flags(Gtk::CAN_DEFAULT);
   m_terminal.grab_default();
+  Gdk::Geometry hints;
+  hints.base_width = hints.min_width = hints.width_inc = m_terminal.get_char_width();
+  hints.base_height = hints.min_height = hints.height_inc = m_terminal.get_char_height();
+  set_geometry_hints(m_terminal, hints, Gdk::HINT_RESIZE_INC | Gdk::HINT_MIN_SIZE | Gdk::HINT_BASE_SIZE);
   show_all_children();
 }
 
