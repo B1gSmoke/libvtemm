@@ -26,7 +26,7 @@ namespace Gnome
 
 namespace Vte
 {
-/** Padding - simple struct holding padding.
+/** Padding - simple class holding padding.
  */
 class Padding
 {

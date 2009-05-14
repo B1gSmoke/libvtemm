@@ -26,7 +26,7 @@ namespace Gnome
 
 namespace Vte
 {
-/** CursorPosition - simple struct holding cursor position.
+/** CursorPosition - simple class holding cursor position.
  */
 class CursorPosition
 {
