@@ -31,6 +31,7 @@ _PINCLUDE(gtkmm/private/widget_p.h)
 #include <libvtemm/textandcharattrs.h>
 #include <pangomm.h>
 #include <sigc++/sigc++.h>
+#include <string>
 
 namespace Gnome
 {
