@@ -67,18 +67,6 @@ else
 fi
 ])
 
-dnl AL_PROG_PATCH(ACTION_NOT_FOUND)
-dnl   Check for patch
-dnl
-AC_DEFUN([AL_PROG_PATCH],
-[
-	AC_PATH_PROG(PATCH, patch, no)
-	if test "x$PATCH" = "xno"
-	then
-		$1
-	fi
-])
-
 dnl AL_ENABLE_REFERENCE()
 dnl   Check if we want to build reference
 dnl

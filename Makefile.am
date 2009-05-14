@@ -30,7 +30,7 @@ dist-hook:
 	        echo Creating ChangeLog && \
 	        ( cd "$(top_srcdir)" && \
 	          $(top_srcdir)/scripts/missing --run git log --date=short --pretty=format:"@@@@%cd  %an  <%ae>%n%n%s%n%n%b" | \
-	          perl -ne 'if ( m/^\s*$$/ ) { if (!$$blank) { print; $$blank=1; } } else {$$blank=0; if (!s/^@@@@// && !/^\t/) { print "\t"; } print; }') > ChangeLog.tmp \
+	          @PERL@ -ne 'if ( m/^\s*$$/ ) { if (!$$blank) { print; $$blank=1; } } else {$$blank=0; if (!s/^@@@@// && !/^\t/) { print "\t"; } print; }') > ChangeLog.tmp \
 	        && mv -f ChangeLog.tmp $(top_distdir)/ChangeLog \
 	        || ( rm -f ChangeLog.tmp ; \
 	             echo Failed to generate ChangeLog >&2 ); \
