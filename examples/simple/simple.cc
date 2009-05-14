@@ -18,8 +18,8 @@
  * along with Terminal Example.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -32,25 +32,45 @@ std::string get_shell();
 
 Simple::Simple()
 :
-  m_terminal()
+  m_box(),
+  m_terminal(),
+  m_scrollbar(*(m_terminal.get_adjustment()))
 {
+  // first put everything into their proper places, then set them up.
+  // add terminal to box.
+  m_box.pack_start(m_terminal);
+  // add scrollbar to box.
+  m_box.pack_start(m_scrollbar);
+  // put box into window.
+  add(m_box);
+  // set up a terminal.
   /*
   we are making a NULL terminated string vector. as we are passing neither
   argv nor envv, the string vector contains one empty string only.
   */
   std::vector<std::string> nil(1, std::string());
   std::string command(get_shell());
-  set_title("Simple Gnome::Vte::Terminal example");
   m_terminal.fork_command(command, nil, nil, std::string(), false, false, false);
   m_terminal.set_size(80, 24);
   m_terminal.signal_child_exited().connect(sigc::mem_fun(*this, &Simple::on_child_exited));
-  add(m_terminal);
   m_terminal.set_flags(Gtk::CAN_DEFAULT);
   m_terminal.grab_default();
+  // setting geometry hints is based on gnome-terminal code.
   Gdk::Geometry hints;
-  hints.base_width = hints.min_width = hints.width_inc = m_terminal.get_char_width();
-  hints.base_height = hints.min_height = hints.height_inc = m_terminal.get_char_height();
+  Gnome::Vte::Padding pads(m_terminal.get_padding());
+  hints.base_width = pads.get_x_pad();
+  hints.base_height = pads.get_y_pad();
+  hints.width_inc = m_terminal.get_char_width();
+  hints.height_inc = m_terminal.get_char_height();
+  const int min_width_chars = 4;
+  const int min_height_chars = 2;
+  hints.min_width = hints.base_width + hints.width_inc * min_width_chars;
+  hints.min_height = hints.base_height + hints.height_inc * min_height_chars;
   set_geometry_hints(m_terminal, hints, Gdk::HINT_RESIZE_INC | Gdk::HINT_MIN_SIZE | Gdk::HINT_BASE_SIZE);
+  // scrollbar is already set up during initialization, so nothing to do here.
+  // set up a window.
+  set_title("Simple Gnome::Vte::Terminal example");
+  // show us the co... terminal, we mean.
   show_all_children();
 }
 

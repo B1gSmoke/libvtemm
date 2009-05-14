@@ -35,7 +35,9 @@ protected:
   virtual void on_child_exited();
 
   //Member widgets:
+  Gtk::HBox m_box;
   Gnome::Vte::Terminal m_terminal;
+  Gtk::VScrollbar m_scrollbar;
 };
 
 #endif // _LIBVTEMM_EXAMPLE_SIMPLE_H_
