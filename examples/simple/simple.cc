@@ -27,14 +27,14 @@
 
 #include "simple.h"
 
-static
-std::string get_shell();
+static std::string
+get_shell();
 
 Simple::Simple()
 :
   m_box(),
   m_terminal(),
-  m_scrollbar(*(m_terminal.get_adjustment()))
+  m_scrollbar(m_terminal.get_adjustment())
 {
   // first put everything into their proper places, then set them up.
   // add terminal to box.
@@ -77,15 +77,16 @@ Simple::Simple()
 Simple::~Simple()
 {}
 
-void Simple::on_child_exited()
+void
+Simple::on_child_exited()
 {
   hide();
 }
 
 // static
 
-static
-std::string get_shell()
+static std::string
+get_shell()
 {
   uid_t uid(getuid());
   passwd* pwd(getpwuid(uid));

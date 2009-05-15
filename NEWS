@@ -16,8 +16,9 @@
 
 * This release is API/ABI _incompatible_ with previous releases.
 (deprecated methods and reaper were removed, beep signal have a default
-signal handler, 'commit' signal, get_cursor_position and get_padding
-have changed prototypes.)
+signal handler, 'commit' signal, 'set-scroll-adjustments' signal,
+get_cursor_position and get_padding have changed prototypes, get_adjustment now
+returns a reference instead of pointer.)
 * API is bumped to version 1.1.
 * libvtemm-1.1 is can be installed in parallel with version 1.0.
 * Dependencies: vte >= 0.20, gtkmm-2.4 >= 2.14, glibmm-2.4 >= 2.18.

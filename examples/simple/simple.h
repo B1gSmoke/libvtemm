@@ -29,11 +29,10 @@ class Simple : public Gtk::Window
 public:
   Simple();
   virtual ~Simple();
-
 protected:
   //Signal handlers:
   virtual void on_child_exited();
-
+private:
   //Member widgets:
   Gtk::HBox m_box;
   Gnome::Vte::Terminal m_terminal;
