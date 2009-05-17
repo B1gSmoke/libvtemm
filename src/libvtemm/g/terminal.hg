@@ -82,15 +82,15 @@ public:
 
   _WRAP_METHOD(void set_size(long columns, long rows), vte_terminal_set_size)
 
-  _WRAP_METHOD(void set_audible_bell(bool is_audible), vte_terminal_set_audible_bell)
+  _WRAP_METHOD(void set_audible_bell(bool is_audible = true), vte_terminal_set_audible_bell)
   _WRAP_METHOD(bool get_audible_bell(), vte_terminal_get_audible_bell)
   _WRAP_METHOD(bool get_audible_bell() const, vte_terminal_get_audible_bell, constversion)
-  _WRAP_METHOD(void set_visible_bell(bool is_visible), vte_terminal_set_visible_bell)
+  _WRAP_METHOD(void set_visible_bell(bool is_visible = true), vte_terminal_set_visible_bell)
   _WRAP_METHOD(bool get_visible_bell(), vte_terminal_get_visible_bell)
   _WRAP_METHOD(bool get_visible_bell() const, vte_terminal_get_visible_bell, constversion)
-  _WRAP_METHOD(void set_scroll_background(bool scroll), vte_terminal_set_scroll_background)
-  _WRAP_METHOD(void set_scroll_on_output(bool scroll), vte_terminal_set_scroll_on_output)
-  _WRAP_METHOD(void set_scroll_on_keystroke(bool scroll), vte_terminal_set_scroll_on_keystroke)
+  _WRAP_METHOD(void set_scroll_background(bool scroll = true), vte_terminal_set_scroll_background)
+  _WRAP_METHOD(void set_scroll_on_output(bool scroll = true), vte_terminal_set_scroll_on_output)
+  _WRAP_METHOD(void set_scroll_on_keystroke(bool scroll = true), vte_terminal_set_scroll_on_keystroke)
 
   _WRAP_METHOD(void set_color_dim(const Gdk::Color& dim), vte_terminal_set_color_dim)
   _WRAP_METHOD(void set_color_bold(const Gdk::Color& bold), vte_terminal_set_color_bold)
@@ -106,7 +106,7 @@ public:
   _WRAP_METHOD(void set_background_image_file(const std::string& path), vte_terminal_set_background_image_file)
   _WRAP_METHOD(void set_background_tint_color(const Gdk::Color& color), vte_terminal_set_background_tint_color)
   _WRAP_METHOD(void set_background_saturation(double saturation), vte_terminal_set_background_saturation)
-  _WRAP_METHOD(void set_background_transparent(bool transparent), vte_terminal_set_background_transparent)
+  _WRAP_METHOD(void set_background_transparent(bool transparent = true), vte_terminal_set_background_transparent)
   _WRAP_METHOD(void set_opacity(guint16 opacity), vte_terminal_set_opacity)
 
 //  _WRAP_METHOD(void set_cursor_blinks(bool blink), vte_terminal_set_cursor_blinks, deprecated "Use set_cursor_blink_mode instead")
@@ -126,7 +126,7 @@ public:
 //  _WRAP_METHOD(void set_font_from_string_full(const Glib::ustring name, TerminalAntiAlias antialias), vte_terminal_set_font_from_string_full, deprecated)
   _WRAP_METHOD(const Pango::FontDescription get_font() const, vte_terminal_get_font)
 //  _WRAP_METHOD(bool get_using_xft() const, vte_terminal_get_using_xft, deprecated)
-  _WRAP_METHOD(void set_allow_bold(bool allow_bold), vte_terminal_set_allow_bold)
+  _WRAP_METHOD(void set_allow_bold(bool allow_bold = true), vte_terminal_set_allow_bold)
   _WRAP_METHOD(bool get_allow_bold() const, vte_terminal_get_allow_bold)
 
   _WRAP_METHOD(bool get_has_selection() const, vte_terminal_get_has_selection)
@@ -137,7 +137,7 @@ public:
   _WRAP_METHOD(void set_backspace_binding(TerminalEraseBinding binding), vte_terminal_set_backspace_binding)
   _WRAP_METHOD(void set_delete_binding(TerminalEraseBinding binding), vte_terminal_set_delete_binding)
 
-  _WRAP_METHOD(void set_mouse_autohide(bool setting), vte_terminal_set_mouse_autohide)
+  _WRAP_METHOD(void set_mouse_autohide(bool setting = true), vte_terminal_set_mouse_autohide)
   _WRAP_METHOD(bool get_mouse_autohide() const, vte_terminal_get_mouse_autohide)
 
   _WRAP_METHOD(void reset(bool full, bool clear_history), vte_terminal_reset)
