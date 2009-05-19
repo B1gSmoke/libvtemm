@@ -142,13 +142,32 @@ public:
 
   _WRAP_METHOD(void reset(bool full, bool clear_history), vte_terminal_reset)
 
-  typedef sigc::slot<bool, Terminal& /* terminal */, long /* column */, long /* row */> SlotSelectedCallback;
+  /** For instance,
+   * bool on_selected(long column, long row);
+   *
+   * @see get_text(), get_text_include_trailing_spaces(), get_text_range().
+   */
+  typedef sigc::slot<bool, long /* column */, long /* row */> SlotSelectedCallback;
+  
+  /** Convenience callback, which always returns %true.
+   *
+   * @see get_text(), get_text_include_trailing_spaces(), get_text_range().
+   */
+  static bool always_selected(long, long);
+  
+  /** Convenience callback, which always returns %false.
+   *
+   * @see get_text(), get_text_include_trailing_spaces(), get_text_range().
+   */
+  static bool never_selected(long, long);
+  
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_text)
   TextAndCharAttrs get_text(const SlotSelectedCallback& slot) const;
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_text_include_trailing_spaces)
   TextAndCharAttrs get_text_include_trailing_spaces(const SlotSelectedCallback& slot) const;
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_text_range)
   TextAndCharAttrs get_text_range(long start_row, long start_col, long end_row, long end_col, const SlotSelectedCallback& slot) const;
+  
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_cursor_position)
   CursorPosition get_cursor_position() const;
 

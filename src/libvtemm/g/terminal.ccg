@@ -29,29 +29,37 @@ namespace Vte
 namespace Private
 {
 
-gboolean
-SignalProxy_selected_gtk_callback(VteTerminal *terminal, glong column, glong row, gpointer data)
+static gboolean
+SignalProxy_selected_gtk_callback(VteTerminal *terminal, glong column, glong row, gpointer user_data)
 {
-  bool selected = true;
-  Gnome::Vte::Terminal::SlotSelectedCallback* the_slot = static_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(data);
-  //Gnome::Vte::Terminal temp(terminal);
-  //Gnome::Vte::Terminal temp = *(Glib::wrap(terminal, true));
+  Gnome::Vte::Terminal::SlotSelectedCallback* the_slot = static_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(user_data);
 #ifdef GLIBMM_EXCEPTIONS_ENABLED
   try
   {
 #endif // GLIBMM_EXCEPTIONS_ENABLED
-    // true or false, hm?
-    selected = (*the_slot)(*(Glib::wrap(terminal)), column, row);
+    return static_cast<gboolean>((*the_slot)(column, row));
 #ifdef GLIBMM_EXCEPTIONS_ENABLED
   }
   catch (...)
   {
     Glib::exception_handlers_invoke();
   }
+  return TRUE;
 #endif // GLIBMM_EXCEPTIONS_ENABLED
-  return static_cast<int>(selected);
 }
 } // namespace Private
+
+bool
+Terminal::always_selected(long, long)
+{
+  return true;
+}
+
+bool
+Terminal::never_selected(long, long)
+{
+  return false;
+}
 
 TextAndCharAttrs
 Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
