@@ -19,6 +19,7 @@
  */
 
 #include <gtkmm.h>
+#include <libvtemm/init.h>
 #include "simple.h"
 
 int main(int argc, char *argv[])

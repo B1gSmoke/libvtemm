@@ -29,6 +29,7 @@ _PINCLUDE(gtkmm/private/widget_p.h)
 #include <libvtemm/cursorposition.h>
 #include <libvtemm/match.h>
 #include <libvtemm/padding.h>
+#include <libvtemm/shared.h>
 #include <libvtemm/textandcharattrs.h>
 #include <pangomm.h>
 #include <sigc++/sigc++.h>
@@ -55,16 +56,27 @@ class Terminal : public Gtk::Widget
   _IGNORE(vte_terminal_feed, vte_terminal_feed_child, vte_terminal_feed_child_binary,
           vte_terminal_set_colors, vte_terminal_get_text, vte_terminal_get_text_include_trailing_spaces,
           vte_terminal_get_text_range, vte_terminal_get_cursor_position, vte_terminal_match_check,
-          vte_terminal_get_padding)
+          vte_terminal_get_padding, vte_terminal_fork_command, vte_terminal_forkpty)
   _IGNORE(vte_terminal_set_cursor_blinks, vte_terminal_set_font_full, vte_terminal_get_using_xft,
           vte_terminal_set_font_from_string_full, vte_terminal_match_add, vte_terminal_get_char_ascent,
           vte_terminal_get_char_descent)
 public:
   _CTOR_DEFAULT()
-  typedef Glib::ArrayHandle<std::string> StdStringArrayHandle;
-  _WRAP_METHOD(Glib::Pid fork_command(const std::string& command, const StdStringArrayHandle& argv, const StdStringArrayHandle& envv, const std::string& directory, bool lastlog, bool utmp, bool wtmp), vte_terminal_fork_command)
-
-  _WRAP_METHOD(Glib::Pid forkpty(const StdStringArrayHandle& envv, const std::string& directory, bool lastlog, bool utmp, bool wtmp), vte_terminal_forkpty)
+  
+  _WRAP_METHOD_DOCS_ONLY(vte_terminal_fork_command)
+  Glib::Pid fork_command(const std::string& command = std::string(),
+                         const StdStringArrayHandle& argv = StdStringArrayHandle(0, Glib::OWNERSHIP_NONE),
+                         const StdStringArrayHandle& envv = StdStringArrayHandle(0, Glib::OWNERSHIP_NONE),
+                         const std::string& directory = std::string(),
+                         bool lastlog = false,
+                         bool utmp = false,
+                         bool wtmp = false);
+  _WRAP_METHOD_DOCS_ONLY(vte_terminal_forkpty)
+  Glib::Pid forkpty(const StdStringArrayHandle& envv = StdStringArrayHandle(0, Glib::OWNERSHIP_NONE),
+                    const std::string& directory = std::string(),
+                    bool lastlog = false,
+                    bool utmp = false,
+                    bool wtmp = false);
 
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_feed)
   void feed(const Glib::ustring& data);
@@ -98,10 +110,34 @@ public:
   _WRAP_METHOD(void set_color_foreground(const Gdk::Color& foreground), vte_terminal_set_color_foreground)
   _WRAP_METHOD(void set_color_background(const Gdk::Color& background), vte_terminal_set_color_background)
   _WRAP_METHOD(void set_color_cursor(const Gdk::Color& cursor_background), vte_terminal_set_color_cursor)
+  
+  /** Text under the cursor will be drawn with foreground and background colors
+   * reversed.
+   */
+  void set_default_color_cursor();
   _WRAP_METHOD(void set_color_highlight(const Gdk::Color& highlight_background), vte_terminal_set_color_highlight)
+  
+  /** Highlighted text (which is usually highlighted because it is selected)
+   * will be drawn with foreground and background colors reversed.
+   */
+  void set_default_color_highlight();
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_set_colors)
   void set_colors(const Gdk::Color& foreground, const Gdk::Color& background, const Gdk::ArrayHandle_Color& palette);
   _WRAP_METHOD(void set_default_colors(), vte_terminal_set_default_colors)
+  
+  /** The terminal widget uses a 28-color model comprised of the default foreground
+   * and background colors, the bold foreground color, the dim foreground
+   * color, an eight color palette, bold versions of the eight color palette,
+   * and a dim version of the the eight color palette.
+   *
+   * Size of @a palette must be either 0, 8, 16, or 24.  If size of @a palette is greater
+   * than 0, the new foreground color is taken from @a palette[7].
+   * If size of @a palette is greater than 0, the new background color is taken from
+   * @a palette[0].  If size of @a palette is 8 or 16, the third (dim) and possibly the
+   * second (bold) 8-color palettes are extrapolated from the new background
+   * color and the items in @a palette.
+   */
+  void set_default_colors(const Gdk::ArrayHandle_Color& palette);
 
   _WRAP_METHOD(void set_background_image(const Glib::RefPtr<Gdk::Pixbuf>& image), vte_terminal_set_background_image)
   _WRAP_METHOD(void set_background_image_file(const std::string& path), vte_terminal_set_background_image_file)
@@ -188,6 +224,10 @@ public:
   Match match_check(long column, long row);
 
   _WRAP_METHOD(void set_emulation(const Glib::ustring& emulation), vte_terminal_set_emulation)
+  
+  /** Sets default type of terminal the widget attempts to emulate.
+   */
+  void set_default_emulation();
   _WRAP_METHOD(const Glib::ustring get_emulation() const, vte_terminal_get_emulation)
   _WRAP_METHOD(const Glib::ustring get_default_emulation() const, vte_terminal_get_default_emulation)
 

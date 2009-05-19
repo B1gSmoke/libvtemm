@@ -22,7 +22,7 @@
 #define _LIBVTEMM_PTY_H_
 
 #include <glibmm.h>
-#include <string>
+#include <libvtemm/shared.h>
 
 namespace Gnome
 {
@@ -39,18 +39,18 @@ namespace Pty
  * storing the child's PID in the given argument.
  * @param child Stored child's PID.
  * @param env_add Empty string terminated list of environment variables to be added before executing a command.
- * @param command Command to be executed (not interpreted at all).
- * @param argv Empty string terminated list of arguments given to executed binary (argv[0] should be a binary name)
- * @param directory Path where command have to be executed
+ * @param command Command to be executed (not interpreted at all). If empty, fork will be executed.
+ * @param argv Empty string terminated list of arguments given to executed binary (argv[0] should be a binary name).
+ * @param directory Path where command have to be executed. If empty, path will be inherited from parent.
  * @param columns Number of columns of pty.
  * @param rows Number of rows of pty.
- * @param lastlog %TRUE if the session should be logged to the lastlog
- * @param utmp %TRUE if the session should be logged to the utmp/utmpx log
- * @param wtmp %TRUE if the session should be logged to the wtmp/wtmpx log
+ * @param lastlog %true if the session should be logged to the lastlog.
+ * @param utmp %true if the session should be logged to the utmp/utmpx log.
+ * @param wtmp %true if the session should be logged to the wtmp/wtmpx log.
  * @return Descriptor for the master side of the PTY pair.
  */
-int _open(Glib::Pid& child, const Glib::StringArrayHandle& env_add,
-          const std::string& command, const Glib::StringArrayHandle& argv,
+int _open(Glib::Pid& child, const StdStringArrayHandle& env_add,
+          const std::string& command, const StdStringArrayHandle& argv,
           const std::string& directory,
           int columns, int rows,
           bool lastlog, bool utmp, bool wtmp);

@@ -22,7 +22,7 @@
 #define _LIBVTEMM_EXAMPLE_SIMPLE_H_
 
 #include <gtkmm.h>
-#include <libvtemm.h>
+#include <libvtemm/terminal.h>
 
 class Simple : public Gtk::Window
 {

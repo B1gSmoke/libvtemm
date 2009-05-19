@@ -20,7 +20,9 @@
 
 #include <glib.h>
 #include <vte/pty.h>
-#include <libvtemm/pty.h>
+
+#include "internalroutines.h"
+#include "pty.h"
 
 namespace Gnome
 {
@@ -31,13 +33,20 @@ namespace Vte
 namespace Pty
 {
 
-int _open(Glib::Pid& child, const Glib::StringArrayHandle& env_add,
-          const std::string& command, const Glib::StringArrayHandle& argv,
+int _open(Glib::Pid& child, const StdStringArrayHandle& env_add,
+          const std::string& command, const StdStringArrayHandle& argv,
           const std::string& directory,
           int columns, int rows,
           bool lastlog, bool utmp, bool wtmp)
 {
-  return _vte_pty_open(&child, const_cast<char**>((env_add).data()), command.c_str(), const_cast<char**>((argv).data()), directory.c_str(), columns, rows, static_cast<int>(lastlog), static_cast<int>(utmp), static_cast<int>(wtmp));
+  const char* c_command = get_c_string(command);
+  const char* c_directory = get_c_string(directory);
+  char** c_env_add = get_c_string_vector(env_add);
+  char** c_argv = get_c_string_vector(argv);
+  int master = _vte_pty_open(&child, c_env_add, c_command, c_argv, c_directory, columns, rows, static_cast<gboolean>(lastlog), static_cast<gboolean>(utmp), static_cast<gboolean>(wtmp));
+  g_strfreev(c_env_add);
+  g_strfreev(c_argv);
+  return master;
 }
 
 int _get_size(int master, int& columns, int& rows)
@@ -52,7 +61,7 @@ int _set_size(int master, int columns, int rows)
 
 void _set_utf8(int pty, bool utf8)
 {
-  _vte_pty_set_utf8(pty, static_cast<int>(utf8));
+  _vte_pty_set_utf8(pty, static_cast<gboolean>(utf8));
 }
 
 void _close(int pty)

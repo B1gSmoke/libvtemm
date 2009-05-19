@@ -25,8 +25,6 @@ to mess with your users.
 <description>
 Sends a block of binary data to the child.
 
-Since: 0.12.1
-
 </description>
 <parameters>
 <parameter name="terminal">
@@ -67,13 +65,9 @@ and background colors, the bold foreground color, the dim foreground
 color, an eight color palette, bold versions of the eight color palette,
 and a dim version of the the eight color palette.
 
-Size of @palette must be either 0, 8, 16, or 24.  If @foreground is %NULL and
-size of @palette is greater than 0, the new foreground color is taken from
-@palette[7].  If @background is %NULL and size of @palette is greater than 0,
-the new background color is taken from @palette[0].  If
-size of @palette is 8 or 16, the third (dim) and possibly the second (bold)
-8-color palettes are extrapolated from the new background color and the items
-in @palette.
+Size of @palette must be either 0, 8, 16, or 24. If size of @palette is 8 or 16,
+the third (dim) and possibly the second (bold) 8-color palettes are extrapolated
+from the new background color and the items in @palette.
 
 
 </description>
@@ -83,11 +77,11 @@ in @palette.
 </parameter_description>
 </parameter>
 <parameter name="foreground">
-<parameter_description> the new foreground color, or %NULL
+<parameter_description> the new foreground color
 </parameter_description>
 </parameter>
 <parameter name="background">
-<parameter_description> the new background color, or %NULL
+<parameter_description> the new background color
 </parameter_description>
 </parameter>
 <parameter name="palette">
@@ -100,12 +94,11 @@ in @palette.
 
 <function name="vte_terminal_get_text_include_trailing_spaces">
 <description>
-Extracts a view of the visible part of the terminal.  If @slot is not
-%NULL, characters will only be read if @slot returns %TRUE after being
-passed the column and row, respectively.  A #VteCharAttributes structure
-is added to #TextAndCharAttrs return value for each byte added to the returned
-string detailing the character&apos;s position, colors, and other
-characteristics. This function differs from vte_terminal_get_text in that
+Extracts a view of the visible part of the terminal. Characters will only be
+read if @slot returns %true after being passed the column and row, respectively.
+A #VteCharAttributes structure is added to #TextAndCharAttrs return value for
+each byte added to the returned string detailing the character&apos;s position,
+colors, and other characteristics. This function differs from get_text() in that
 trailing spaces at the end of lines are included.
 
 
@@ -121,18 +114,17 @@ trailing spaces at the end of lines are included.
 </parameter>
 </parameters>
 <return> a #TextAndCharAttrs with text that may be empty and stored text
-attributes.
+attributes
 </return>
 </function>
 
 <function name="vte_terminal_get_text">
 <description>
-Extracts a view of the visible part of the terminal.  If @slot is not
-%NULL, characters will only be read if @slot returns %TRUE after being
-passed the column and row, respectively.  A #VteCharAttributes structure
-is added to #TextAndCharAttrs return value for each byte added to the returned
-string detailing the character&apos;s position, colors, and other
-characteristics.
+Extracts a view of the visible part of the terminal. Characters will only be
+read if @slot returns %true after being passed the column and row, respectively.
+A #VteCharAttributes structure is added to #TextAndCharAttrs return value for
+each byte added to the returned string detailing the character&apos;s position,
+colors, and other characteristics.
 
 
 </description>
@@ -147,19 +139,18 @@ characteristics.
 </parameter>
 </parameters>
 <return> a #TextAndCharAttrs with text that may be empty and stored text
-attributes.
+attributes
 </return>
 </function>
 
 <function name="vte_terminal_get_text_range">
 <description>
-Extracts a view of the visible part of the terminal.  If @slot is not
-%NULL, characters will only be read if @slot returns %TRUE after being
-passed the column and row, respectively.  A #VteCharAttributes structure
-is added to #TextAndCharAttrs return value for each byte added to the returned
-string detailing the character&apos;s position, colors, and other
-characteristics. The entire scrollback buffer is scanned, so it is possible to
-read the entire contents of the buffer using this function.
+Extracts a view of the visible part of the terminal. Characters will only be
+read if @slot returns %true after being passed the column and row, respectively.
+A #VteCharAttributes structure is added to #TextAndCharAttrs return value for
+each byte added to the returned string detailing the character&apos;s position,
+colors, and other characteristics. The entire scrollback buffer is scanned, so
+it is possible to read the entire contents of the buffer using this function.
 
 
 </description>
@@ -190,7 +181,7 @@ read the entire contents of the buffer using this function.
 </parameter>
 </parameters>
 <return> a #TextAndCharAttrs with text that may be empty and stored text
-attributes.
+attributes
 </return>
 </function>
 
@@ -198,7 +189,7 @@ attributes.
 <description>
 Starts a new child process under a newly-allocated controlling
 pseudo-terminal.  TERM is automatically set to reflect the terminal widget&apos;s
-emulation setting.  If @lastlog, @utmp, or @wtmp are %TRUE, logs the session
+emulation setting.  If @lastlog, @utmp, or @wtmp are %true, logs the session
 to the specified system log files.
 
 
@@ -209,42 +200,39 @@ to the specified system log files.
 </parameter_description>
 </parameter>
 <parameter name="envv">
-<parameter_description> an empty string terminated list of environment variables to be
+<parameter_description> a list of environment variables to be
 added to the environment before starting returning in the child process
 </parameter_description>
 </parameter>
 <parameter name="directory">
-<parameter_description> the name of a directory the child process should change to, or
-empty string
+<parameter_description> the name of a directory the command should start in, or
+empty string to inherit starting directory from parent
 </parameter_description>
 </parameter>
 <parameter name="lastlog">
-<parameter_description> %TRUE if the session should be logged to the lastlog
+<parameter_description> %true if the session should be logged to the lastlog
 </parameter_description>
 </parameter>
 <parameter name="utmp">
-<parameter_description> %TRUE if the session should be logged to the utmp/utmpx log
+<parameter_description> %true if the session should be logged to the utmp/utmpx log
 </parameter_description>
 </parameter>
 <parameter name="wtmp">
-<parameter_description> %TRUE if the session should be logged to the wtmp/wtmpx log
+<parameter_description> %true if the session should be logged to the wtmp/wtmpx log
 </parameter_description>
 </parameter>
 </parameters>
 <return> the ID of the new process in the parent
-
-Since: 0.11.11
 </return>
 </function>
 
 <function name="vte_terminal_fork_command">
 <description>
 Starts the specified command under a newly-allocated controlling
-pseudo-terminal.  The @argv and @envv lists should be empty string terminated, and
-argv[0] is expected to be the name of the file being run, as it would be if
-execve() were being called. TERM is automatically set to reflect the
-terminal widget&apos;s emulation setting.  If @lastlog, @utmp, or @wtmp are %TRUE,
-logs the session to the specified system log files.
+pseudo-terminal.  The argv[0] is expected to be the name of the file being run,
+as it would be if execve() were being called. TERM is automatically set to
+reflect the terminal widget&apos;s emulation setting. If @lastlog, @utmp, or
+@wtmp are %true, logs the session to the specified system log files.
 
 
 </description>
@@ -254,32 +242,33 @@ logs the session to the specified system log files.
 </parameter_description>
 </parameter>
 <parameter name="command">
-<parameter_description> the name of a binary to run, or %NULL to get user&apos;s shell
+<parameter_description> the name of a binary to run, or empty string to get user&apos;s shell
 </parameter_description>
 </parameter>
 <parameter name="argv">
-<parameter_description> the empty string terminated argument list to be passed to @command
+<parameter_description> an argument list to be passed to @command
 </parameter_description>
 </parameter>
 <parameter name="envv">
-<parameter_description> an empty string terminated list of environment variables to be
+<parameter_description> a list of environment variables to be
 added to the environment before starting @command
 </parameter_description>
 </parameter>
 <parameter name="directory">
-<parameter_description> the name of a directory the command should start in, or empty string
+<parameter_description> the name of a directory the command should start in, or
+empty string to inherit starting directory from parent
 </parameter_description>
 </parameter>
 <parameter name="lastlog">
-<parameter_description> %TRUE if the session should be logged to the lastlog
+<parameter_description> %true if the session should be logged to the lastlog
 </parameter_description>
 </parameter>
 <parameter name="utmp">
-<parameter_description> %TRUE if the session should be logged to the utmp/utmpx log
+<parameter_description> %true if the session should be logged to the utmp/utmpx log
 </parameter_description>
 </parameter>
 <parameter name="wtmp">
-<parameter_description> %TRUE if the session should be logged to the wtmp/wtmpx log
+<parameter_description> %true if the session should be logged to the wtmp/wtmpx log
 </parameter_description>
 </parameter>
 </parameters>
@@ -290,12 +279,12 @@ added to the environment before starting @command
 <function name="vte_terminal_match_check">
 <description>
 Checks if the text in and around the specified position matches any of the
-regular expressions previously set using vte_terminal_match_add().  If a
-match exists, the text string is returned and the number associated with
-the matched regular expression will be stored in @tag.
+regular expressions previously set using vte_terminal_match_add_gregex(). If a
+match exists, the text string and the number associated with the matched regular
+expression is returned.
 
 If more than one regular expression has been set with
-vte_terminal_match_add(), then expressions are checked in the order in
+vte_terminal_match_add_gregex(), then expressions are checked in the order in
 which they were added.
 
 
@@ -313,13 +302,9 @@ which they were added.
 <parameter_description> the text row
 </parameter_description>
 </parameter>
-<parameter name="tag">
-<parameter_description> pointer to an integer
-</parameter_description>
-</parameter>
 </parameters>
-<return> a string which matches one of the previously set regular
-expressions.
+<return> a #Gnome::Vte::Match instance holding string which matches one of the
+previously set regular expressions and a tag of matched regular expression.
 </return>
 </function>
 
@@ -359,7 +344,414 @@ used in each direction, and do not need to be doubled.
 </parameter_description>
 </parameter>
 </parameters>
-<return>#Gnome::Vte::Padding instance holding both paddings</return>
+<return> #Gnome::Vte::Padding instance holding both paddings
+</return>
+</function>
+
+<function name="vte_terminal_get_child_exit_status">
+<description>
+Gets the exit status of the command started by vte_terminal_fork_command().
+See your C library's documentation for more details on how to interpret the
+exit status.
+
+Note that this function may only be called from the signal handler of
+the &quot;child-exited&quot; signal.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the child's exit status
+</return>
+</function>
+
+<function name="vte_terminal_get_cursor_blink_mode">
+<description>
+Gets cursor blink mode.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> cursor blink mode
+</return>
+</function>
+
+<function name="vte_terminal_get_cursor_shape">
+<description>
+Gets cursor shape.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> cursor shape
+</return>
+</function>
+
+<function name="vte_terminal_get_default_emulation">
+<description>
+Queries the terminal for its default emulation, which is attempted if
+vte_terminal_set_default_emulation() is used.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the name of the default terminal type the widget attempts to emulate
+</return>
+</function>
+
+<function name="vte_terminal_get_pty">
+<description>
+Gets the file descriptor, or -1 if the terminal has no PTY.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the file descriptor, or -1 if the terminal has no PTY
+</return>
+</function>
+
+<function name="vte_terminal_match_add_gregex">
+<description>
+Adds the regular expression @regex to the list of matching expressions. When the
+user moves the mouse cursor over a section of displayed text which matches
+this expression, the text will be highlighted.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="regex">
+<parameter_description> a #GRegex
+</parameter_description>
+</parameter>
+<parameter name="flags">
+<parameter_description> the #GRegexMatchFlags to use when matching the regex
+</parameter_description>
+</parameter>
+</parameters>
+<return> an integer associated with this expression
+</return>
+</function>
+
+<function name="vte_terminal_match_set_cursor">
+<description>
+Sets which cursor the terminal will use if the pointer is over the pattern
+specified by @tag. The terminal keeps a reference to @cursor.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="tag">
+<parameter_description> the tag of the regex which should use the specified cursor
+</parameter_description>
+</parameter>
+<parameter name="cursor">
+<parameter_description> the #GdkCursor which the terminal should use when the pattern is
+highlighted
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_match_set_cursor_name">
+<description>
+Sets which cursor the terminal will use if the pointer is over the pattern
+specified by @tag.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="tag">
+<parameter_description> the tag of the regex which should use the specified cursor
+</parameter_description>
+</parameter>
+<parameter name="cursor_name">
+<parameter_description> the name of the cursor
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_match_set_cursor_type">
+<description>
+Sets which cursor the terminal will use if the pointer is over the pattern
+specified by @tag.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="tag">
+<parameter_description> the tag of the regex which should use the specified cursor
+</parameter_description>
+</parameter>
+<parameter name="cursor_type">
+<parameter_description> a #GdkCursorType
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_select_all">
+<description>
+Selects all text within the terminal (including the scrollback buffer).
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_select_none">
+<description>
+Clears the current selection.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_background_tint_color">
+<description>
+If a background image has been set using
+vte_terminal_set_background_image(),
+vte_terminal_set_background_image_file(), or
+vte_terminal_set_background_transparent(), and the value set by
+vte_terminal_set_background_saturation() is less than one, the terminal
+will adjust the color of the image before drawing the image.  To do so,
+the terminal will create a copy of the background image (or snapshot of
+the root window) and modify its pixel values.  The initial tint color
+is black.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="color">
+<parameter_description> a color which the terminal background should be tinted to if its
+saturation is not 1.0.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_color_cursor">
+<description>
+Sets the background color for text which is under the cursor.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="cursor_background">
+<parameter_description> the new color to use for the text cursor
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_color_highlight">
+<description>
+Sets the background color for text which is highlighted.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="highlight_background">
+<parameter_description> the new color to use for highlighted text
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_cursor_blink_mode">
+<description>
+Sets whether or not the cursor will blink. Using %VTE_CURSOR_BLINK_SYSTEM
+will use the #Gtk::Settings::property_gtk_cursor_blink setting.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="mode">
+<parameter_description> the #VteTerminalCursorBlinkMode to use
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_cursor_shape">
+<description>
+Sets the shape of the cursor drawn.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="shape">
+<parameter_description> the #VteTerminalCursorShape to use
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_pty">
+<description>
+Attach an existing PTY master side to the terminal widget. Use
+instead of vte_terminal_fork_command() or vte_terminal_forkpty().
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="pty_master">
+<parameter_description> a file descriptor of the master end of a PTY
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_scroll_background">
+<description>
+Controls whether or not the terminal will scroll the background image (if
+one is set) when the text in the window must be scrolled.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="scroll">
+<parameter_description> %TRUE if the terminal should scroll the background image along with
+text.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_word_chars">
+<description>
+When the user double-clicks to start selection, the terminal will extend
+the selection on word boundaries.  It will treat characters included in @spec
+as parts of words, and all other characters as word separators. Ranges of
+characters can be specified by separating them with a hyphen.
+
+As a special case, if @spec is empty string, the terminal will
+treat all graphic non-punctuation non-space characters as word characters.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="spec">
+<parameter_description> a specification
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_background_image">
+<description>
+Sets a background image for the widget. Text which would otherwise be
+drawn using the default background color will instead be drawn over the
+specified image. If necessary, the image will be tiled to cover the
+widget's entire visible area. If specified by
+vte_terminal_set_background_saturation(), the terminal will tint its
+in-memory copy of the image before applying it to the terminal. If @image will
+be Glib::RefPtr&lt;Gdk::PixBuf&gt;(<!-- -->) then background will be canceled.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="image">
+<parameter_description> a Glib::RefPtr&lt;Gdk::Pixbuf&gt; to use
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
 </function>
 
 </root>

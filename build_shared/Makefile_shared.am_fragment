@@ -3,6 +3,8 @@
 ## needs defined:
 ##  files_extra_h
 ##  files_extra_cc
+##  files_internal_h
+##  files_internal_cc
 ## returns:
 ##  many variables
 ##  but only
@@ -34,8 +36,6 @@ generated_private_headers = $(patsubst %.hg,$(srcdir)/private/%_p.h,$(files_hg))
 tools_dir = $(top_srcdir)/tools
 tools_dir_m4 = $(tools_dir)/m4
 
-# this is not included. I don't know why...
-#include $(tools_dir)/Makefile_list_of_sources.am_fragment
 include $(top_srcdir)/tools/Makefile_list_of_sources.am_fragment
 # defined:
 #  files_tools_m4
@@ -50,8 +50,6 @@ gen_wrap_init_args = --namespace=Gnome --namespace=$(sublib_namespace) --parent_
 run_gen_wrap_init  = $(gen_wrap_init_path) $(gen_wrap_init_args)
 files_hg_with_path = $(patsubst %.hg,$(srcdir)/g/%.hg,$(files_hg))
 
-# # # #
-# commented for now, because hack needs to be used
 BUILT_SOURCES = $(generated_sources_h) $(generated_sources_cc) $(generated_private_headers)
 
 $(srcdir)/private/%_p.h: %.h
@@ -60,8 +58,6 @@ $(srcdir)/private/%_p.h: %.h
 
 %.h: $(srcdir)/g/%.hg $(srcdir)/g/%.ccg $(tools_m4) $(files_defs_from_g)
 	$(run_gmmproc) $(notdir $*) $(srcdir)/g $(srcdir)
-# end of "commented for now"
-# # # #
 
 $(srcdir)/wrap_init.cc: $(gen_wrap_init_path) $(files_hg_with_path)
 	$(run_gen_wrap_init) $(files_hg_with_path) >$@
@@ -76,18 +72,12 @@ common_ldflags = -version-info $(sublib_libversion) $(no_undefined)
 
 all_includes = -I$(top_builddir)/src -I$(top_srcdir)/src $(sublib_cflags)
 
-EXTRA_DIST = $(generated_sources_cc) $(files_extra_cc) $(generated_sources_h) $(files_extra_h)
-# DISTFILES = $(DIST_COMMON) $(dist_sources) $(TEXINFOS) $(EXTRA_DIST)
+EXTRA_DIST = $(generated_sources_cc) $(files_extra_cc) $(files_internal_cc) $(generated_sources_h) $(files_extra_h) $(files_internal_h)
 
 DEFS = @DEFS@ -DG_LOG_DOMAIN=\"$(sublib_name)\"
-# DEFAULT_INCLUDES =
 INCLUDES = $(strip $(all_includes)) $(DISABLE_DEPRECATED_CFLAGS) $(DISABLE_DEPRECATED_API_CFLAGS)
 
 sublib_includedir = $(includedir)/$(sublib_libname)/$(sublib_name)
 sublib_include_HEADERS = $(generated_sources_h) $(files_extra_h)
 
-# # # #
-# commented for now, because hack needs to be used
 MOSTLYCLEANFILES = $(generated_sources_cc) $(generated_sources_h) $(generated_private_headers)
-# end of "commented for now"
-# # # #

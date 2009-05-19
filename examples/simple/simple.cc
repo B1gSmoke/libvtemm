@@ -18,17 +18,9 @@
  * along with Terminal Example.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <string>
 #include <vector>
 
-#include <unistd.h>
-#include <sys/types.h>
-#include <pwd.h>
-
 #include "simple.h"
-
-static std::string
-get_shell();
 
 Simple::Simple()
 :
@@ -44,17 +36,11 @@ Simple::Simple()
   // put box into window.
   add(m_box);
   // set up a terminal.
-  /*
-  we are making a NULL terminated string vector. as we are passing neither
-  argv nor envv, the string vector contains one empty string only.
-  */
-  std::vector<std::string> nil(1, std::string());
-  std::string command(get_shell());
-  m_terminal.fork_command(command, nil, nil, std::string(), false, false, false);
+  m_terminal.fork_command();
   m_terminal.set_size(80, 24);
   m_terminal.signal_child_exited().connect(sigc::mem_fun(*this, &Simple::on_child_exited));
-  m_terminal.set_flags(Gtk::CAN_DEFAULT);
-  m_terminal.grab_default();
+  m_terminal.set_flags(Gtk::CAN_FOCUS);
+  m_terminal.grab_focus();
   // setting geometry hints is based on gnome-terminal code.
   Gdk::Geometry hints;
   Gnome::Vte::Padding pads(m_terminal.get_padding());
@@ -81,14 +67,4 @@ void
 Simple::on_child_exited()
 {
   hide();
-}
-
-// static
-
-static std::string
-get_shell()
-{
-  uid_t uid(getuid());
-  passwd* pwd(getpwuid(uid));
-  return pwd->pw_shell;
 }
