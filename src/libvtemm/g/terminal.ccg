@@ -105,13 +105,14 @@ Terminal::get_cursor_position() const
   return CursorPosition(column, row);
 }
 
-Glib::ustring
-Terminal::match_check(long column, long row, int& tag)
+Match
+Terminal::match_check(long column, long row)
 {
+  int tag = 0;
   char* c_text = vte_terminal_match_check(gobj(), column, row, &tag);
   Glib::ustring text(c_text);
   g_free(c_text);
-  return text;
+  return Match(text, tag);
 }
 
 Padding

@@ -27,6 +27,7 @@ _PINCLUDE(gtkmm/private/widget_p.h)
 #include <glibmm.h>
 #include <gtkmm.h>
 #include <libvtemm/cursorposition.h>
+#include <libvtemm/match.h>
 #include <libvtemm/padding.h>
 #include <libvtemm/textandcharattrs.h>
 #include <pangomm.h>
@@ -183,7 +184,8 @@ public:
   _WRAP_METHOD(void match_remove(int tag), vte_terminal_match_remove)
 
   _WRAP_METHOD_DOCS_ONLY(vte_terminal_match_check)
-  Glib::ustring match_check(long column, long row, int& tag);
+  //Glib::ustring match_check(long column, long row, int& tag);
+  Match match_check(long column, long row);
 
   _WRAP_METHOD(void set_emulation(const Glib::ustring& emulation), vte_terminal_set_emulation)
   _WRAP_METHOD(const Glib::ustring get_emulation() const, vte_terminal_get_emulation)
