@@ -143,11 +143,12 @@ AC_CONFIG_FILES([
   scripts/Makefile
 
   docs/Makefile
-  docs/reference/Makefile
+    docs/reference/Makefile
     docs/reference/Doxyfile
 
   examples/Makefile
     examples/simple/Makefile
+    examples/gettexter/Makefile
 
   old_news_and_changelogs/Makefile
 ])

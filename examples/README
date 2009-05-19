@@ -1,1 +1,2 @@
 simple: Displays a terminal with a shell taken from user's passwd.
+gettexter: Silly program showing how to use feed and get_text.
