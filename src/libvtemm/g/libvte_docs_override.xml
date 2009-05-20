@@ -754,4 +754,116 @@ be Glib::RefPtr&lt;Gdk::PixBuf&gt;(<!-- -->) then background will be canceled.
 <return></return>
 </function>
 
+<function name="vte_terminal_get_adjustment">
+<description>
+Gets terminal's adjustment for use in scrollbar for example.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> @terminal's adjustment
+</return>
+</function>
+
+<function name="vte_terminal_get_window_title">
+<description>
+Gets terminal's window title.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> @terminal's window title
+</return>
+</function>
+
+<function name="vte_terminal_get_char_height">
+<description>
+Gets terminal's char height for use in @GtkGeometry for example.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> @terminal's char height
+</return>
+</function>
+
+<function name="vte_terminal_get_row_count">
+<description>
+Gets terminal's row count.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> @terminal's row count
+</return>
+</function>
+
+<function name="vte_terminal_get_icon_title">
+<description>
+Gets terminal's icon title.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> @terminal's icon title
+</return>
+</function>
+
+<function name="vte_terminal_get_char_width">
+<description>
+Gets terminal's char width for use in @GtkGeometry for example.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> @terminal's char width
+</return>
+</function>
+
+<function name="vte_terminal_get_column_count">
+<description>
+Gets terminal's column count.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> @terminal's column count
+</return>
+</function>
+
 </root>
