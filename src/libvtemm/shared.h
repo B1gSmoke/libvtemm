@@ -30,7 +30,42 @@ namespace Gnome
 namespace Vte
 {
 
-typedef Glib::ArrayHandle<std::string> StdStringArrayHandle;
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+
+struct StdStringNullTraits
+{
+  typedef std::string CppType;
+  typedef const char* CType;
+  typedef char* CTypeNonConst;
+
+  static CType to_c_type(const std::string& str)
+  {
+    return (str.empty()) ? 0 : str.c_str();
+  }
+  static CType to_c_type(const Glib::ustring& str)
+  {
+    return (str.empty()) ? 0 : str.c_str();
+  }
+  static CType to_c_type(CType str)
+  {
+    return str;
+  }
+  static CppType to_cpp_type(CType str)
+  {
+    return (str) ? std::string(str) : std::string();
+  }
+  static void release_c_type(CType str)
+  {
+    g_free(const_cast<CTypeNonConst>(str));
+  }
+};
+
+#endif // DOXYGEN_SHOULD_SKIP_THIS
+
+/** StdStringArrayHandle - when converted to vector holding c strings, every
+ * empty std::string in StdStringArrayHandle is converted to 0.
+ */
+typedef Glib::ArrayHandle<std::string, StdStringNullTraits> StdStringArrayHandle;
 
 } // namespace Vte
 

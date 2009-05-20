@@ -39,22 +39,22 @@ get_c_string(const std::string& cpp_string)
 char**
 get_c_string_vector(const StdStringArrayHandle& cpp_string_vector)
 {
-  if (cpp_string_vector.empty() || cpp_string_vector[0].empty())
+  unsigned int cpp_string_vector_size = cpp_string_vector.size();
+  const char* const* data = cpp_string_vector.data();
+  if ((!cpp_string_vector_size) || (!(data[0])))
   {
     return 0;
   }
-  unsigned int cpp_string_vector_len = cpp_string_vector.size();
-  if (cpp_string_vector[cpp_string_vector_len - 1].empty())
+  if (!(data[cpp_string_vector_size - 1]))
   {
-  	cpp_string_vector_len--;
+    cpp_string_vector_size--;
   }
-  char** c_string_vector = reinterpret_cast<char**>(g_malloc0(cpp_string_vector_len + 1));
-  const char* const * temp_c_string_vector = cpp_string_vector.data();
-  for (unsigned int iter = 0; iter < cpp_string_vector_len; iter++)
+  char** dup = reinterpret_cast<char**>(g_malloc0((cpp_string_vector_size + 1) * sizeof(char*)));
+  for (unsigned int iter = 0; iter < cpp_string_vector_size; iter++)
   {
-    c_string_vector[iter] = g_strdup(temp_c_string_vector[iter]);
+    dup[iter] = g_strdup(data[iter]);
   }
-  return c_string_vector;
+  return dup;
 }
 
 } // namespace Vte
