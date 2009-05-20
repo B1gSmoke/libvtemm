@@ -39,11 +39,15 @@ get_c_string(const std::string& cpp_string)
 char**
 get_c_string_vector(const StdStringArrayHandle& cpp_string_vector)
 {
-  if (cpp_string_vector.empty())
+  if (cpp_string_vector.empty() || cpp_string_vector[0].empty())
   {
     return 0;
   }
   unsigned int cpp_string_vector_len = cpp_string_vector.size();
+  if (cpp_string_vector[cpp_string_vector_len - 1].empty())
+  {
+  	cpp_string_vector_len--;
+  }
   char** c_string_vector = reinterpret_cast<char**>(g_malloc0(cpp_string_vector_len + 1));
   const char* const * temp_c_string_vector = cpp_string_vector.data();
   for (unsigned int iter = 0; iter < cpp_string_vector_len; iter++)

@@ -191,6 +191,8 @@ Starts a new child process under a newly-allocated controlling
 pseudo-terminal.  TERM is automatically set to reflect the terminal widget&apos;s
 emulation setting.  If @lastlog, @utmp, or @wtmp are %true, logs the session
 to the specified system log files.
+See Gnome::Vte::Terminal::fork_command() for description about format of @envv
+parameter.
 
 
 </description>
@@ -233,6 +235,9 @@ pseudo-terminal.  The argv[0] is expected to be the name of the file being run,
 as it would be if execve() were being called. TERM is automatically set to
 reflect the terminal widget&apos;s emulation setting. If @lastlog, @utmp, or
 @wtmp are %true, logs the session to the specified system log files.
+@argv and @envv can be in two formats: with last string empty and with last
+string non-empty, so user-defined vector or result of #Glib::shell_parse_argv
+can be passed.
 
 
 </description>

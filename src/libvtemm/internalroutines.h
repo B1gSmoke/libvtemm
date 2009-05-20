@@ -29,9 +29,19 @@ namespace Gnome
 namespace Vte
 {
 
+/* Returns a c string from std::string. If std::string is empty, returns 0.
+ * Returned string should not be modified nor freed manually.
+ */
 const char*
 get_c_string(const std::string& cpp_string);
 
+/* Returns a 0 terminated c string vector from StdStringArrayHandle. If
+ * StdStringArrayHandle has n strings and all of them are not empty, it will
+ * return c string vector with n + 1 strings, where last is 0. If
+ * StdStringArrayHandle has n strings and last string is empty, then it will
+ * return c string vector with n elements, where last is 0.
+ * Returned c string vector has to be freed with g_strfreev.
+ */
 char**
 get_c_string_vector(const StdStringArrayHandle& cpp_string_vector);
 

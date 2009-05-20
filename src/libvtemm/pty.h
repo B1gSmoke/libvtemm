@@ -38,9 +38,9 @@ namespace Pty
  * side of the PTY pair, logging the session to the specified files, and
  * storing the child's PID in the given argument.
  * @param child Stored child's PID.
- * @param env_add Empty string terminated list of environment variables to be added before executing a command.
+ * @param env_add Empty string terminated list of environment variables to be added before executing a command. See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
  * @param command Command to be executed (not interpreted at all). If empty, fork will be executed.
- * @param argv Empty string terminated list of arguments given to executed binary (argv[0] should be a binary name).
+ * @param argv Empty string terminated list of arguments given to executed binary (argv[0] should be a binary name). See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
  * @param directory Path where command have to be executed. If empty, path will be inherited from parent.
  * @param columns Number of columns of pty.
  * @param rows Number of rows of pty.
