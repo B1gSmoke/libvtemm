@@ -53,9 +53,9 @@ public:
   /** Start up the given binary (exact path, not interpreted at all) in a
    * pseudo-terminal of its own, returning the child's PID and logging the
    * session to the specified files.
-   * @param env_add Empty string terminated list of environment variables to be added before executing a command. See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
    * @param command Command to be executed (not interpreted at all). If empty, fork will be executed.
    * @param argv Empty string terminated list of arguments given to executed binary (argv[0] should be a binary name). See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
+   * @param env_add Empty string terminated list of environment variables to be added before executing a command. See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
    * @param directory Path where command have to be executed. If empty, path will be inherited from parent.
    * @param columns Number of columns of pty. If set to 0, compiled-in defaults will be used.
    * @param rows Number of rows of pty. If set to 0, compiled-in defaults will be used.

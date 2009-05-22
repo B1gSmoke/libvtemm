@@ -22,7 +22,7 @@
 #include <vte/pty.h>
 
 #include "internalroutines.h"
-#include "pty.h"
+#include "ptymaster.h"
 
 namespace Gnome
 {
