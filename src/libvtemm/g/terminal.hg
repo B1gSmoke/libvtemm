@@ -233,8 +233,8 @@ public:
   _WRAP_METHOD(Glib::ustring get_emulation() const, vte_terminal_get_emulation)
   _WRAP_METHOD(Glib::ustring get_default_emulation() const, vte_terminal_get_default_emulation)
 
-  _WRAP_METHOD(void set_encoding(const Glib::ustring& codeset), vte_terminal_set_encoding)
-  _WRAP_METHOD(Glib::ustring get_encoding() const, vte_terminal_get_encoding)
+  _WRAP_METHOD(void set_encoding(const std::string& codeset), vte_terminal_set_encoding)
+  _WRAP_METHOD(std::string get_encoding() const, vte_terminal_get_encoding)
 
   _WRAP_METHOD(Glib::ustring get_status_line() const, vte_terminal_get_status_line)
 

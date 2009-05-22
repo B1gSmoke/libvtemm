@@ -1005,4 +1005,26 @@ the terminal.
 <return></return>
 </function>
 
+<function name="vte_terminal_set_encoding">
+<description>
+Changes the encoding the terminal will expect data from the child to
+be encoded with.  For certain terminal types, applications executing in the
+terminal can change the encoding.  The default encoding is defined by the
+application's locale settings.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="codeset">
+<parameter_description> a valid Glib::IConv encoding
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
 </root>

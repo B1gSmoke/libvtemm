@@ -38,6 +38,7 @@ public:
   /** The only way to fill #Gnome::Vte::Pty::Size class.
    * @param columns Pseudo-terminals number of columns.
    * @param rows Pseudo-terminals number of rows.
+   * @param ok @c false, if an error occured while getting size of pseudo-terminal.
    */
   Size(int columns, int rows, bool ok = true);
   virtual ~Size();

@@ -37,12 +37,12 @@ TextAndCharAttrs::~TextAndCharAttrs()
 
 Glib::ustring TextAndCharAttrs::get_text() const
 {
-  return text;
+  return m_text;
 }
 
 ArrayHandle_CharAttributes TextAndCharAttrs::get_attributes() const
 {
-  return attributes;
+  return m_attributes;
 }
 
 } // namespace Vte
