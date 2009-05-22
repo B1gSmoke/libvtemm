@@ -95,11 +95,12 @@ from the new background color and the items in @palette.
 <function name="vte_terminal_get_text_include_trailing_spaces">
 <description>
 Extracts a view of the visible part of the terminal. Characters will only be
-read if @slot returns %true after being passed the column and row, respectively.
-A #VteCharAttributes structure is added to #TextAndCharAttrs return value for
+read if @slot returns \c true after being passed the column and row, respectively.
+A Gnome::Vte::CharAttributes structure is added to Gnome::Vte::TextAndCharAttrs return value for
 each byte added to the returned string detailing the character&apos;s position,
 colors, and other characteristics. This function differs from get_text() in that
-trailing spaces at the end of lines are included.
+trailing spaces at the end of lines are included. Remember: to get byte
+representation of gotten text, use std::string.
 
 
 </description>
@@ -113,7 +114,7 @@ trailing spaces at the end of lines are included.
 </parameter_description>
 </parameter>
 </parameters>
-<return> a #TextAndCharAttrs with text that may be empty and stored text
+<return> a Gnome::Vte::TextAndCharAttrs with text that may be empty and stored text
 attributes
 </return>
 </function>
@@ -121,10 +122,11 @@ attributes
 <function name="vte_terminal_get_text">
 <description>
 Extracts a view of the visible part of the terminal. Characters will only be
-read if @slot returns %true after being passed the column and row, respectively.
-A #VteCharAttributes structure is added to #TextAndCharAttrs return value for
+read if @slot returns \c true after being passed the column and row, respectively.
+A Gnome::Vte::CharAttributes structure is added to Gnome::Vte::TextAndCharAttrs return value for
 each byte added to the returned string detailing the character&apos;s position,
-colors, and other characteristics.
+colors, and other characteristics. Remember: to get byte representation of
+gotten text, use std::string.
 
 
 </description>
@@ -138,7 +140,7 @@ colors, and other characteristics.
 </parameter_description>
 </parameter>
 </parameters>
-<return> a #TextAndCharAttrs with text that may be empty and stored text
+<return> a Gnome::Vte::TextAndCharAttrs with text that may be empty and stored text
 attributes
 </return>
 </function>
@@ -146,11 +148,12 @@ attributes
 <function name="vte_terminal_get_text_range">
 <description>
 Extracts a view of the visible part of the terminal. Characters will only be
-read if @slot returns %true after being passed the column and row, respectively.
-A #VteCharAttributes structure is added to #TextAndCharAttrs return value for
+read if @slot returns \c true after being passed the column and row, respectively.
+A Gnome::Vte::CharAttributes structure is added to Gnome::Vte::TextAndCharAttrs return value for
 each byte added to the returned string detailing the character&apos;s position,
 colors, and other characteristics. The entire scrollback buffer is scanned, so
 it is possible to read the entire contents of the buffer using this function.
+Remember: to get byte representation of gotten text, use std::string.
 
 
 </description>
@@ -180,7 +183,7 @@ it is possible to read the entire contents of the buffer using this function.
 </parameter_description>
 </parameter>
 </parameters>
-<return> a #TextAndCharAttrs with text that may be empty and stored text
+<return> a Gnome::Vte::TextAndCharAttrs with text that may be empty and stored text
 attributes
 </return>
 </function>
@@ -189,10 +192,9 @@ attributes
 <description>
 Starts a new child process under a newly-allocated controlling
 pseudo-terminal.  TERM is automatically set to reflect the terminal widget&apos;s
-emulation setting.  If @lastlog, @utmp, or @wtmp are %true, logs the session
+emulation setting.  If @lastlog, @utmp, or @wtmp are \c true, logs the session
 to the specified system log files.
-See Gnome::Vte::Terminal::fork_command() for description about format of @envv
-parameter.
+See fork_command() for description about format of @envv parameter.
 
 
 </description>
@@ -212,15 +214,15 @@ empty string to inherit starting directory from parent
 </parameter_description>
 </parameter>
 <parameter name="lastlog">
-<parameter_description> %true if the session should be logged to the lastlog
+<parameter_description> \c true if the session should be logged to the lastlog
 </parameter_description>
 </parameter>
 <parameter name="utmp">
-<parameter_description> %true if the session should be logged to the utmp/utmpx log
+<parameter_description> \c true if the session should be logged to the utmp/utmpx log
 </parameter_description>
 </parameter>
 <parameter name="wtmp">
-<parameter_description> %true if the session should be logged to the wtmp/wtmpx log
+<parameter_description> \c true if the session should be logged to the wtmp/wtmpx log
 </parameter_description>
 </parameter>
 </parameters>
@@ -234,10 +236,10 @@ Starts the specified command under a newly-allocated controlling
 pseudo-terminal.  The argv[0] is expected to be the name of the file being run,
 as it would be if execve() were being called. TERM is automatically set to
 reflect the terminal widget&apos;s emulation setting. If @lastlog, @utmp, or
-@wtmp are %true, logs the session to the specified system log files.
+@wtmp are \c true, logs the session to the specified system log files.
 @argv and @envv can be in two formats: with last string empty and with last
-string non-empty, so user-defined vector or result of #Glib::shell_parse_argv
-can be passed.
+string non-empty, so result of Glib::shell_parse_argv() or user-defined vector
+with all strings non-empty can be passed.
 
 
 </description>
@@ -265,15 +267,15 @@ empty string to inherit starting directory from parent
 </parameter_description>
 </parameter>
 <parameter name="lastlog">
-<parameter_description> %true if the session should be logged to the lastlog
+<parameter_description> \c true if the session should be logged to the lastlog
 </parameter_description>
 </parameter>
 <parameter name="utmp">
-<parameter_description> %true if the session should be logged to the utmp/utmpx log
+<parameter_description> \c true if the session should be logged to the utmp/utmpx log
 </parameter_description>
 </parameter>
 <parameter name="wtmp">
-<parameter_description> %true if the session should be logged to the wtmp/wtmpx log
+<parameter_description> \c true if the session should be logged to the wtmp/wtmpx log
 </parameter_description>
 </parameter>
 </parameters>
@@ -308,7 +310,7 @@ which they were added.
 </parameter_description>
 </parameter>
 </parameters>
-<return> a #Gnome::Vte::Match instance holding string which matches one of the
+<return> a Gnome::Vte::Match instance holding string which matches one of the
 previously set regular expressions and a tag of matched regular expression.
 </return>
 </function>
@@ -326,7 +328,7 @@ coordinate is absolute.
 </parameter_description>
 </parameter>
 </parameters>
-<return> #Gnome::Vte::CursorPosition instance holding both coordinates</return>
+<return> Gnome::Vte::CursorPosition instance holding both coordinates</return>
 </function>
 
 <function name="vte_terminal_get_padding">
@@ -335,10 +337,10 @@ Determines the amount of additional space the widget is using to pad the
 edges of its visible area. This is necessary for cases where characters in
 the selected font don't themselves include a padding area and the text
 itself would otherwise be contiguous with the window border. Applications
-which use the widget's row count, column count, char height, and
-char width fields to set geometry hints using
-#Gtk::Window::set_geometry_hints() will need to add this value to the base
-size. The values returned in #Gnome::Vte::Padding are the total padding
+which use the terminal's row count, column count, char height, and
+char width to set geometry hints using
+Gtk::Window::set_geometry_hints() will need to add this value to the base
+size. The values returned in Gnome::Vte::Padding are the total padding
 used in each direction, and do not need to be doubled.
 
 
@@ -349,7 +351,7 @@ used in each direction, and do not need to be doubled.
 </parameter_description>
 </parameter>
 </parameters>
-<return> #Gnome::Vte::Padding instance holding both paddings
+<return> Gnome::Vte::Padding instance holding both paddings
 </return>
 </function>
 
@@ -407,7 +409,7 @@ Gets cursor shape.
 <function name="vte_terminal_get_default_emulation">
 <description>
 Queries the terminal for its default emulation, which is attempted if
-vte_terminal_set_default_emulation() is used.
+set_default_emulation() is used.
 
 
 </description>
@@ -450,11 +452,11 @@ this expression, the text will be highlighted.
 </parameter_description>
 </parameter>
 <parameter name="regex">
-<parameter_description> a #GRegex
+<parameter_description> a Glib::RefPtr&lt;Glib::Regex&gt;
 </parameter_description>
 </parameter>
 <parameter name="flags">
-<parameter_description> the #GRegexMatchFlags to use when matching the regex
+<parameter_description> the Glib::RegexMatchFlags to use when matching the regex
 </parameter_description>
 </parameter>
 </parameters>
@@ -479,7 +481,7 @@ specified by @tag. The terminal keeps a reference to @cursor.
 </parameter_description>
 </parameter>
 <parameter name="cursor">
-<parameter_description> the #GdkCursor which the terminal should use when the pattern is
+<parameter_description> the Gdk::Cursor which the terminal should use when the pattern is
 highlighted
 </parameter_description>
 </parameter>
@@ -528,7 +530,7 @@ specified by @tag.
 </parameter_description>
 </parameter>
 <parameter name="cursor_type">
-<parameter_description> a #GdkCursorType
+<parameter_description> a Gdk::CursorType
 </parameter_description>
 </parameter>
 </parameters>
@@ -633,8 +635,8 @@ Sets the background color for text which is highlighted.
 
 <function name="vte_terminal_set_cursor_blink_mode">
 <description>
-Sets whether or not the cursor will blink. Using %VTE_CURSOR_BLINK_SYSTEM
-will use the #Gtk::Settings::property_gtk_cursor_blink setting.
+Sets whether or not the cursor will blink. Using Gnome::Vte::CURSOR_BLINK_SYSTEM
+will use the Gtk::Settings::property_gtk_cursor_blink() setting.
 
 </description>
 <parameters>
@@ -643,7 +645,7 @@ will use the #Gtk::Settings::property_gtk_cursor_blink setting.
 </parameter_description>
 </parameter>
 <parameter name="mode">
-<parameter_description> the #VteTerminalCursorBlinkMode to use
+<parameter_description> the Gnome::Vte::TerminalCursorBlinkMode to use
 </parameter_description>
 </parameter>
 </parameters>
@@ -662,7 +664,7 @@ Sets the shape of the cursor drawn.
 </parameter_description>
 </parameter>
 <parameter name="shape">
-<parameter_description> the #VteTerminalCursorShape to use
+<parameter_description> the Gnome::Vte::TerminalCursorShape to use
 </parameter_description>
 </parameter>
 </parameters>
@@ -702,7 +704,7 @@ one is set) when the text in the window must be scrolled.
 </parameter_description>
 </parameter>
 <parameter name="scroll">
-<parameter_description> %TRUE if the terminal should scroll the background image along with
+<parameter_description> \c true if the terminal should scroll the background image along with
 text.
 </parameter_description>
 </parameter>
@@ -742,7 +744,8 @@ specified image. If necessary, the image will be tiled to cover the
 widget's entire visible area. If specified by
 vte_terminal_set_background_saturation(), the terminal will tint its
 in-memory copy of the image before applying it to the terminal. If @image will
-be Glib::RefPtr&lt;Gdk::PixBuf&gt;(<!-- -->) then background will be canceled.
+be Glib::RefPtr&lt;Gdk::PixBuf&gt;(<!-- -->) then background will be canceled
+(or just use unset_background_image()).
 
 
 </description>
@@ -771,7 +774,7 @@ Gets terminal's adjustment for use in scrollbar for example.
 </parameter_description>
 </parameter>
 </parameters>
-<return> @terminal's adjustment
+<return> terminal's adjustment
 </return>
 </function>
 
@@ -787,13 +790,13 @@ Gets terminal's window title.
 </parameter_description>
 </parameter>
 </parameters>
-<return> @terminal's window title
+<return> terminal's window title
 </return>
 </function>
 
 <function name="vte_terminal_get_char_height">
 <description>
-Gets terminal's char height for use in @GtkGeometry for example.
+Gets terminal's char height for use in Gdk::Geometry for example.
 
 
 </description>
@@ -803,7 +806,7 @@ Gets terminal's char height for use in @GtkGeometry for example.
 </parameter_description>
 </parameter>
 </parameters>
-<return> @terminal's char height
+<return> terminal's char height
 </return>
 </function>
 
@@ -819,7 +822,7 @@ Gets terminal's row count.
 </parameter_description>
 </parameter>
 </parameters>
-<return> @terminal's row count
+<return> terminal's row count
 </return>
 </function>
 
@@ -835,13 +838,13 @@ Gets terminal's icon title.
 </parameter_description>
 </parameter>
 </parameters>
-<return> @terminal's icon title
+<return> terminal's icon title
 </return>
 </function>
 
 <function name="vte_terminal_get_char_width">
 <description>
-Gets terminal's char width for use in @GtkGeometry for example.
+Gets terminal's char width for use in Gdk::Geometry for example.
 
 
 </description>
@@ -851,7 +854,7 @@ Gets terminal's char width for use in @GtkGeometry for example.
 </parameter_description>
 </parameter>
 </parameters>
-<return> @terminal's char width
+<return> terminal's char width
 </return>
 </function>
 
@@ -867,8 +870,139 @@ Gets terminal's column count.
 </parameter_description>
 </parameter>
 </parameters>
-<return> @terminal's column count
+<return> terminal's column count
 </return>
+</function>
+
+<function name="vte_terminal_copy_clipboard">
+<description>
+Places the selected text in the terminal in the \c GDK_SELECTION_CLIPBOARD
+selection.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_paste_clipboard">
+<description>
+Sends the contents of the \c GDK_SELECTION_CLIPBOARD selection to the
+terminal's child.  If necessary, the data is converted from UTF-8 to the
+terminal's current encoding. It's called on paste menu item, or when
+user presses Shift+Insert.
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_paste_primary">
+<description>
+Sends the contents of the \c GDK_SELECTION_PRIMARY selection to the terminal's
+child.  If necessary, the data is converted from UTF-8 to the terminal's
+current encoding.  The terminal will call also paste the
+\c GDK_SELECTION_PRIMARY selection when the user clicks with the the second
+mouse button.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_copy_primary">
+<description>
+Places the selected text in the terminal in the \c GDK_SELECTION_PRIMARY
+selection.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_set_font">
+<description>
+Sets the font used for rendering all text displayed by the terminal,
+overriding any fonts set using Gtk::Widget::modify_font().  The terminal
+will immediately attempt to load the desired font, retrieve its
+metrics, and attempt to resize itself to keep the same number of rows
+and columns.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="font_desc">
+<parameter_description> The Pango::FontDescription of the desired font.
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_get_status_line">
+<description>
+Some terminal emulations specify a status line which is separate from the
+main display area, and define a means for applications to move the cursor
+to the status line and back.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return> the current contents of the terminal's status line.  For terminals
+like &quot;xterm&quot;, this will usually be the empty string.
+</return>
+</function>
+
+<function name="vte_terminal_im_append_menuitems">
+<description>
+Appends menu items for various input methods to the given menu.  The
+user can select one of these items to modify the input method used by
+the terminal.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="menushell">
+<parameter_description> a Gtk::MenuShell
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
 </function>
 
 </root>

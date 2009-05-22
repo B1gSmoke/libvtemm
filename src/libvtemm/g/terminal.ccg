@@ -117,6 +117,12 @@ Terminal::set_default_colors(const Gdk::ArrayHandle_Color& palette)
   vte_terminal_set_colors(gobj(), 0, 0, palette.data(), palette.size());
 }
 
+void
+Terminal::unset_background_image()
+{
+  vte_terminal_set_background_image(gobj(), 0);
+}
+
 bool
 Terminal::always_selected(long, long)
 {

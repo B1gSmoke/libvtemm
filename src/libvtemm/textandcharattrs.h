@@ -35,10 +35,10 @@ class TextAndCharAttrs
 {
 public:
 /** The only way to fill #Gnome::Vte::TextAndCharAttrs class.
- * @param src_text String to store.
- * @param src_attributes Array of string's attributes.
+ * @param text String to store.
+ * @param attributes Array of string's attributes.
  */
-  TextAndCharAttrs(const Glib::ustring& src_text, const ArrayHandle_CharAttributes& src_attributes);
+  TextAndCharAttrs(const Glib::ustring& text, const ArrayHandle_CharAttributes& attributes);
   virtual ~TextAndCharAttrs();
 
 /** Gets stored string.
@@ -52,8 +52,8 @@ public:
   ArrayHandle_CharAttributes get_attributes() const;
   // well, setters are not needed.
 private:
-  ArrayHandle_CharAttributes attributes;
-  Glib::ustring text;
+  ArrayHandle_CharAttributes m_attributes;
+  Glib::ustring m_text;
 };
 
 } // namespace Vte

@@ -65,8 +65,8 @@ public:
  * @return <tt>true</tt> if char is underlined, otherwise <tt>false</tt>.
  */
   _MEMBER_GET(underline, underline, bool, guint)
-/** Checks whether or not a char is strokethrough.
- * @return <tt>true</tt> if char is strokethrough, otherwise <tt>false</tt>.
+/** Checks whether or not a char is struckthrough.
+ * @return <tt>true</tt> if char is struckthrough, otherwise <tt>false</tt>.
  */
   _MEMBER_GET(strikethrough, strikethrough, bool, guint)
 
@@ -107,6 +107,6 @@ namespace Glib
  *
  * @relates Gnome::Vte::CharAttributes
  */
-Gnome::Vte::CharAttributes wrap(VteCharAttributes* object, bool take_copy = false);
+Gnome::Vte::CharAttributes wrap(VteCharAttributes* object, bool take_copy = true);
 
 } // namespace Glib

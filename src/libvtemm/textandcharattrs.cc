@@ -26,15 +26,14 @@ namespace Gnome
 namespace Vte
 {
 
-TextAndCharAttrs::TextAndCharAttrs(const Glib::ustring& src_text, const ArrayHandle_CharAttributes& src_attributes)
-: attributes(src_attributes),
-  text(src_text)
-{
-}
+TextAndCharAttrs::TextAndCharAttrs(const Glib::ustring& text, const ArrayHandle_CharAttributes& attributes)
+:
+  m_attributes(attributes),
+  m_text(text)
+{}
 
 TextAndCharAttrs::~TextAndCharAttrs()
-{
-}
+{}
 
 Glib::ustring TextAndCharAttrs::get_text() const
 {

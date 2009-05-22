@@ -33,40 +33,82 @@ namespace Vte
 namespace Pty
 {
 
-int _open(Glib::Pid& child, const StdStringArrayHandle& env_add,
-          const std::string& command, const StdStringArrayHandle& argv,
-          const std::string& directory,
-          int columns, int rows,
-          bool lastlog, bool utmp, bool wtmp)
+Master::Master(int d)
+:
+  m_d(d)
+{}
+
+Master::~Master()
 {
+  if (m_d != -1)
+  {
+    close();
+  }
+}
+
+
+Glib::Pid
+Master::open(const std::string& command,
+             const StdStringArrayHandle& argv,
+             const StdStringArrayHandle& env_add,
+             const std::string& directory,
+             int columns,
+             int rows,
+             bool lastlog,
+             bool utmp,
+             bool wtmp)
+{
+  Glib::Pid child = -1;
   const char* c_command = get_c_string(command);
   const char* c_directory = get_c_string(directory);
   char** c_env_add = get_c_string_vector(env_add);
   char** c_argv = get_c_string_vector(argv);
-  int master = _vte_pty_open(&child, c_env_add, c_command, c_argv, c_directory, columns, rows, static_cast<gboolean>(lastlog), static_cast<gboolean>(utmp), static_cast<gboolean>(wtmp));
+  m_d = _vte_pty_open(&child, c_env_add, c_command, c_argv, c_directory, columns, rows, static_cast<gboolean>(lastlog), static_cast<gboolean>(utmp), static_cast<gboolean>(wtmp));
   g_strfreev(c_env_add);
   g_strfreev(c_argv);
-  return master;
+  return child;
 }
 
-int _get_size(int master, int& columns, int& rows)
+Size
+Master::get_size() const
 {
-  return _vte_pty_get_size(master, &columns, &rows);
+  int columns, rows;
+  int res = _vte_pty_get_size(m_d, &columns, &rows);
+  if (res < 0)
+  {
+    return Size(-1, -1, false);
+  }
+  return Size(columns, rows);
 }
 
-int _set_size(int master, int columns, int rows)
+bool
+Master::set_size(int columns, int rows)
 {
-  return _vte_pty_set_size(master, columns, rows);
+  int res = _vte_pty_set_size(m_d, columns, rows);
+  if (res < 0)
+  {
+    return false;
+  }
+  return true;
 }
 
-void _set_utf8(int pty, bool utf8)
+void
+Master::set_utf8(bool utf8)
 {
-  _vte_pty_set_utf8(pty, static_cast<gboolean>(utf8));
+  _vte_pty_set_utf8(m_d, static_cast<gboolean>(utf8));
 }
 
-void _close(int pty)
+int
+Master::get_pty() const
 {
-  _vte_pty_close(pty);
+  return m_d;
+}
+
+void
+Master::close()
+{
+  _vte_pty_close(m_d);
+  m_d = -1;
 }
 
 } // namespace Pty

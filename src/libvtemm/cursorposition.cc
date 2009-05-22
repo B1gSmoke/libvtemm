@@ -30,12 +30,10 @@ CursorPosition::CursorPosition(long column, long row)
 :
   m_column(column),
   m_row(row)
-{
-}
+{}
 
 CursorPosition::~CursorPosition()
-{
-}
+{}
 
 long CursorPosition::get_column() const
 {

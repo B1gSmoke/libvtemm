@@ -30,12 +30,10 @@ Padding::Padding(int x_pad, int y_pad)
 :
   m_x_pad(x_pad),
   m_y_pad(y_pad)
-{
-}
+{}
 
 Padding::~Padding()
-{
-}
+{}
 
 int Padding::get_x_pad() const
 {

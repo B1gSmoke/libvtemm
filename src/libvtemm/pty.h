@@ -22,6 +22,7 @@
 #define _LIBVTEMM_PTY_H_
 
 #include <glibmm.h>
+#include <libvtemm/ptysize.h>
 #include <libvtemm/shared.h>
 
 namespace Gnome
@@ -33,54 +34,78 @@ namespace Vte
 namespace Pty
 {
 
-/** Start up the given binary (exact path, not interpreted at all) in a
- * pseudo-terminal of its own, returning the descriptor for the master
- * side of the PTY pair, logging the session to the specified files, and
- * storing the child's PID in the given argument.
- * @param child Stored child's PID.
- * @param env_add Empty string terminated list of environment variables to be added before executing a command. See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
- * @param command Command to be executed (not interpreted at all). If empty, fork will be executed.
- * @param argv Empty string terminated list of arguments given to executed binary (argv[0] should be a binary name). See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
- * @param directory Path where command have to be executed. If empty, path will be inherited from parent.
- * @param columns Number of columns of pty.
- * @param rows Number of rows of pty.
- * @param lastlog %true if the session should be logged to the lastlog.
- * @param utmp %true if the session should be logged to the utmp/utmpx log.
- * @param wtmp %true if the session should be logged to the wtmp/wtmpx log.
- * @return Descriptor for the master side of the PTY pair.
+/** Master - class holding a descriptor for the master side of PTY pair.
  */
-int _open(Glib::Pid& child, const StdStringArrayHandle& env_add,
-          const std::string& command, const StdStringArrayHandle& argv,
-          const std::string& directory,
-          int columns, int rows,
-          bool lastlog, bool utmp, bool wtmp);
+class Master
+{
+public:
+  /** Sets descriptor for the master side of PTY pair to @a d. Use other than
+   * default value at your own risk. Otherwise
+   * use open() to set a descriptor.
+   * @param d Descriptor for the master side of PTY pair. -1 by default.
+   */
+  Master(int d = -1);
+  /** If master side of PTY pair is not equal to -1, it calls close().
+   * Otherwise it do nothing.
+   */
+  ~Master();
 
-/** Read the size of a terminal.
- * @param master Descriptor for the master side of the PTY pair.
- * @param columns Stored number of columns.
- * @param rows Stored number of rows.
- * @return Returns 0 on success, -1 on failure, with errno set to defined return codes from ioctl().
- */
-int _get_size(int master, int& columns, int& rows);
+  /** Start up the given binary (exact path, not interpreted at all) in a
+   * pseudo-terminal of its own, returning the child's PID and logging the
+   * session to the specified files.
+   * @param env_add Empty string terminated list of environment variables to be added before executing a command. See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
+   * @param command Command to be executed (not interpreted at all). If empty, fork will be executed.
+   * @param argv Empty string terminated list of arguments given to executed binary (argv[0] should be a binary name). See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
+   * @param directory Path where command have to be executed. If empty, path will be inherited from parent.
+   * @param columns Number of columns of pty. If set to 0, compiled-in defaults will be used.
+   * @param rows Number of rows of pty. If set to 0, compiled-in defaults will be used.
+   * @param lastlog @c true if the session should be logged to the lastlog.
+   * @param utmp @c true if the session should be logged to the utmp/utmpx log.
+   * @param wtmp @c true if the session should be logged to the wtmp/wtmpx log.
+   * @return Descriptor for the master side of the PTY pair.
+   */
+  Glib::Pid open(const std::string& command = std::string(),
+                 const StdStringArrayHandle& argv = StdStringArrayHandle(0, Glib::OWNERSHIP_NONE),
+                 const StdStringArrayHandle& env_add = StdStringArrayHandle(0, Glib::OWNERSHIP_NONE),
+                 const std::string& directory = std::string(),
+                 int columns = 0,
+                 int rows = 0,
+                 bool lastlog = false,
+                 bool utmp = false,
+                 bool wtmp = false);
 
-/** Set the size of a terminal.
- * @param master Descriptor for the master side of the PTY pair.
- * @param columns Number of columns to set.
- * @param rows Number of rows to set.
- * @return Returns 0 on success, -1 on failure, with errno set to defined return codes from ioctl().
- */
-int _set_size(int master, int columns, int rows);
+  /** Attempts to read the pseudo terminal's window size. If something goes
+   * wrong, Gnome::Vte::Pty::Size::is_ok() will return @c false and @c errno
+   * will be set.
+   * @return Gnome::Vte::Pty::Size instance holding number of columns and rows.
+   */
+  Size get_size() const;
 
-/** Try to let the kernel know that the terminal is or is not UTF-8.
- * @param pty Descriptor for the master side of the PTY pair.
- * @param utf8 %TRUE if the terminal is UTF-8.
- */
-void _set_utf8(int pty, bool utf8);
+  /** Attempts to resize the pseudo terminal's window size.  If successful, the
+   * OS kernel will send @c SIGWINCH to the child process group, otherwise
+   * @c false will be returned and @c errno will be set.
+   * @param columns The desired number of columns.
+   * @param rows The desired number of rows.
+   * @return @c false if there was an error, otherwise @c true.
+   */
+  bool set_size(int columns, int rows);
 
-/** Close a pty
- * @param pty Descriptor for the master side of the PTY pair.
- */
-void _close(int pty);
+  /** Try to let the kernel know that the terminal is or is not UTF-8.
+   * @param utf8 @c true if the terminal is UTF-8.
+   */
+  void set_utf8(bool utf8 = true);
+  
+  /** Gets descriptor for the master side of the PTY pair.
+   * @return Descriptor for the master side of the PTY pair.
+   */
+  int get_pty() const;
+
+  /** Close a pty. This is also called in destructor.
+   */
+  void close();
+private:
+  int m_d;
+};
 
 } // namespace Pty
 

@@ -1,6 +1,6 @@
-/* libvtemm.h
+/* ptysize.cc
  *
- * Copyright (C) 2008 libvtemm Development Team
+ * Copyright (C) 2008, 2009 libvtemm Development Team
  *
  * This file is part of libvtemm.
  *
@@ -18,19 +18,44 @@
  * along with libvtemm.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _LIBVTEMM_H_
-#define _LIBVTEMM_H_
+#include "ptysize.h"
 
-#include <gtkmm.h>
-#include <libvtemm/charattributes.h>
-#include <libvtemm/cursorposition.h>
-#include <libvtemm/init.h>
-#include <libvtemm/match.h>
-#include <libvtemm/padding.h>
-#include <libvtemm/shared.h>
-#include <libvtemm/terminal.h>
-#include <libvtemm/terminalaccessible.h>
-#include <libvtemm/textandcharattrs.h>
-#include <libvtemm/wrap_init.h>
+namespace Gnome
+{
 
-#endif // _LIBVTEMM_H_
+namespace Vte
+{
+
+namespace Pty
+{
+
+Size::Size(int columns, int rows, bool ok)
+:
+  m_columns(columns),
+  m_rows(rows),
+  m_ok(ok)
+{}
+
+Size::~Size()
+{}
+
+int Size::get_columns() const
+{
+  return m_columns;
+}
+
+int Size::get_rows() const
+{
+  return m_rows;
+}
+
+bool Size::is_ok() const
+{
+  return m_ok;
+}
+
+} // namespace Pty
+
+} // namespace Vte
+
+} // namespace Gnome
