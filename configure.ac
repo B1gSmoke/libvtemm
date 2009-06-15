@@ -109,7 +109,7 @@ AC_CHECK_PROGS(PERL, perl5 perl)
 #########################################################################
 #  Dependency checks
 #########################################################################
-PKG_CHECK_MODULES(LIBVTEMM, glibmm-2.4 >= 2.18.0 gtkmm-2.4 >= 2.14.0 vte >= 0.20.0)
+PKG_CHECK_MODULES(LIBVTEMM, glibmm-2.4 >= 2.18.0 gtkmm-2.4 >= 2.14.0 vte >= 0.20.5)
 AC_SUBST([LIBVTEMM_CFLAGS])
 AC_SUBST([LIBVTEMM_LIBS])
 

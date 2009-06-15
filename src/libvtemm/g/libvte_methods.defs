@@ -39,6 +39,7 @@
     '("ascii-backspace" "VTE_ERASE_ASCII_BACKSPACE")
     '("ascii-delete" "VTE_ERASE_ASCII_DELETE")
     '("delete-sequence" "VTE_ERASE_DELETE_SEQUENCE")
+    '("tty" "VTE_ERASE_TTY")
   )
 )
 
@@ -587,31 +588,28 @@
   )
 )
 
-; h2def chokes on pointers to functions - corrected manually.
 (define-method get_text
   (of-object "VteTerminal")
   (c-name "vte_terminal_get_text")
   (return-type "char*")
   (parameters
-;    '("gboolean(*)(VteTerminal*, glong, glong, gpointer)" "is_selected")
-    '("gpointer*" "data")
+    '("VteSelectionFunc" "is_selected")
+    '("gpointer" "data")
     '("GArray*" "attributes")
   )
 )
 
-; h2def chokes on pointers to functions - corrected manually.
 (define-method get_text_include_trailing_spaces
   (of-object "VteTerminal")
   (c-name "vte_terminal_get_text_include_trailing_spaces")
   (return-type "char*")
   (parameters
-;    '("gboolean(*)(VteTerminal*, glong, glong, gpointer)" "is_selected")
-    '("gpointer*" "data")
+    '("VteSelectionFunc" "is_selected")
+    '("gpointer" "data")
     '("GArray*" "attributes")
   )
 )
 
-; h2def chokes on pointers to functions - corrected manually.
 (define-method get_text_range
   (of-object "VteTerminal")
   (c-name "vte_terminal_get_text_range")
@@ -621,8 +619,8 @@
     '("glong" "start_col")
     '("glong" "end_row")
     '("glong" "end_col")
-;    '("gboolean(*)(VteTerminal*, glong, glong, gpointer)" "is_selected")
-    '("gpointer*" "data")
+    '("VteSelectionFunc" "is_selected")
+    '("gpointer" "data")
     '("GArray*" "attributes")
   )
 )

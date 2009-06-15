@@ -261,10 +261,10 @@ public:
 #m4begin
 dnl // WRAP_SIGNAL "commit"
 dnl // C++ prototype: void commit(const Glib::ustring& text)
-dnl // C prototype: void commit(gchar* text, guint size)
+dnl // C prototype: void commit(const gchar* text, guint size)
 
   _SIGNAL_PROXY(
-      commit, void, `gchar* text, guint size',
+      commit, void, `const gchar* text, guint size',
       commit, void, `const Glib::ustring&',dnl // C++ prototype
       `Glib::ustring(text, text + size)',`dnl // C -> C++ conversion
       /**
@@ -273,16 +273,16 @@ dnl // C prototype: void commit(gchar* text, guint size)
        */')
 
   _SIGNAL_H(commit, void, `const Glib::ustring& text')
-  _SIGNAL_PH(commit, void, `VteTerminal* self, gchar* text, guint size')
+  _SIGNAL_PH(commit, void, `VteTerminal* self, const gchar* text, guint size')
 
   _SIGNAL_CC(
       commit, commit, void, void,
       `const Glib::ustring& text',dnl // C++ arguments
-      `const_cast<gchar*>(text.data()), text.bytes()')dnl // C++ -> C conversion
+      `text.data(), text.bytes()')dnl // C++ -> C conversion
 
   _SIGNAL_PCC(
       commit, commit, void, void,
-      `VteTerminal* self, gchar* text, guint size',dnl // C arguments
+      `VteTerminal* self, const gchar* text, guint size',dnl // C arguments
       `self, text, size',dnl // C argument names
       `Glib::ustring(text, text + size)',dnl // C -> C++ conversion
       self)

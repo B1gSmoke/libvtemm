@@ -1,5 +1,15 @@
 ;; From VteTerminal
 
+(define-signal set-scroll-adjustments
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+  (parameters
+    '("GtkAdjustment*" "p0")
+    '("GtkAdjustment*" "p1")
+  )
+)
+
 (define-signal selection-changed
   (of-object "VteTerminal")
   (return-type "void")
@@ -10,16 +20,6 @@
   (of-object "VteTerminal")
   (return-type "void")
   (when "last")
-)
-
-(define-signal set-scroll-adjustments
-  (of-object "VteTerminal")
-  (return-type "void")
-  (when "last")
-  (parameters
-    '("GtkAdjustment*" "p0")
-    '("GtkAdjustment*" "p1")
-  )
 )
 
 (define-signal eof
@@ -51,7 +51,7 @@
   (return-type "void")
   (when "last")
   (parameters
-    '("gchar*" "p0")
+    '("const-gchar*" "p0")
     '("guint" "p1")
   )
 )
