@@ -1291,7 +1291,8 @@ SKIP_FUNCTION_MACROS   = YES
 # is run, you must also specify the path to the tagfile here.
 
 TAGFILES               = glibmm_doxygen_tags \
-                         gtkmm_doxygen_tags
+                         gtkmm_doxygen_tags \
+                         pangomm_doxygen_tags
 
 # When a file name is specified after GENERATE_TAGFILE, doxygen will create 
 # a tag file that is based on the input files it reads.
