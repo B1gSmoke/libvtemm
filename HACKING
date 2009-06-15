@@ -2,16 +2,6 @@ If you happen to regenerate defs files please take a look at them, if something
 have to be corrected manually (just have a look at defs files in earlier
 versions):
 
-in libvte_signals.defs:
-	- check if commit p0 argument is gchar*, not const-gchar*.
 in libvte_methods:
 	- check if vte_terminal_accessible_new is defined as a constructor, not
 	as a method of VteTerminal.
-	- check if get_text* methods of VteTerminal are properly defined -
-	h2def.py chokes on pointers to functions, so probably parameters after
-	this pointer are not defined - correct it, and comment the pointer
-	parameter. Definitions of these methods are needed for documentation
-	purposes. If pointer to function will be typedefed, this step won't be
-	needed.
-in libvte_enums:
-	- probably adding VteTerminalAntiAlias manually will be needed.
