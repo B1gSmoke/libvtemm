@@ -3,9 +3,9 @@
 
 SUBDIRS = g private
 
-files_extra_h = cursorposition.h init.h match.h padding.h pty.h ptysize.h \
+files_extra_h = cursorposition.h init.h match.h padding.h ptymaster.h ptysize.h \
 	textandcharattrs.h wrap_init.h shared.h
-files_extra_cc = cursorposition.cc init.cc match.cc padding.cc pty.cc ptysize.cc \
+files_extra_cc = cursorposition.cc init.cc match.cc padding.cc ptymaster.cc ptysize.cc \
 	textandcharattrs.cc
 
 files_internal_h = internalroutines.h
