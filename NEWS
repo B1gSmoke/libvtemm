@@ -22,13 +22,4 @@ returns a reference instead of pointer and so on.) This probably doesn't matter
 since almost nobody is using it.
 * API is bumped to version 1.1.
 * libvtemm-1.1 is can be installed in parallel with version 1.0.
-* Current dependencies:
-    to build a library:
-        vte >= 0.20.5
-        gtkmm-2.4 >= 2.14
-        glibmm-2.4 >= 2.18
-    to build a documentation:
-        doxygen
-        gtkmm_doxygen_tags, glibmm_doxygen_tags and pangomm_doxygen_tags in
-        docs/reference for proper xrefs.
 (Krzesimir Nowak)
