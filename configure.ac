@@ -106,6 +106,8 @@ AL_PROG_PERL(AC_MSG_ERROR([Perl is required to build libvtemm.]))
 
 AC_CHECK_PROGS(PERL, perl5 perl)
 
+AC_CHECK_PROGS(XSLTPROC, xsltproc)
+
 #########################################################################
 #  Dependency checks
 #########################################################################
