@@ -8,7 +8,7 @@ ACLOCAL_AMFLAGS = -I scripts
 
 EXTRA_DIST = build_shared/Makefile_shared.am_fragment \
 	build_shared/Makefile_sublib_shared.am_fragment COPYING.examples \
-	autogen.sh HACKING
+	HACKING
 
 
 all-local:
