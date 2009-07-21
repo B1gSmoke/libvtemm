@@ -39,20 +39,29 @@ namespace Pty
 class Master
 {
 public:
+  
   /** Sets descriptor for the master side of PTY pair to @a d. Use other than
-   * default value at your own risk. Otherwise
-   * use open() to set a descriptor.
+   * default value at your own risk. Otherwise use open() to set a descriptor.
+   * It allows you to set this instance as a main instance.
    * @param d Descriptor for the master side of PTY pair. -1 by default.
+   * @param is_main Setting for main instance.
    */
-  Master(int d = -1);
-  /** If master side of PTY pair is not equal to -1, it calls close().
-   * Otherwise it do nothing.
+  Master(int d = -1, bool is_main = false);
+  
+  /** Just a copy constructor. Copied instance won't be a main instance even if
+   * original is.
+   * @param master Original master to copy.
+   */
+  Master(const Master& master);
+  
+  /** If master side of PTY pair is not equal to -1 and is set as main, it calls
+   * close(). Otherwise it does nothing.
    */
   ~Master();
 
   /** Start up the given binary (exact path, not interpreted at all) in a
    * pseudo-terminal of its own, returning the child's PID and logging the
-   * session to the specified files.
+   * session to the specified files. Sets this instance as main instance.
    * @param command Command to be executed (not interpreted at all). If empty, fork will be executed.
    * @param argv Empty string terminated list of arguments given to executed binary (argv[0] should be a binary name). See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
    * @param env_add Empty string terminated list of environment variables to be added before executing a command. See Gnome::Vte::Terminal::fork_command() for description about format of this parameter.
@@ -100,11 +109,24 @@ public:
    */
   int get_pty() const;
 
-  /** Close a pty. This is also called in destructor.
+  /** Close a pty.
    */
   void close();
+  
+  /** Sets this instance as main instance holding descriptor of the master side
+   * of PTY pair. If this instance is main instance, then on its destruction
+   * close() will be called. This setting is not copied.
+   * @param setting @c true if this instance is main instance.
+   */
+  void set_is_main(bool setting = true);
+  
+  /** Checks if this instance is main instance.
+   * @return @c true if this instance is main instance.
+   */
+  bool get_is_main() const;
 private:
   int m_d;
+  bool m_is_main;
 };
 
 } // namespace Pty

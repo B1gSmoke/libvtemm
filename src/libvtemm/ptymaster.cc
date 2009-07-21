@@ -33,14 +33,21 @@ namespace Vte
 namespace Pty
 {
 
-Master::Master(int d)
+Master::Master(int d, bool is_main)
 :
-  m_d(d)
+  m_d(d),
+  m_is_main(is_main)
+{}
+
+Master::Master(const Master& master)
+:
+  m_d(master.m_d),
+  m_is_main(false)
 {}
 
 Master::~Master()
 {
-  if (m_d != -1)
+  if ((m_d != -1) && (is_main))
   {
     close();
   }
@@ -66,6 +73,7 @@ Master::open(const std::string& command,
   m_d = _vte_pty_open(&child, c_env_add, c_command, c_argv, c_directory, columns, rows, static_cast<gboolean>(lastlog), static_cast<gboolean>(utmp), static_cast<gboolean>(wtmp));
   g_strfreev(c_env_add);
   g_strfreev(c_argv);
+  m_is_main = true;
   return child;
 }
 
@@ -109,6 +117,19 @@ Master::close()
 {
   _vte_pty_close(m_d);
   m_d = -1;
+  m_is_main = false;
+}
+
+void
+Master::set_is_main(bool setting)
+{
+  m_is_main = setting;
+}
+
+bool
+Master::get_is_main() const
+{
+  return m_is_main;
 }
 
 } // namespace Pty
