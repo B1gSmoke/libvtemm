@@ -53,6 +53,12 @@ Master::~Master()
   }
 }
 
+Master& operator=(Master& master)
+{
+  this->md = master.m_d;
+  this->m_is_main(false);
+  return *this;
+}
 
 Glib::Pid
 Master::open(const std::string& command,

@@ -58,6 +58,12 @@ public:
    * close(). Otherwise it does nothing.
    */
   ~Master();
+  
+  /** Just a copy constructor. Copied instance won't be a main instance even if
+   * original is.
+   * @param master Original master to copy.
+   */
+  Master& operator=(Master& master);
 
   /** Start up the given binary (exact path, not interpreted at all) in a
    * pseudo-terminal of its own, returning the child's PID and logging the
