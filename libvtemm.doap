@@ -18,7 +18,7 @@
   <maintainer>
     <foaf:Person>
       <foaf:name>Krzesimir Nowak</foaf:name>
-      <foaf:mbox rdf:resource="mailto:krnowak@svn.gnome.org" />
+      <foaf:mbox rdf:resource="mailto:qdlacz@gmail.com" />
       <gnome:userid>krnowak</gnome:userid>
     </foaf:Person>
   </maintainer>
