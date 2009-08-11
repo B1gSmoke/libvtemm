@@ -37,15 +37,6 @@ CharAttributes::CharAttributes(const CharAttributes& src)
   }
   else
   {
-    /*
-    gobject_ = new VteCharAttributes;
-    gobject_->row = src.gobject_->row;
-    gobject_->column = src.gobject_->column;
-    gobject_->fore = src.gobject_->fore;
-    gobject_->back = src.gobject_->back;
-    gobject_->underline = src.gobject_->underline;
-    gobject_->strikethrough = src.gobject_->strikethrough;
-    */
     gobject_ = new VteCharAttributes(*(src.gobj()));
   }
 }
@@ -54,15 +45,6 @@ CharAttributes::CharAttributes(VteCharAttributes* castitem, bool take_copy)
 {
   if (take_copy)
   {
-    /*
-    gobject_ = new VteCharAttributes;
-    gobject_->row = castitem->row;
-    gobject_->column = castitem->column;
-    gobject_->fore = castitem->fore;
-    gobject_->back = castitem->back;
-    gobject_->underline = castitem->underline;
-    gobject_->strikethrough = castitem->strikethrough;
-    */
     gobject_ = new VteCharAttributes(*castitem);
   }
   else
@@ -82,19 +64,15 @@ CharAttributes::~CharAttributes()
 
 CharAttributes& CharAttributes::operator=(const CharAttributes& src)
 {
-  if (&src == this)
-  {
-    return *this;
-  }
-  else
+  if (&src != this)
   {
     if (gobject_)
     {
       delete gobject_;
-      gobject_ = 0;
     }
     gobject_ = new VteCharAttributes(*(src.gobj()));
   }
+  return *this;
 }
 
 } // namespace Vte
