@@ -1,19 +1,10 @@
 ## Copyright (c) 2009
 ## The libvtemm development team.
 
-include $(srcdir)/Makefile_defs.am_fragment
-# defined:
-#  files_defs
+binding_name = libvtemm
+wrap_init_flags = --namespace=Gnome --namespace=Vte --parent_dir=libvtemm
 
-include $(srcdir)/Makefile_list_of_hg.am_fragment
-# defined:
-#  files_hg
-#  deprecated_hg
+include $(srcdir)/filelist.am
+include $(top_srcdir)/codegen/m4/filelist.am
+include $(top_srcdir)/build/generate-binding.am
 
-files_ccg = $(files_hg:.hg=.ccg)
-deprecated_ccg = $(files_ccg:.h=.ccg)
-
-EXTRA_DIST = $(files_defs) $(files_hg) $(files_ccg) Makefile_defs.am_fragment \
-	Makefile_list_of_hg.am_fragment $(deprecated_hg) $(deprecated_ccg)
-
--include $(top_srcdir)/git.mk

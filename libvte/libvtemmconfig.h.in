@@ -1,16 +1,18 @@
-/* autoheader is tiresome */
-
 #ifndef _LIBVTEMM_CONFIG_H_
 #define _LIBVTEMM_CONFIG_H_
 
 #include <gtkmmconfig.h>
 
-#define LIBVTEMM_MAJOR_VERSION @LIBVTEMM_MAJOR_VERSION@
+/* Define to omit deprecated API from libvtemm. */
+#undef LIBVTEMM_DISABLE_DEPRECATED
 
-#define LIBVTEMM_MINOR_VERSION @LIBVTEMM_MINOR_VERSION@
+/* Major version number of libvtemm. */
+#undef LIBVTEMM_MAJOR_VERSION
 
-#define LIBVTEMM_MICRO_VERSION @LIBVTEMM_MICRO_VERSION@
+/* Minor versino number of libvtemm. */
+#undef LIBVTEMM_MINOR_VERSION
 
-@LIBVTEMM_DISABLE_DEPRECATED_DEF@
+/* Micro version number of libvtemm. */
+#undef LIBVTEMM_MICRO_VERSION
 
 #endif // _LIBVTEMM_CONFIG_H_

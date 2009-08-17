@@ -1,9 +1,15 @@
-SUBDIRS = extra_defs_gen m4
+AUTOMAKE_OPTIONS = subdir-objects
 
-include $(top_srcdir)/tools/Makefile_list_of_sources.am_fragment
+include $(srcdir)/m4/filelist.am
 
-EXTRA_DIST = $(files_tools_perl) $(files_tools_pm) \
-	Makefile_list_of_sources.am_fragment
+dist_noinst_DATA = $(addprefix m4/,$(files_codegen_m4))
+noinst_PROGRAMS = extradefs/generate_extra_defs
 
+extradefs_generate_extra_defs_SOURCES = extradefs/generate_extra_defs_libvte.cc
+extradefs_generate_extra_defs_LDADD   = $(LIBVTEMM_LIBS) -lglibmm_generate_extra_defs-2.4
 
--include $(top_srcdir)/git.mk
+AM_CPPFLAGS = -I$(top_builddir) $(GTHREAD_CFLAGS) $(LIBVTEMM_CFLAGS)
+AM_CXXFLAGS = $(LIBVTEMM_WXXFLAGS)
+
+.DELETE_ON_ERROR:
+

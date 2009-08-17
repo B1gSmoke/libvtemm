@@ -1,17 +1,7 @@
-#!/bin/sh
+#! /bin/sh -e
+test -n "$srcdir" || srcdir=`dirname "$0"`
+test -n "$srcdir" || srcdir=.
 
-dir=`echo "$0" | sed 's,[^/]*$,,'`
-test "x${dir}" = "x" && dir='.'
-if test "x`cd "${dir}" 2>/dev/null && pwd`" != "x`pwd`"
-then
-	echo "autogen.sh must be executed from it's directory."
-	exit 1
-fi
-
-echo "Running autoreconf."
-autoreconf -v -i -s || exit $?
-echo "Running configure."
-./configure "$@" || exit $?
-echo
-echo 'run "make"'
-echo
+mm-common-prepare --force --copy "$srcdir"
+autoreconf --force --install "$srcdir"
+test -n "$NOCONFIGURE" || "$srcdir/configure" --enable-maintainer-mode "$@"

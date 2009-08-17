@@ -1,0 +1,9 @@
+doxytagfile=${docdir}/reference/@LIBVTEMM_MODULE_NAME@.tag
+htmlrefpub=
+
+Name: libvtemm
+Description: C++ binding for libvte
+Version: @PACKAGE_VERSION@
+Requires: @LIBVTEMM_MODULES@
+Libs: ${pc_top_builddir}/${pcfiledir}/libvtemm/libvtemm-@LIBVTEMM_API_VERSION@.la
+Cflags: -I${pc_top_builddir}/${pcfiledir} -I${pc_top_builddir}/${pcfiledir}/@srcdir@
