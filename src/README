@@ -1,6 +1,0 @@
-Base directory for libvtemm - the terminal emulator.
-
-Here is the layout
-
-  libvtemm/g - actual sources used to build
-  libvtemm - built sources (do not edit)
