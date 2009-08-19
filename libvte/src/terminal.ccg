@@ -32,7 +32,7 @@ namespace Private
 {
 
 static gboolean
-SignalProxy_selected_gtk_callback(VteTerminal *terminal, glong column, glong row, gpointer user_data)
+SignalProxy_selected_gtk_callback(VteTerminal *terminal G_GNUC_UNUSED, glong column, glong row, gpointer user_data)
 {
   Gnome::Vte::Terminal::SlotSelectedCallback* the_slot = static_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(user_data);
 #ifdef GLIBMM_EXCEPTIONS_ENABLED

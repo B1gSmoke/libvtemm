@@ -47,16 +47,16 @@ Master::Master(const Master& master)
 
 Master::~Master()
 {
-  if ((m_d != -1) && (is_main))
+  if ((m_d != -1) && (m_is_main))
   {
     close();
   }
 }
 
-Master& operator=(Master& master)
+Master& Master::operator=(Master& master)
 {
-  this->md = master.m_d;
-  this->m_is_main(false);
+  this->m_d = master.m_d;
+  this->m_is_main = false;
   return *this;
 }
 

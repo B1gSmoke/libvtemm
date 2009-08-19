@@ -73,7 +73,7 @@ public:
   ///Provides access to the underlying C GtkObject.
   VteCharAttributes* gobj() {return gobject_;}
   ///Provides access to the underlying C GtkObject.
-  VteCharAttributes* const gobj() const {return gobject_;}
+  const VteCharAttributes* gobj() const {return gobject_;}
 protected:
   VteCharAttributes* gobject_;
 };
