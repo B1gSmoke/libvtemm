@@ -630,7 +630,8 @@ EXCLUDE_SYMBOLS        = _* \
                          char_traits \
                          internal \
                          pair \
-                         unary_function
+                         unary_function \
+                         HelperList
 
 # The EXAMPLE_PATH tag can be used to specify one or more files or 
 # directories that contain example code fragments that are included (see 
