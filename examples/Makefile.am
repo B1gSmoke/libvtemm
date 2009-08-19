@@ -27,4 +27,4 @@ gettexter_example_SOURCES = 	\
 	gettexter/gtterminal.h	\
 	gettexter/gettexter.cc	\
 	gettexter/gettexter.h	\
-	main.cc
+	gettexter/main.cc

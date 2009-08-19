@@ -3,7 +3,7 @@
 
 files_built_cc    = $(files_hg:.hg=.cc) wrap_init.cc
 files_built_h     = $(files_hg:.hg=.h)
-files_built_ph    = $(patsubst %.hg,private/%_p.h,$(files.hg))
+files_built_ph    = $(patsubst %.hg,private/%_p.h,$(files_hg))
 files_internal_h  = internalroutines.h
 files_internal_cc = internalroutines.cc
 

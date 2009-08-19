@@ -9,8 +9,9 @@ src_subdirs = codegen libvte/src
 else
 src_subdirs =
 endif
+
 if ENABLE_DOCUMENTATION
-doc_subdirs = doc
+doc_subdirs = docs
 else
 doc_subdirs =
 endif
@@ -41,4 +42,4 @@ nodist_libvtemm_libinclude_HEADERS = libvte/libvtemmconfig.h
 pkgconfigdir = $(libdir)/pkgconfig
 nodist_pkgconfig_DATA = libvte/libvtemm-1.2.pc
 
-include $(top_srcdir)/build/dist_changelog.am
+include $(top_srcdir)/build/dist-changelog.am
