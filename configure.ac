@@ -47,8 +47,8 @@ MM_ARG_ENABLE_WARNINGS([LIBVTEMM_WXXFLAGS],
 
 AC_CONFIG_FILES([Makefile
                  codegen/Makefile
-                 libvte/libvtemm-1.2.pc
-                 libvte/libvtemm-1.2-uninstalled.pc
+                 libvte/${LIBVTEMM_MODULE_NAME}.pc:libvte/libvtemm.pc.in
+                 libvte/${LIBVTEMM_MODULE_NAME}-uninstalled.pc:libvte/libvtemm-uninstalled.pc.in
                  libvte/src/Makefile
                  libvte/libvtemm/Makefile
                  examples/Makefile
