@@ -9,5 +9,5 @@ files_defs = 			\
 	libvte_docs.xml 	\
 	libvte_docs_override.xml
 
-files_hg  = terminal.hg charattributes.hg terminalaccessible.hg
+files_hg  = terminal.hg charattributes.hg
 files_ccg = $(files_hg:.hg=.ccg)

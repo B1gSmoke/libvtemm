@@ -1,3 +1,0 @@
-src/libvtemm/g/*.(h|cc)g:
-src/libvtemm/*.(h|cc):
-	1. squashing bugs. as always.

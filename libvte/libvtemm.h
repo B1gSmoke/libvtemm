@@ -30,7 +30,6 @@
 #include <libvtemm/ptymaster.h>
 #include <libvtemm/ptysize.h>
 #include <libvtemm/shared.h>
-#include <libvtemm/terminalaccessible.h>
 #include <libvtemm/terminal.h>
 #include <libvtemm/textandcharattrs.h>
 #include <libvtemm/wrap_init.h>

@@ -14,5 +14,4 @@ libvtemm_@LIBVTEMM_API_VERSION@_la_SOURCES = $(binding_sources) $(files_internal
 libvtemm_@LIBVTEMM_API_VERSION@_la_LDFLAGS = -no-undefined -version-info $(LIBVTEMM_SO_VERSION)
 libvtemm_@LIBVTEMM_API_VERSION@_la_LIBADD  = $(LIBVTEMM_LIBS)
 
-EXTRA_DIST = 			\
-	$(files_internal_h)
+dist_noinst_HEADERS = $(files_internal_h)
