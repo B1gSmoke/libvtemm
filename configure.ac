@@ -8,7 +8,7 @@ AC_CONFIG_AUX_DIR([build])
 AC_CONFIG_MACRO_DIR([build])
 AC_CONFIG_HEADERS([build/config.h libvte/libvtemmconfig.h])
 
-MM_PREREQ([0.5])
+MM_PREREQ([0.6])
 MM_INIT_MODULE([libvtemm-1.2])
 
 AC_SUBST([LIBVTEMM_SO_VERSION], [8:0:0])
@@ -31,6 +31,8 @@ PKG_CHECK_MODULES([LIBVTEMM], [$LIBVTEMM_MODULES])
 
 MM_PKG_CONFIG_SUBST([GTHREAD_CFLAGS], [--cflags-only-other gthread-2.0])
 MM_PKG_CONFIG_SUBST([GMMPROC_DIR], [--variable=gmmprocdir glibmm-2.4])
+
+MM_ARG_DISABLE_DEPRECATED_API([LIBVTEMM])
 
 MM_ARG_ENABLE_DOCUMENTATION
 MM_ARG_WITH_TAGFILE_DOC([libstdc++.tag], [mm-common-libstdc++])
