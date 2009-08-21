@@ -26,7 +26,7 @@ AC_ARG_VAR([ACLOCAL_FLAGS], [aclocal flags, e.g. -I <macro dir>])
 LT_INIT([win32-dll disable-static])
 AC_PROG_CXX
 
-AC_SUBST([LIBVTEMM_MODULES], ['sigc++-2.0 >= 2.2.3 glibmm-2.4 >= 2.21.3 pangomm-1.4 >= 2.24.0 gtkmm-2.4 >= 2.17.2 vte >= 0.20.5'])
+AC_SUBST([LIBVTEMM_MODULES], ['sigc++-2.0 >= 2.2.3 glibmm-2.4 >= 2.21.3 pangomm-1.4 >= 2.24.0 gtkmm-2.4 >= 2.17.2 vte >= 0.21.0'])
 PKG_CHECK_MODULES([LIBVTEMM], [$LIBVTEMM_MODULES])
 
 MM_PKG_CONFIG_SUBST([GTHREAD_CFLAGS], [--cflags-only-other gthread-2.0])
@@ -45,7 +45,7 @@ AC_LANG([C++])
 MM_ARG_ENABLE_WARNINGS([LIBVTEMM_WXXFLAGS],
                        [-Wall],
                        [-pedantic -Wall -Wextra],
-                       [G PANGO ATK GDK GDK_PIXBUF GTK])
+                       [G PANGO ATK GDK GDK_PIXBUF GTK VTE])
 
 AC_CONFIG_FILES([Makefile
                  codegen/Makefile
