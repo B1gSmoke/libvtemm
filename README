@@ -3,11 +3,18 @@ C++ wrapper for vte, version 0.20.4.
 Current dependencies:
 - to build a library from tarball:
   * vte >= 0.20.5
-  * gtkmm >= 2.14
-  * glibmm >= 2.18
-- to build a documentation:
-  * doxygen
-  * xsltproc
-  * tags from glibmm, pangomm, sigc++, stdc++, gtkmm.
+  * libsigc++ >= 2.2.3
+  * glibmm >= 2.21.3
+  * pangomm >= 2.24.0
+  * gtkmm >= 2.17.2
+- to build a documentation (that's why *mm dependencies are so high):
+  * same as above and tools required by mm-common, that are:
+    - perl
+    - doxygen
+    - dot
+    - xsltproc
 - to build in maintainer mode:
-  * mm-common >= 0.5
+  * same as above and tools used by maintainer:
+    - git (to generate a ChangeLog)
+    - mm-common >= 0.6
+    - recent autotools because no deprecated macros are used.
