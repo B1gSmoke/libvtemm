@@ -22,6 +22,7 @@
 #define _LIBVTEMM_H_
 
 #include <gtkmm.h>
+
 #include <libvtemm/charattributes.h>
 #include <libvtemm/cursorposition.h>
 #include <libvtemm/init.h>

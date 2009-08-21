@@ -22,6 +22,7 @@
 #define _LIBVTEMM_SHARED_H_
 
 #include <glibmm/arrayhandle.h>
+
 #include <string>
 
 namespace Gnome

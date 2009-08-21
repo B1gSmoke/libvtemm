@@ -21,7 +21,8 @@
 #ifndef _LIBVTEMM_MATCH_H_
 #define _LIBVTEMM_MATCH_H_
 
-#include <glibmm.h>
+#include <glibmm/regex.h>
+#include <glibmm/ustring.h>
 
 namespace Gnome
 {

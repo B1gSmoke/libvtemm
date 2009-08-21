@@ -20,9 +20,8 @@
 
 _DEFS(libvtemm,libvte)
 
-#include <gdkmm.h>
-// only in vte/vte.h is a declaration of VteCharAttributes.
-// extern VteCharAttributes?
+#include <gdkmm/color.h>
+/* for VteCharAttributes - needed in CharAttributesTraits. */
 #include <vte/vte.h>
 
 namespace Gnome

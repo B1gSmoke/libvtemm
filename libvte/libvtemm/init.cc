@@ -20,7 +20,7 @@
 
 #include <libvtemm/init.h>
 #include <libvtemm/wrap_init.h>
-#include <gtkmm.h>
+#include <gtkmm/main.h>
 
 namespace Gnome
 {
