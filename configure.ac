@@ -8,7 +8,7 @@ AC_CONFIG_AUX_DIR([build])
 AC_CONFIG_MACRO_DIR([build])
 AC_CONFIG_HEADERS([build/config.h libvte/libvtemmconfig.h])
 
-MM_PREREQ([0.6])
+MM_PREREQ([0.7.1])
 MM_INIT_MODULE([libvtemm-1.2])
 
 AC_SUBST([LIBVTEMM_SO_VERSION], [8:0:0])
@@ -26,7 +26,7 @@ AC_ARG_VAR([ACLOCAL_FLAGS], [aclocal flags, e.g. -I <macro dir>])
 LT_INIT([win32-dll disable-static])
 AC_PROG_CXX
 
-AC_SUBST([LIBVTEMM_MODULES], ['sigc++-2.0 >= 2.2.3 glibmm-2.4 >= 2.21.3 pangomm-1.4 >= 2.24.0 gtkmm-2.4 >= 2.17.2 vte >= 0.21.0'])
+AC_SUBST([LIBVTEMM_MODULES], ['sigc++-2.0 >= 2.2.4 glibmm-2.4 >= 2.21.4 pangomm-1.4 >= 2.25.1 gtkmm-2.4 >= 2.17.9 vte >= 0.21.0'])
 PKG_CHECK_MODULES([LIBVTEMM], [$LIBVTEMM_MODULES])
 
 MM_PKG_CONFIG_SUBST([GTHREAD_CFLAGS], [--cflags-only-other gthread-2.0])

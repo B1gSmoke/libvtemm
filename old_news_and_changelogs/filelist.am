@@ -1,7 +1,8 @@
 news_files = 		\
 	NEWS-0.16 	\
 	NEWS-0.17 	\
-	NEWS-0.19
+	NEWS-0.19	\
+	NEWS-0.20
 
 changelog_files = 		\
 	ChangeLog-0.16 		\

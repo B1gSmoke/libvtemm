@@ -1,0 +1,37 @@
+0.20.0:
+
+* wrapped 0.20.0 version of vte.
+  API/ABI compatible with 0.16.4, 0.17.1 and 0.19.0. (Krzesimir Nowak)
+
+0.20.1:
+
+* most changes backported from 0.19.1. (Krzesimir Nowak)
+
+0.20.2:
+
+* added new API (const getter methods) and fixed some memleaks.
+  (Krzesimir Nowak)
+
+0.20.3:
+
+* This release is API/ABI _incompatible_ with previous releases.
+(deprecated methods and reaper were removed, beep signal have a default
+signal handler, 'commit' signal, 'set-scroll-adjustments' signal,
+get_cursor_position and get_padding have changed prototypes, get_adjustment now
+returns a reference instead of pointer and so on.) This probably doesn't matter
+since almost nobody is using it.
+* API is bumped to version 1.1.
+* libvtemm-1.1 is can be installed in parallel with version 1.0.
+(Krzesimir Nowak)
+
+0.20.4:
+
+* This release has another API/ABI incompatibility, but only in Pty::Master,
+so API bumped to version 1.2. libvtemm-1.2 can be installed in parallel with
+versions 1.0 and 1.1, but usage of 1.1 is not recommended, because of stupid
+design bug in Pty::Master.
+* New build system using mm-common. Version 0.6 required. Dependencies are
+written in README.
+* TerminalAccessible now is not wrapped. I don't have a clue for what is it
+and if it was wrapped properly. Probably it won't be missed.
+(Krzesimir Nowak)
