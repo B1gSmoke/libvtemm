@@ -10,10 +10,10 @@ URL:            http://gtkmm.sourceforge.net/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/libvtemm/0.20/libvtemm-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  libsigc++20-devel >= 2.2.3
-BuildRequires:  glibmm24-devel >= 2.21.3
-BuildRequires:  pangomm-devel >= 2.24.0
-BuildRequires:  gtkmm24-devel >= 2.17.2
+BuildRequires:  libsigc++20-devel >= 2.2.4
+BuildRequires:  glibmm24-devel >= 2.21.4
+BuildRequires:  pangomm-devel >= 2.25.1
+BuildRequires:  gtkmm24-devel >= 2.17.9
 BuildRequires:  vte-devel >= 0.20.5
 
 
@@ -96,5 +96,5 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Aug 25 2009 Krzesimir Nowak <qdlacz@gmail.com> - 0.20.4-1
+* Fri Aug 28 2009 Krzesimir Nowak <qdlacz@gmail.com> - 0.20.6-1
 - Initial release of libvtemm-1.2
