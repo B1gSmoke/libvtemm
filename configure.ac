@@ -1,4 +1,4 @@
-AC_INIT([libvtemm], [0.20.5],
+AC_INIT([libvtemm], [0.20.6],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=libvtemm],
         [libvtemm])
 AC_PREREQ([2.62])
@@ -45,7 +45,7 @@ AC_LANG([C++])
 MM_ARG_ENABLE_WARNINGS([LIBVTEMM_WXXFLAGS],
                        [-Wall],
                        [-pedantic -Wall -Wextra],
-                       [G PANGO ATK GDK GDK_PIXBUF GTK])
+                       [G PANGO ATK GDK GDK_PIXBUF GTK VTE])
 
 AC_CONFIG_FILES([Makefile
                  codegen/Makefile

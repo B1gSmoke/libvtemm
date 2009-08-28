@@ -1,5 +1,5 @@
 Name:           libvtemm12
-Version:        0.20.4
+Version:        0.20.6
 Release:        1%{?dist}
 
 Summary:        C++ interface for VTE (a GTK2 terminal emulator widget)
