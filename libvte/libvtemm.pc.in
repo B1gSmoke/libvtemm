@@ -8,7 +8,7 @@ includedir=@includedir@
 docdir=${datarootdir}/doc/@LIBVTEMM_MODULE_NAME@
 doxytagfile=${docdir}/reference/@LIBVTEMM_MODULE_NAME@.tag
 htmlrefdir=${docdir}/reference/html
-htmlrefpub=
+htmlrefpub=http://library.gnome.org/devel/@PACKAGE_TARNAME@/unstable/
 
 Name: libvtemm
 Description: C++ binding for libvte

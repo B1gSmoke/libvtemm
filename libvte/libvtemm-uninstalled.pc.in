@@ -1,5 +1,5 @@
 doxytagfile=${docdir}/reference/@LIBVTEMM_MODULE_NAME@.tag
-htmlrefpub=
+htmlrefpub=http://library.gnome.org/devel/@PACKAGE_TARNAME@/unstable/
 
 Name: libvtemm
 Description: C++ binding for libvte
