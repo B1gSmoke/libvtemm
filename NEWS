@@ -35,3 +35,13 @@ written in README.
 * TerminalAccessible now is not wrapped. I don't have a clue for what is it
 and if it was wrapped properly. Probably it won't be missed.
 (Krzesimir Nowak)
+
+0.20.5:
+
+* Reenable the per-class hierarchy graphs in the reference documentation.
+* Drop the custom HTML header and footer and use the shared doxygen.css
+file from mm-common.
+* Updated dependencies - previous were probably too low in some places.
+They will be updated in future, when stable version of libraries will be
+released.
+(Krzesimir Nowak)
