@@ -48,4 +48,6 @@ released.
 
 0.20.6:
 
-
+* Depend on sensible stable versions of gtkmm, glibmm and such.
+* Rebuild against new mm-common.
+(Krzesimir Nowak)
