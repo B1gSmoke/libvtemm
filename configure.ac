@@ -1,4 +1,4 @@
-AC_INIT([libvtemm], [0.21.0],
+AC_INIT([libvtemm], [0.22.0],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=libvtemm],
         [libvtemm])
 AC_PREREQ([2.62])
@@ -8,17 +8,15 @@ AC_CONFIG_AUX_DIR([build])
 AC_CONFIG_MACRO_DIR([build])
 AC_CONFIG_HEADERS([build/config.h libvte/libvtemmconfig.h])
 
-MM_PREREQ([0.7.1])
-MM_INIT_MODULE([libvtemm-1.2])
-
-AC_SUBST([LIBVTEMM_SO_VERSION], [8:0:0])
-
-AM_INIT_AUTOMAKE([1.9 -Wno-portability dist-bzip2 no-define nostdinc tar-pax])
-
+AM_INIT_AUTOMAKE([1.9 -Wno-portability check-news dist-bzip2 no-define nostdinc tar-pax])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
-
 AM_MAINTAINER_MODE
 AC_ARG_VAR([ACLOCAL_FLAGS], [aclocal flags, e.g. -I <macro dir>])
+
+MM_PREREQ([0.8])
+MM_INIT_MODULE([libvtemm-1.2])
+
+AC_SUBST([LIBVTEMM_SO_VERSION], [9:0:0])
 
 # AC_DISABLE_STATIC
 # AC_LIBTOOL_WIN32_DLL
@@ -26,7 +24,7 @@ AC_ARG_VAR([ACLOCAL_FLAGS], [aclocal flags, e.g. -I <macro dir>])
 LT_INIT([win32-dll disable-static])
 AC_PROG_CXX
 
-AC_SUBST([LIBVTEMM_MODULES], ['sigc++-2.0 >= 2.2.4 glibmm-2.4 >= 2.21.4 pangomm-1.4 >= 2.25.1 gtkmm-2.4 >= 2.17.9 vte >= 0.21.0'])
+AC_SUBST([LIBVTEMM_MODULES], ['glibmm-2.4 >= 2.14.0 pangomm-1.4 >= 2.24.0 gtkmm-2.4 >= 2.14.0 vte >= 0.22.0'])
 PKG_CHECK_MODULES([LIBVTEMM], [$LIBVTEMM_MODULES])
 
 MM_PKG_CONFIG_SUBST([GTHREAD_CFLAGS], [--cflags-only-other gthread-2.0])

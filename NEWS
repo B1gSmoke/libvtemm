@@ -5,3 +5,8 @@
 file from mm-common.
 * Updated dependencies - previous were probably to low in some places.
 (Krzesimir Nowak)
+
+0.22.0:
+
+* Use more sensible dependencies (cutting edge version are not necessary).
+* Rebuild against new mm-common.

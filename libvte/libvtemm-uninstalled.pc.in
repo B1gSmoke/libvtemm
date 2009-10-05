@@ -1,8 +1,8 @@
-doxytagfile=${docdir}/reference/@LIBVTEMM_MODULE_NAME@.tag
+doxytagfile=${pc_top_builddir}/doc/reference/@LIBVTEMM_MODULE_NAME@.tag
 htmlrefpub=http://library.gnome.org/devel/@PACKAGE_TARNAME@/unstable/
 
 Name: libvtemm
-Description: C++ binding for libvte
+Description: C++ binding for libvte, not installed
 Version: @PACKAGE_VERSION@
 Requires: @LIBVTEMM_MODULES@
 Libs: ${pc_top_builddir}/${pcfiledir}/libvtemm/libvtemm-@LIBVTEMM_API_VERSION@.la
