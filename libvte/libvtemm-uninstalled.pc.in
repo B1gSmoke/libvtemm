@@ -1,4 +1,4 @@
-doxytagfile=${pc_top_builddir}/doc/reference/@LIBVTEMM_MODULE_NAME@.tag
+doxytagfile=${pc_top_builddir}/docs/reference/@LIBVTEMM_MODULE_NAME@.tag
 htmlrefpub=http://library.gnome.org/devel/@PACKAGE_TARNAME@/unstable/
 
 Name: libvtemm

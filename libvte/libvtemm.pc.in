@@ -5,7 +5,7 @@ datarootdir=@datarootdir@
 datadir=@datadir@
 includedir=@includedir@
 
-docdir=${datarootdir}/doc/@LIBVTEMM_MODULE_NAME@
+docdir=${datarootdir}/docs/@LIBVTEMM_MODULE_NAME@
 doxytagfile=${docdir}/reference/@LIBVTEMM_MODULE_NAME@.tag
 htmlrefdir=${docdir}/reference/html
 htmlrefpub=http://library.gnome.org/devel/@PACKAGE_TARNAME@/unstable/
