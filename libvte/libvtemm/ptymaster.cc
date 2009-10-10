@@ -1,4 +1,4 @@
-/* pty.cc
+/* ptymaster.cc
  *
  * Copyright (C) 2008, 2009 libvtemm Development Team
  *

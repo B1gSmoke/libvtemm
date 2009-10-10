@@ -1,5 +1,4 @@
-## Copyright (c) 2009
-## The libvtemm development team.
+## Copyright (c) 2009 libvtemm development team.
 
 binding_name = libvtemm
 wrap_init_flags = --namespace=Gnome --namespace=Vte --parent_dir=libvtemm

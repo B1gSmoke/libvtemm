@@ -1,5 +1,4 @@
-## Copyright (c) 2008
-## The libvtemm development team. (based on libgdamm development team's work)
+## Copyright (c) 2008, 2009 libvtemm development team.
 
 AUTOMAKE_OPTIONS = subdir-objects
 

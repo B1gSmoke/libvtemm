@@ -1,5 +1,4 @@
-## Copyright (c) 2009
-## The libvtemm development team.
+## Copyright (c) 2009 libvtemm development team.
 
 lib_LTLIBRARIES = libvtemm-@LIBVTEMM_API_VERSION@.la
 

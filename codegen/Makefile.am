@@ -1,3 +1,5 @@
+## Copyright (c) 2008, 2009 libvtemm development team.
+
 AUTOMAKE_OPTIONS = subdir-objects
 
 include $(srcdir)/m4/filelist.am

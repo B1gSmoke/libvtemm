@@ -1,4 +1,4 @@
-/* pty.h
+/* ptymaster.h
  *
  * Copyright (C) 2008, 2009 libvtemm Development Team
  *

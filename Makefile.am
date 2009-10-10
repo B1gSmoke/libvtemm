@@ -1,5 +1,4 @@
-## Copyright (c) 2008, 2009
-## The libvtemm development team. (based on libgdamm development team's work)
+## Copyright (c) 2009 libvtemm development team.
 
 ACLOCAL_AMFLAGS = -I build ${ACLOCAL_FLAGS}
 DISTCHECK_CONFIGURE_FLAGS = --enable-warnings=fatal

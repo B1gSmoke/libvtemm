@@ -1,5 +1,4 @@
-## Copyright (c) 2009
-## The libvtemm development team.
+## Copyright (c) 2009 libvtemm development team.
 
 include $(top_srcdir)/libvte/src/filelist.am
 include $(top_srcdir)/libvte/libvtemm/filelist.am
