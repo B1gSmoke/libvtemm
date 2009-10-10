@@ -17,14 +17,20 @@ local_libvtemm = $(top_builddir)/libvte/libvtemm/libvtemm-$(LIBVTEMM_API_VERSION
 
 LDADD = $(LIBVTEMM_LIBS) $(local_libvtemm)
 
-simple_example_SOURCES = 	\
+simple_example_src =	 	\
 	simple/simple.cc 	\
 	simple/simple.h 	\
 	simple/main.cc
 
-gettexter_example_SOURCES = 	\
+gettexter_example_src = 	\
 	gettexter/gtterminal.cc	\
 	gettexter/gtterminal.h	\
 	gettexter/gettexter.cc	\
 	gettexter/gettexter.h	\
 	gettexter/main.cc
+
+simple_example_SOURCES = $(simple_example_src)
+gettexter_example_SOURCES = $(gettexter_example_src)
+
+examplecodedir = $(datadir)/$(LIBVTEMM_MODULE_NAME)/examples
+examplecode_DATA = $(simple_example_src) $(gettexter_example_src)
