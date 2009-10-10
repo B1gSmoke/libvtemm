@@ -63,8 +63,26 @@ class Terminal : public Gtk::Widget
           vte_terminal_get_char_descent)
 public:
   _CTOR_DEFAULT()
-  
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_fork_command)
+
+  /** Starts the specified command under a newly-allocated controlling
+   * pseudo-terminal.  The argv[0] is expected to be the name of the file being run,
+   * as it would be if execve() were being called. TERM is automatically set to
+   * reflect the terminal widget's emulation setting. If @a lastlog, @a utmp, or
+   *  @a wtmp are \c true, logs the session to the specified system log files.
+   *  @a argv and @a envv can be in two formats: with last string empty and with last
+   * string non-empty, so result of Glib::shell_parse_argv() or user-defined vector
+   * with all strings non-empty can be passed.
+   * @param command The name of a binary to run, or empty string to get user's shell.
+   * @param argv An argument list to be passed to @a command.
+   * @param envv A list of environment variables to be
+   * added to the environment before starting @a command.
+   * @param directory The name of a directory the command should start in, or
+   * empty string to inherit starting directory from parent.
+   * @param lastlog \c true if the session should be logged to the lastlog.
+   * @param utmp \c true if the session should be logged to the utmp/utmpx log.
+   * @param wtmp \c true if the session should be logged to the wtmp/wtmpx log.
+   * @return The ID of the new process.
+   */
   Glib::Pid fork_command(const std::string& command = std::string(),
                          const StdStringArrayHandle& argv = StdStringArrayHandle(0, Glib::OWNERSHIP_NONE),
                          const StdStringArrayHandle& envv = StdStringArrayHandle(0, Glib::OWNERSHIP_NONE),
@@ -72,26 +90,76 @@ public:
                          bool lastlog = false,
                          bool utmp = false,
                          bool wtmp = false);
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_forkpty)
+
+  /** Starts a new child process under a newly-allocated controlling
+   * pseudo-terminal.  TERM is automatically set to reflect the terminal widget's
+   * emulation setting.  If @a lastlog, @a utmp, or @a wtmp are \c true, logs the session
+   * to the specified system log files.
+   * See fork_command() for description about format of @a envv parameter.
+   * @param envv A list of environment variables to be
+   * added to the environment before starting returning in the child process.
+   * @param directory The name of a directory the command should start in, or
+   * empty string to inherit starting directory from parent.
+   * @param lastlog \c true if the session should be logged to the lastlog.
+   * @param utmp \c true if the session should be logged to the utmp/utmpx log.
+   * @param wtmp \c true if the session should be logged to the wtmp/wtmpx log.
+   * @return The ID of the new process in the parent.
+   */
   Glib::Pid forkpty(const StdStringArrayHandle& envv = StdStringArrayHandle(0, Glib::OWNERSHIP_NONE),
                     const std::string& directory = std::string(),
                     bool lastlog = false,
                     bool utmp = false,
                     bool wtmp = false);
 
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_feed)
+  /** Interprets @a data as if it were data received from a child process.  This
+   * can either be used to drive the terminal without a child process, or just
+   * to mess with your users.
+   * @param data A string in the terminal's current encoding.
+   */
   void feed(const Glib::ustring& data);
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_feed_child)
+
+  /** Sends a block of UTF-8 text to the child as if it were entered by the user
+   * at the keyboard.
+   * @param text Data to send to the child.
+   */
   void feed_child(const Glib::ustring& text);
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_feed_child_binary)
+
+  /** Sends a block of binary data to the child.
+   * @param data Data to send to the child.
+   */
   void feed_child_binary(const std::string& data);
 
+  /** Places the selected text in the terminal in the \c GDK_SELECTION_CLIPBOARD
+   * selection.
+   */
   _WRAP_METHOD(void copy_clipboard(), vte_terminal_copy_clipboard)
+
+  /** Sends the contents of the \c GDK_SELECTION_CLIPBOARD selection to the
+   * terminal's child.  If necessary, the data is converted from UTF-8 to the
+   * terminal's current encoding. It's called on paste menu item, or when
+   * user presses Shift+Insert.
+   */
   _WRAP_METHOD(void paste_clipboard(), vte_terminal_paste_clipboard)
+
+  /** Places the selected text in the terminal in the \c GDK_SELECTION_PRIMARY
+   * selection.
+   */
   _WRAP_METHOD(void copy_primary(), vte_terminal_copy_primary)
+
+  /** Sends the contents of the \c GDK_SELECTION_PRIMARY selection to the terminal's
+   * child.  If necessary, the data is converted from UTF-8 to the terminal's
+   * current encoding.  The terminal will call also paste the
+   * \c GDK_SELECTION_PRIMARY selection when the user clicks with the the second
+   * mouse button.
+   */
   _WRAP_METHOD(void paste_primary(), vte_terminal_paste_primary)
 
+  /** Selects all text within the terminal (including the scrollback buffer).
+   */
   _WRAP_METHOD(void select_all(), vte_terminal_select_all)
+
+  /** Clears the current selection.
+   */
   _WRAP_METHOD(void select_none(), vte_terminal_select_none)
 
   _WRAP_METHOD(void set_size(long columns, long rows), vte_terminal_set_size)
@@ -100,6 +168,12 @@ public:
   _WRAP_METHOD(bool get_audible_bell() const, vte_terminal_get_audible_bell)
   _WRAP_METHOD(void set_visible_bell(bool is_visible = true), vte_terminal_set_visible_bell)
   _WRAP_METHOD(bool get_visible_bell() const, vte_terminal_get_visible_bell)
+
+  /** Controls whether or not the terminal will scroll the background image (if
+   * one is set) when the text in the window must be scrolled.
+   * @param scroll \c true if the terminal should scroll the background image along with
+   * text.
+   */
   _WRAP_METHOD(void set_scroll_background(bool scroll = true), vte_terminal_set_scroll_background)
   _WRAP_METHOD(void set_scroll_on_output(bool scroll = true), vte_terminal_set_scroll_on_output)
   _WRAP_METHOD(void set_scroll_on_keystroke(bool scroll = true), vte_terminal_set_scroll_on_keystroke)
@@ -108,22 +182,42 @@ public:
   _WRAP_METHOD(void set_color_bold(const Gdk::Color& bold), vte_terminal_set_color_bold)
   _WRAP_METHOD(void set_color_foreground(const Gdk::Color& foreground), vte_terminal_set_color_foreground)
   _WRAP_METHOD(void set_color_background(const Gdk::Color& background), vte_terminal_set_color_background)
+
+  /** Sets the background color for text which is under the cursor.
+   * @param cursor_background The new color to use for the text cursor.
+   */
   _WRAP_METHOD(void set_color_cursor(const Gdk::Color& cursor_background), vte_terminal_set_color_cursor)
-  
+
   /** Text under the cursor will be drawn with foreground and background colors
    * reversed.
    */
   void set_default_color_cursor();
+
+  /** Sets the background color for text which is highlighted.
+   * @param highlight_background The new color to use for highlighted text.
+   */
   _WRAP_METHOD(void set_color_highlight(const Gdk::Color& highlight_background), vte_terminal_set_color_highlight)
-  
+
   /** Highlighted text (which is usually highlighted because it is selected)
    * will be drawn with foreground and background colors reversed.
    */
   void set_default_color_highlight();
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_set_colors)
+
+  /** The terminal widget uses a 28-color model comprised of the default foreground
+   * and background colors, the bold foreground color, the dim foreground
+   * color, an eight color palette, bold versions of the eight color palette,
+   * and a dim version of the the eight color palette.
+   *
+   * Size of @a palette must be either 0, 8, 16, or 24. If size of @a palette is 8 or 16,
+   * the third (dim) and possibly the second (bold) 8-color palettes are extrapolated
+   * from the new background color and the items in @a palette.
+   * @param foreground The new foreground color.
+   * @param background The new background color.
+   * @param palette The color palette.
+   */
   void set_colors(const Gdk::Color& foreground, const Gdk::Color& background, const Gdk::ArrayHandle_Color& palette);
   _WRAP_METHOD(void set_default_colors(), vte_terminal_set_default_colors)
-  
+
   /** The terminal widget uses a 28-color model comprised of the default foreground
    * and background colors, the bold foreground color, the dim foreground
    * color, an eight color palette, bold versions of the eight color palette,
@@ -137,28 +231,77 @@ public:
    */
   void set_default_colors(const Gdk::ArrayHandle_Color& palette);
 
+  /** Sets a background image for the widget. Text which would otherwise be
+   * drawn using the default background color will instead be drawn over the
+   * specified image. If necessary, the image will be tiled to cover the
+   * widget's entire visible area. If specified by
+   * set_background_saturation(), the terminal will tint its
+   * in-memory copy of the image before applying it to the terminal. If @a image will
+   * be Glib::RefPtr<Gdk::PixBuf>() then background will be canceled
+   * (or just use unset_background_image()).
+   * @param image A Glib::RefPtr<Gdk::Pixbuf> to use.
+   */
   _WRAP_METHOD(void set_background_image(const Glib::RefPtr<Gdk::Pixbuf>& image), vte_terminal_set_background_image)
   _WRAP_METHOD(void set_background_image_file(const std::string& path), vte_terminal_set_background_image_file)
-  
+
   /** Convenience method which cancels background image. Equivalent to
    * set_background_image(Glib::RefPtr<Gdk::Pixbuf>()).
    */
   void unset_background_image();
+
+  /** If a background image has been set using
+   * set_background_image(), set_background_image_file(), or
+   * set_background_transparent(), and the value set by
+   * set_background_saturation() is less than one, the terminal
+   * will adjust the color of the image before drawing the image.  To do so,
+   * the terminal will create a copy of the background image (or snapshot of
+   * the root window) and modify its pixel values.  The initial tint color
+   * is black.
+   * @param color A color which the terminal background should be tinted to if its
+   * saturation is not 1.0.
+   */
   _WRAP_METHOD(void set_background_tint_color(const Gdk::Color& color), vte_terminal_set_background_tint_color)
   _WRAP_METHOD(void set_background_saturation(double saturation), vte_terminal_set_background_saturation)
   _WRAP_METHOD(void set_background_transparent(bool transparent = true), vte_terminal_set_background_transparent)
   _WRAP_METHOD(void set_opacity(guint16 opacity), vte_terminal_set_opacity)
 
+  /** Sets whether or not the cursor will blink. Using Gnome::Vte::CURSOR_BLINK_SYSTEM
+   * will use the Gtk::Settings::property_gtk_cursor_blink() setting.
+   * @param mode The Gnome::Vte::TerminalCursorBlinkMode to use.
+   */
   _WRAP_METHOD(void set_cursor_blink_mode(TerminalCursorBlinkMode mode), vte_terminal_set_cursor_blink_mode)
+
+  /** Gets cursor blink mode.
+   * @return Cursor blink mode.
+   */
   _WRAP_METHOD(TerminalCursorBlinkMode get_cursor_blink_mode() const, vte_terminal_get_cursor_blink_mode)
-  
+
+  /** Sets the shape of the cursor drawn.
+   * @param shape The Gnome::Vte::TerminalCursorShape to use.
+   */
   _WRAP_METHOD(void set_cursor_shape(TerminalCursorShape shape), vte_terminal_set_cursor_shape)
+
+  /** Sets the shape of the cursor drawn.
+   * @param shape The Gnome::Vte::TerminalCursorShape to use.
+   */
   _WRAP_METHOD(TerminalCursorShape get_cursor_shape() const, vte_terminal_get_cursor_shape)
 
   _WRAP_METHOD(void set_scrollback_lines(long lines), vte_terminal_set_scrollback_lines)
 
+  /** Appends menu items for various input methods to the given menu.  The
+   * user can select one of these items to modify the input method used by
+   * the terminal.
+   * @param menushell A Gtk::MenuShell.
+   */
   _WRAP_METHOD(void im_append_menuitems(Gtk::MenuShell& menushell), vte_terminal_im_append_menuitems)
 
+  /** Sets the font used for rendering all text displayed by the terminal,
+   * overriding any fonts set using Gtk::Widget::modify_font().  The terminal
+   * will immediately attempt to load the desired font, retrieve its
+   * metrics, and attempt to resize itself to keep the same number of rows
+   * and columns.
+   * @param font_desc The Pango::FontDescription of the desired font.
+   */
   _WRAP_METHOD(void set_font(const Pango::FontDescription& font_desc), vte_terminal_set_font)
   _WRAP_METHOD(void set_font_from_string(const Glib::ustring& name), vte_terminal_set_font_from_string)
   _WRAP_METHOD(Pango::FontDescription get_font() const, vte_terminal_get_font)
@@ -167,6 +310,15 @@ public:
 
   _WRAP_METHOD(bool get_has_selection() const, vte_terminal_get_has_selection)
 
+  /** When the user double-clicks to start selection, the terminal will extend
+   * the selection on word boundaries.  It will treat characters included in @a spec
+   * as parts of words, and all other characters as word separators. Ranges of
+   * characters can be specified by separating them with a hyphen.
+   *
+   * As a special case, if @a spec is empty string, the terminal will
+   * treat all graphic non-punctuation non-space characters as word characters.
+   * @param spec A specification.
+   */
   _WRAP_METHOD(void set_word_chars(const Glib::ustring& spec), vte_terminal_set_word_chars)
   _WRAP_METHOD(bool is_word_char(gunichar c), vte_terminal_is_word_char)
 
@@ -184,70 +336,215 @@ public:
    * @see get_text(), get_text_include_trailing_spaces(), get_text_range().
    */
   typedef sigc::slot<bool, long /* column */, long /* row */> SlotSelectedCallback;
-  
+
   /** Convenience callback, which always returns @c true.
    *
    * @see get_text(), get_text_include_trailing_spaces(), get_text_range().
    */
   static bool always_selected(long, long);
-  
+
   /** Convenience callback, which always returns @c false.
    *
    * @see get_text(), get_text_include_trailing_spaces(), get_text_range().
    */
   static bool never_selected(long, long);
-  
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_text)
+
+  /** Extracts a view of the visible part of the terminal. Characters will only be
+   * read if @a slot returns \c true after being passed the column and row, respectively.
+   * A Gnome::Vte::CharAttributes structure is added to Gnome::Vte::TextAndCharAttrs return value for
+   * each byte added to the returned string detailing the character's position,
+   * colors, and other characteristics. Remember: to get byte representation of
+   * gotten text, use std::string.
+   * @param slot A slot for callback.
+   * @return A Gnome::Vte::TextAndCharAttrs with text that may be empty and stored text
+   * attributes.
+   */
   TextAndCharAttrs get_text(const SlotSelectedCallback& slot) const;
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_text_include_trailing_spaces)
+
+  /** Extracts a view of the visible part of the terminal. Characters will only be
+   * read if @a slot returns \c true after being passed the column and row, respectively.
+   * A Gnome::Vte::CharAttributes structure is added to Gnome::Vte::TextAndCharAttrs return value for
+   * each byte added to the returned string detailing the character's position,
+   * colors, and other characteristics. This function differs from get_text() in that
+   * trailing spaces at the end of lines are included. Remember: to get byte
+   * representation of gotten text, use std::string.
+   * @param slot A slot for callback.
+   * @return A Gnome::Vte::TextAndCharAttrs with text that may be empty and stored text
+   * attributes.
+   */
   TextAndCharAttrs get_text_include_trailing_spaces(const SlotSelectedCallback& slot) const;
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_text_range)
+
+  /** Extracts a view of the visible part of the terminal. Characters will only be
+   * read if @a slot returns \c true after being passed the column and row, respectively.
+   * A Gnome::Vte::CharAttributes structure is added to Gnome::Vte::TextAndCharAttrs return value for
+   * each byte added to the returned string detailing the character's position,
+   * colors, and other characteristics. The entire scrollback buffer is scanned, so
+   * it is possible to read the entire contents of the buffer using this function.
+   * Remember: to get byte representation of gotten text, use std::string.
+   * @param start_row First row to search for data.
+   * @param start_col First column to search for data.
+   * @param end_row Last row to search for data.
+   * @param end_col Last column to search for data.
+   * @param slot A slot for callback.
+   * @return A Gnome::Vte::TextAndCharAttrs with text that may be empty and stored text
+   * attributes.
+   */
   TextAndCharAttrs get_text_range(long start_row, long start_col, long end_row, long end_col, const SlotSelectedCallback& slot) const;
-  
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_cursor_position)
+
+  /** Reads the location of the insertion cursor and returns it.  The row
+   * coordinate is absolute.
+   * @return Gnome::Vte::CursorPosition instance holding both coordinates.
+   */
   CursorPosition get_cursor_position() const;
 
   _WRAP_METHOD(void match_clear_all(), vte_terminal_match_clear_all)
 
+  /** Adds the regular expression @a regex to the list of matching expressions. When the
+   * user moves the mouse cursor over a section of displayed text which matches
+   * this expression, the text will be highlighted.
+   * @param regex A Glib::RefPtr<Glib::Regex>.
+   * @param flags The Glib::RegexMatchFlags to use when matching the regex.
+   * @return An integer associated with this expression.
+   */
   _WRAP_METHOD(int match_add_gregex(Glib::RefPtr<Glib::Regex> regex, Glib::RegexMatchFlags flags), vte_terminal_match_add_gregex)
 
+  /** Sets which cursor the terminal will use if the pointer is over the pattern
+   * specified by @a tag. The terminal keeps a reference to @a cursor.
+   * @param tag The tag of the regex which should use the specified cursor.
+   * @param cursor The Gdk::Cursor which the terminal should use when the pattern is
+   * highlighted.
+   */
   _WRAP_METHOD(void match_set_cursor(int tag, Gdk::Cursor& cursor), vte_terminal_match_set_cursor)
+
+  /** Sets which cursor the terminal will use if the pointer is over the pattern
+   * specified by @a tag.
+   * @param tag The tag of the regex which should use the specified cursor.
+   * @param cursor_type A Gdk::CursorType.
+   */
   _WRAP_METHOD(void match_set_cursor_type(int tag, Gdk::CursorType cursor_type), vte_terminal_match_set_cursor_type)
+
+  /** Sets which cursor the terminal will use if the pointer is over the pattern
+   * specified by @a tag.
+   * @param tag The tag of the regex which should use the specified cursor.
+   * @param cursor_name The name of the cursor.
+   */
   _WRAP_METHOD(void match_set_cursor_name(int tag, const Glib::ustring& cursor_name), vte_terminal_match_set_cursor_name)
 
   _WRAP_METHOD(void match_remove(int tag), vte_terminal_match_remove)
 
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_match_check)
+  /** Checks if the text in and around the specified position matches any of the
+   * regular expressions previously set using match_add_gregex(). If a
+   * match exists, the text string and the number associated with the matched regular
+   * expression is returned.
+   *
+   * If more than one regular expression has been set with
+   * match_add_gregex(), then expressions are checked in the order in
+   * which they were added.
+   * @param column The text column.
+   * @param row The text row.
+   * @return A Gnome::Vte::Match instance holding string which matches one of the
+   * previously set regular expressions and a tag of matched regular expression.
+   */
   Match match_check(long column, long row);
 
   _WRAP_METHOD(void set_emulation(const Glib::ustring& emulation), vte_terminal_set_emulation)
-  
+
   /** Sets default type of terminal the widget attempts to emulate.
    */
   void set_default_emulation();
   _WRAP_METHOD(Glib::ustring get_emulation() const, vte_terminal_get_emulation)
+
+  /** Queries the terminal for its default emulation, which is attempted if
+   * set_default_emulation() is used.
+   * @return The name of the default terminal type the widget attempts to emulate.
+   */
   _WRAP_METHOD(Glib::ustring get_default_emulation() const, vte_terminal_get_default_emulation)
 
+  /** Changes the encoding the terminal will expect data from the child to
+   * be encoded with.  For certain terminal types, applications executing in the
+   * terminal can change the encoding.  The default encoding is defined by the
+   * application's locale settings.
+   * @param codeset A valid Glib::IConv encoding.
+   */
   _WRAP_METHOD(void set_encoding(const std::string& codeset), vte_terminal_set_encoding)
   _WRAP_METHOD(std::string get_encoding() const, vte_terminal_get_encoding)
 
+  /** Some terminal emulations specify a status line which is separate from the
+   * main display area, and define a means for applications to move the cursor
+   * to the status line and back.
+   * @return The current contents of the terminal's status line.  For terminals
+   * like "xterm", this will usually be the empty string.
+   */
   _WRAP_METHOD(Glib::ustring get_status_line() const, vte_terminal_get_status_line)
 
-  _WRAP_METHOD_DOCS_ONLY(vte_terminal_get_padding)
+  /** Determines the amount of additional space the widget is using to pad the
+   * edges of its visible area. This is necessary for cases where characters in
+   * the selected font don't themselves include a padding area and the text
+   * itself would otherwise be contiguous with the window border. Applications
+   * which use the terminal's row count, column count, char height, and
+   * char width to set geometry hints using
+   * Gtk::Window::set_geometry_hints() will need to add this value to the base
+   * size. The values returned in Gnome::Vte::Padding are the total padding
+   * used in each direction, and do not need to be doubled.
+   * @return Gnome::Vte::Padding instance holding both paddings.
+   */
   Padding get_padding() const;
 
+  /** Attach an existing PTY master side to the terminal widget. Use
+   * instead of fork_command() or forkpty().
+   * @param pty_master A file descriptor of the master end of a PTY.
+   */
   _WRAP_METHOD(void set_pty(int pty_master), vte_terminal_set_pty)
+
+  /** Gets the file descriptor, or -1 if the terminal has no PTY.
+   * @return The file descriptor, or -1 if the terminal has no PTY.
+   */
   _WRAP_METHOD(int get_pty() const, vte_terminal_get_pty)
 
+  /** Gets terminal's adjustment for use in scrollbar for example.
+   * @return Terminal's adjustment.
+   */
   _WRAP_METHOD(Gtk::Adjustment& get_adjustment(), vte_terminal_get_adjustment)
   _WRAP_METHOD(const Gtk::Adjustment& get_adjustment() const, vte_terminal_get_adjustment, constversion)
+
+  /** Gets terminal's char width for use in Gdk::Geometry for example.
+   * @return Terminal's char width.
+   */
   _WRAP_METHOD(long get_char_width() const, vte_terminal_get_char_width)
+
+  /** Gets terminal's char height for use in Gdk::Geometry for example.
+   * @return Terminal's char height.
+   */
   _WRAP_METHOD(long get_char_height() const, vte_terminal_get_char_height)
+
+  /** Gets terminal's row count.
+   * @return Terminal's row count.
+   */
   _WRAP_METHOD(long get_row_count() const, vte_terminal_get_row_count)
+
+  /** Gets terminal's column count.
+   * @return Terminal's column count.
+   */
   _WRAP_METHOD(long get_column_count() const, vte_terminal_get_column_count)
+
+  /** Gets terminal's window title.
+   * @return Terminal's window title.
+   */
   _WRAP_METHOD(Glib::ustring get_window_title() const, vte_terminal_get_window_title)
+
+  /** Gets terminal's icon title.
+   * @return Terminal's icon title.
+   */
   _WRAP_METHOD(Glib::ustring get_icon_title() const, vte_terminal_get_icon_title)
-  
+
+  /** Gets the exit status of the command started by fork_command().
+   * See your C library's documentation for more details on how to interpret the
+   * exit status.
+   *
+   * Note that this function may only be called from the signal handler of
+   * the "child-exited" signal.
+   * @return The child's exit status.
+   */
   _WRAP_METHOD(int get_child_exit_status() const, vte_terminal_get_child_exit_status)
 
   _WRAP_SIGNAL(void eof(), "eof")
@@ -291,7 +588,7 @@ dnl // C prototype: void commit(const gchar* text, guint size)
       `Glib::ustring(text, text + size)',dnl // C -> C++ conversion
       self)
 #m4end
-  
+
   _WRAP_SIGNAL(void deiconify_window(), "deiconify-window")
   _WRAP_SIGNAL(void iconify_window(), "iconify-window")
   _WRAP_SIGNAL(void raise_window(), "raise-window")
@@ -301,10 +598,10 @@ dnl // C prototype: void commit(const gchar* text, guint size)
   _WRAP_SIGNAL(void maximize_window(), "maximize-window")
   _WRAP_SIGNAL(void resize_window(guint width, guint height), "resize-window")
   _WRAP_SIGNAL(void move_window(guint x, guint y), "move-window")
-  
+
   _WRAP_SIGNAL(void increase_font_size(), "increase-font-size")
   _WRAP_SIGNAL(void decrease_font_size(), "decrease-font-size")
-  
+
   _WRAP_SIGNAL(void text_modified(), "text-modified")
   _WRAP_SIGNAL(void text_inserted(), "text-inserted")
   _WRAP_SIGNAL(void text_deleted(), "text-deleted")
@@ -313,7 +610,7 @@ dnl // C prototype: void commit(const gchar* text, guint size)
   _WRAP_SIGNAL(void paste_clipboard(), "paste-clipboard")
   _WRAP_SIGNAL(void set_scroll_adjustments(Gtk::Adjustment& hadjustment, Gtk::Adjustment& vadjustment), "set-scroll-adjustments", no_default_handler)
   _WRAP_SIGNAL(void beep(), "beep")
-  
+
   _WRAP_PROPERTY("allow-bold", bool)
   _WRAP_PROPERTY("audible-bell", bool)
   _WRAP_PROPERTY("background-image-file", Glib::ustring)

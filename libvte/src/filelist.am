@@ -6,8 +6,7 @@ files_defs = 			\
 	libvte_methods.defs 	\
 	libvte_signals.defs 	\
 	libvte_enums.defs 	\
-	libvte_docs.xml 	\
-	libvte_docs_override.xml
+	libvte_docs.xml
 
 files_hg  = terminal.hg charattributes.hg
 files_ccg = $(files_hg:.hg=.ccg)
