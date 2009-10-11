@@ -1,4 +1,4 @@
-C++ wrapper for vte, version 0.22.0.
+C++ wrapper for vte, version 0.22.1.
 
 Current dependencies:
 - to build a library from tarball:

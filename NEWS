@@ -10,3 +10,10 @@ file from mm-common.
 
 * Use more sensible dependencies (cutting edge version are not necessary).
 * Rebuild against new mm-common.
+(Krzesimir Nowak)
+
+0.22.1:
+
+* Distribute example source codes.
+* A path to doxytag file in pkg-config file is now correct.
+(Krzesimir Nowak)
