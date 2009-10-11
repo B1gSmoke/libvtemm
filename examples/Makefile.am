@@ -31,5 +31,10 @@ gettexter_example_src = 	\
 simple_example_SOURCES = $(simple_example_src)
 gettexter_example_SOURCES = $(gettexter_example_src)
 
-examplecodedir = $(datadir)/$(LIBVTEMM_MODULE_NAME)/examples
-examplecode_DATA = $(simple_example_src) $(gettexter_example_src)
+example_path = $(datadir)/$(LIBVTEMM_MODULE_NAME)/examples
+
+simplecodedir = $(example_path)/simple
+simplecode_DATA = $(simple_example_src)
+
+gettextercodedir = $(example_path)/gettexter
+gettextercode_DATA = $(gettexter_example_src)
