@@ -39,6 +39,6 @@ libvtemm_libincludedir = $(libdir)/$(LIBVTEMM_MODULE_NAME)/include
 nodist_libvtemm_libinclude_HEADERS = libvte/libvtemmconfig.h
 
 pkgconfigdir = $(libdir)/pkgconfig
-nodist_pkgconfig_DATA = libvte/libvtemm-1.2.pc
+nodist_pkgconfig_DATA = libvte/$(LIBVTEMM_MODULE_NAME).pc
 
 include $(top_srcdir)/build/dist-changelog.am
