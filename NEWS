@@ -1,9 +1,12 @@
-0.21.0:
+0.22.2:
 
-* Reenable the per-class hierarchy graphs in the reference documentation.
-* Drop the custom HTML header and footer and use the shared doxygen.css
-file from mm-common.
-* Updated dependencies - previous were probably to low in some places.
+* Cleanup license files.
+(Krzesimir Nowak)
+
+0.22.1:
+
+* Distribute example source codes.
+* A path to doxytag file in pkg-config file is now correct.
 (Krzesimir Nowak)
 
 0.22.0:
@@ -12,8 +15,11 @@ file from mm-common.
 * Rebuild against new mm-common.
 (Krzesimir Nowak)
 
-0.22.1:
+0.21.0:
 
-* Distribute example source codes.
-* A path to doxytag file in pkg-config file is now correct.
+* Reenable the per-class hierarchy graphs in the reference documentation.
+* Drop the custom HTML header and footer and use the shared doxygen.css
+file from mm-common.
+* Updated dependencies - previous were probably to low in some places.
 (Krzesimir Nowak)
+

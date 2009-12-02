@@ -1,7 +1,3 @@
 If you happen to regenerate defs files please take a look at them, if something
 have to be corrected manually (just have a look at defs files in earlier
-versions):
-
-in libvte_methods:
-	- check if vte_terminal_accessible_new is defined as a constructor, not
-	as a method of VteTerminal.
+versions).
