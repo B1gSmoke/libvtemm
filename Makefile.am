@@ -20,7 +20,7 @@ SUBDIRS = $(src_subdirs) libvte/libvtemm $(doc_subdirs) examples
 include $(srcdir)/old_news_and_changelogs/filelist.am
 
 text_files = 			\
-	COPYING.examples 	\
+	COPYING.lesser	 	\
 	HACKING
 
 old_news = $(addprefix old_news_and_changelogs/,$(news_files))
