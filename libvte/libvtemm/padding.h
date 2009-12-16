@@ -21,12 +21,18 @@
 #ifndef _LIBVTEMM_PADDING_H_
 #define _LIBVTEMM_PADDING_H_
 
+#include <libvtemmconfig.h>
+
+#ifndef LIBVTEMM_DISABLE_DEPRECATED
+
 namespace Gnome
 {
 
 namespace Vte
 {
 /** Padding - simple class holding padding.
+ *
+ * @deprecated Use "inner-border" style property instead.
  */
 class Padding
 {
@@ -55,5 +61,7 @@ private:
 } // namespace Vte
 
 } // namespace Gnome
+
+#endif // LIBVTEMM_DISABLE_DEPRECATED
 
 #endif // _LIBVTEMM_PADDING_H_

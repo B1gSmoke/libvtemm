@@ -199,7 +199,21 @@ Padding
 Terminal::get_padding() const
 {
   int xpad(0), ypad(0);
-  vte_terminal_get_padding(const_cast<VteTerminal*>(gobj()), &xpad, &ypad);
+//  TODO: use C++ API, when #603926 is fixed.
+  GtkWidget* c_widget = GTK_WIDGET(gobj());
+  GtkBorder* c_border = NULL;
+  gtk_widget_style_get(c_widget, "inner-border", &c_border, NULL);
+  if (c_border)
+  {
+    x_pad = c_border->left + c_border->right;
+    y_pad = c_border->top + c_border->bottom;
+    gtk_border_free(c_border);
+  }
+  else
+  {
+    x_pad = 2;
+    y_pad = 2;
+  }
   return Padding(xpad, ypad);
 }
 

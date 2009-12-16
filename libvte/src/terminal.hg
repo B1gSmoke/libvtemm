@@ -33,7 +33,9 @@ _PINCLUDE(gtkmm/private/widget_p.h)
 #include <gtkmm/adjustment.h>
 #include <libvtemm/cursorposition.h>
 #include <libvtemm/match.h>
+#ifndef LIBVTEMM_DISABLE_DEPRECATED
 #include <libvtemm/padding.h>
+#endif // LIBVTEMM_DISABLE_DEPRECATED
 #include <libvtemm/shared.h>
 #include <libvtemm/textandcharattrs.h>
 
@@ -477,6 +479,8 @@ public:
    */
   _WRAP_METHOD(Glib::ustring get_status_line() const, vte_terminal_get_status_line)
 
+
+#ifndef LIBVTEMM_DISABLE_DEPRECATED
   /** Determines the amount of additional space the widget is using to pad the
    * edges of its visible area. This is necessary for cases where characters in
    * the selected font don't themselves include a padding area and the text
@@ -487,8 +491,11 @@ public:
    * size. The values returned in Gnome::Vte::Padding are the total padding
    * used in each direction, and do not need to be doubled.
    * @return Gnome::Vte::Padding instance holding both paddings.
+   *
+   * @deprecated Use "inner-border" style property instead.
    */
   Padding get_padding() const;
+#endif // LIBVTEMM_DISABLE_DEPRECATED
 
   /** Attach an existing PTY master side to the terminal widget. Use
    * instead of fork_command() or forkpty().

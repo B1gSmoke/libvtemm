@@ -27,7 +27,7 @@
 #include <libvtemm/cursorposition.h>
 #include <libvtemm/init.h>
 #include <libvtemm/match.h>
-#include <libvtemm/padding.h>
+#include <libvtemm/padding.h> // TODO: deprecated.
 #include <libvtemm/ptymaster.h>
 #include <libvtemm/ptysize.h>
 #include <libvtemm/shared.h>

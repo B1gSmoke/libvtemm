@@ -8,6 +8,8 @@
 /INSTALL
 /libvte/libvtemmconfig.h
 
+/examples/*/example
+
 Makefile
 Makefile.in
 stamp-*
@@ -17,3 +19,4 @@ stamp-*
 *.deps/
 *.libs/
 *.pc
+.dirstamp
