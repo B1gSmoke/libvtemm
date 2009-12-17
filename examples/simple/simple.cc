@@ -42,33 +42,11 @@ Simple::Simple()
   m_terminal.set_flags(Gtk::CAN_FOCUS);
   m_terminal.grab_focus();
   // Set geometry hints, so resizing will work nicely.
-  // setting geometry hints is based on gnome-terminal code.
   Gdk::Geometry hints;
-//  deprecated:
-//  Gnome::Vte::Padding pads(m_terminal.get_padding());
-//  hints.base_width = pads.get_x_pad();
-//  hints.base_height = pads.get_y_pad();
-
-//  C++ API does not work - wait for #603926 to be fixed.
-//  Gtk::Border inner_border;
-//  m_terminal.get_style_property("inner-border", inner_border);
-//  hints.base_width = inner_border.left + inner_border.right;
-//  hints.base_height = inner_border.top + inner_border.bottom;
-
-//  C API does work
-  GtkBorder* inner_border = NULL;
-  gtk_widget_style_get(GTK_WIDGET(m_terminal.gobj()), "inner-border", &inner_border, NULL);
-  if (inner_border)
-  {
-    hints.base_width = inner_border->left + inner_border->right;
-    hints.base_height = inner_border->top + inner_border->bottom;
-    gtk_border_free(inner_border);
-  }
-  else
-  {
-    hints.base_width = 2;
-    hints.base_height = 2;
-  }
+  Gtk::Border inner_border;
+  m_terminal.get_style_property("inner-border", inner_border);
+  hints.base_width = inner_border.left + inner_border.right;
+  hints.base_height = inner_border.top + inner_border.bottom;
   hints.width_inc = m_terminal.get_char_width();
   hints.height_inc = m_terminal.get_char_height();
   const int min_width_chars = 4;

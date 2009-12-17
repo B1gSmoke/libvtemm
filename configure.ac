@@ -24,7 +24,8 @@ AC_SUBST([LIBVTEMM_SO_VERSION], [9:0:0])
 LT_INIT([win32-dll disable-static])
 AC_PROG_CXX
 
-AC_SUBST([LIBVTEMM_MODULES], ['glibmm-2.4 >= 2.18.0 pangomm-1.4 >= 2.24.0 gtkmm-2.4 >= 2.14.0 vte >= 0.23.1'])
+# gtkmm-2.4 version should be >= 2.19.0, but there is still no unstable release.
+AC_SUBST([LIBVTEMM_MODULES], ['glibmm-2.4 >= 2.18.0 pangomm-1.4 >= 2.24.0 gtkmm-2.4 >= 2.18.2 vte >= 0.23.1'])
 PKG_CHECK_MODULES([LIBVTEMM], [$LIBVTEMM_MODULES])
 
 MM_PKG_CONFIG_SUBST([GTHREAD_CFLAGS], [--cflags-only-other gthread-2.0])

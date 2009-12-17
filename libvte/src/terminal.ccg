@@ -20,6 +20,8 @@
 
 #include <vte/vte.h>
 
+#include <gtkmm/border.h>
+
 #include "internalroutines.h"
 
 namespace Gnome
@@ -150,7 +152,7 @@ Terminal::get_text(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
 TextAndCharAttrs
 Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
 {
-  GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
+  GArray* array = g_array_new(FALSE, FALSE, sizeof(VteCharAttributes));
   char* c_text = vte_terminal_get_text_include_trailing_spaces(const_cast<VteTerminal*>(gobj()), &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
   Glib::ustring text(c_text);
   g_free(c_text);
@@ -162,7 +164,7 @@ Terminal::get_text_include_trailing_spaces(const Gnome::Vte::Terminal::SlotSelec
 TextAndCharAttrs
 Terminal::get_text_range(long start_row, long start_col, long end_row, long end_col, const Gnome::Vte::Terminal::SlotSelectedCallback& slot) const
 {
-  GArray* array = g_array_new(FALSE, FALSE, sizeof(struct _VteCharAttributes));
+  GArray* array = g_array_new(FALSE, FALSE, sizeof(VteCharAttributes));
   char* c_text = vte_terminal_get_text_range(const_cast<VteTerminal*>(gobj()), start_row, start_col, end_row, end_col, &Private::SignalProxy_selected_gtk_callback, const_cast<Gnome::Vte::Terminal::SlotSelectedCallback*>(&slot), array);
   Glib::ustring text(c_text);
   g_free(c_text);
@@ -198,23 +200,9 @@ Terminal::set_default_emulation()
 Padding
 Terminal::get_padding() const
 {
-  int xpad(0), ypad(0);
-//  TODO: use C++ API, when #603926 is fixed.
-  GtkWidget* c_widget = GTK_WIDGET(gobj());
-  GtkBorder* c_border = NULL;
-  gtk_widget_style_get(c_widget, "inner-border", &c_border, NULL);
-  if (c_border)
-  {
-    x_pad = c_border->left + c_border->right;
-    y_pad = c_border->top + c_border->bottom;
-    gtk_border_free(c_border);
-  }
-  else
-  {
-    x_pad = 2;
-    y_pad = 2;
-  }
-  return Padding(xpad, ypad);
+  Gtk::Border border;
+  get_style_property("inner-border", border);
+  return Padding(border.left + border.right, border.top + border.bottom);
 }
 
 } // namespace Vte
