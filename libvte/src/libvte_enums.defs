@@ -1,4 +1,13 @@
-;; From /home/kudi/testenvironment/usr/include/vte/vte.h
+;; From vte.h
+
+;; Original typedef:
+;; typedef enum {
+;; 	VTE_ERASE_AUTO,
+;; 	VTE_ERASE_ASCII_BACKSPACE,
+;; 	VTE_ERASE_ASCII_DELETE,
+;; 	VTE_ERASE_DELETE_SEQUENCE,
+;; 	VTE_ERASE_TTY
+;; } VteTerminalEraseBinding;
 
 (define-enum-extended TerminalEraseBinding
   (in-module "Vte")
@@ -12,6 +21,13 @@
   )
 )
 
+;; Original typedef:
+;; typedef enum {
+;;         VTE_CURSOR_BLINK_SYSTEM,
+;;         VTE_CURSOR_BLINK_ON,
+;;         VTE_CURSOR_BLINK_OFF
+;; } VteTerminalCursorBlinkMode;
+
 (define-enum-extended TerminalCursorBlinkMode
   (in-module "Vte")
   (c-name "VteTerminalCursorBlinkMode")
@@ -22,6 +38,13 @@
   )
 )
 
+;; Original typedef:
+;; typedef enum {
+;;         VTE_CURSOR_SHAPE_BLOCK,
+;;         VTE_CURSOR_SHAPE_IBEAM,
+;;         VTE_CURSOR_SHAPE_UNDERLINE
+;; } VteTerminalCursorShape;
+
 (define-enum-extended TerminalCursorShape
   (in-module "Vte")
   (c-name "VteTerminalCursorShape")
@@ -29,6 +52,23 @@
     '("block" "VTE_CURSOR_SHAPE_BLOCK" "0")
     '("ibeam" "VTE_CURSOR_SHAPE_IBEAM" "1")
     '("underline" "VTE_CURSOR_SHAPE_UNDERLINE" "2")
+  )
+)
+
+;; Original typedef:
+;; typedef enum {
+;; 	VTE_ANTI_ALIAS_USE_DEFAULT,
+;; 	VTE_ANTI_ALIAS_FORCE_ENABLE,
+;; 	VTE_ANTI_ALIAS_FORCE_DISABLE
+;; } VteTerminalAntiAlias;
+
+(define-enum-extended TerminalAntiAlias
+  (in-module "Vte")
+  (c-name "VteTerminalAntiAlias")
+  (values
+    '("use-default" "VTE_ANTI_ALIAS_USE_DEFAULT" "0")
+    '("force-enable" "VTE_ANTI_ALIAS_FORCE_ENABLE" "1")
+    '("force-disable" "VTE_ANTI_ALIAS_FORCE_DISABLE" "2")
   )
 )
 
