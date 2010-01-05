@@ -1,3 +1,9 @@
+0.23.0:
+
+* Terminal::get_padding() method is deprecated in favor of using
+"inner-border" style property - shown in examples.
+(Krzesimir Nowak)
+
 0.22.2:
 
 * Cleanup license files.
