@@ -12,7 +12,7 @@
   <download-page
   rdf:resource="http://download.gnome.org/sources/libvtemm"/>
   <bug-database
-  rdf:resource="http://bugzilla.gnome.org/browse.cgi?product=libvtemm"/>
+  rdf:resource="https://bugzilla.gnome.org/browse.cgi?product=libvtemm"/>
   <category rdf:resource="http://api.gnome.org/doap-extensions#bindings" />
 
   <maintainer>
