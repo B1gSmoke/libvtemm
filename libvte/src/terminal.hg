@@ -230,6 +230,7 @@ public:
    * @a palette[0].  If size of @a palette is 8 or 16, the third (dim) and possibly the
    * second (bold) 8-color palettes are extrapolated from the new background
    * color and the items in @a palette.
+   * @param palette The color palette
    */
   void set_default_colors(const Gdk::ArrayHandle_Color& palette);
 
