@@ -1,6 +1,6 @@
 /* terminal.h
  *
- * Copyright (C) 2008, 2009 libvtemm Development Team
+ * Copyright (C) 2008, 2009, 2010 libvtemm Development Team
  *
  * This file is part of libvtemm.
  *
@@ -47,9 +47,65 @@ namespace Gnome
 namespace Vte
 {
 
+/** TerminalEraseBinding - An enumerated type which can be used to indicate
+ *  which string the terminal should send to an application when the user
+ *  presses the Delete or Backspace keys.
+ */
 _WRAP_ENUM(TerminalEraseBinding, VteTerminalEraseBinding)
+/** @var TerminalEraseBinding ERASE_AUTO
+ * For backspace, attempt to determine the right value from the terminal's IO
+ * settings; for delete, use the control sequence.
+ */
+
+/** @var TerminalEraseBinding ERASE_ASCII_BACKSPACE
+ * Send an ASCII backspace character (0x08).
+ */
+
+/** @var TerminalEraseBinding ERASE_ASCII_DELETE
+ * Send an ASCII delete character (0x7F).
+ */
+
+/** @var TerminalEraseBinding ERASE_DELETE_SEQUENCE
+ * Send the "\@\@7" control sequence.
+ */
+
+/** @var TerminalEraseBinding ERASE_TTY
+ * Send terminal's "erase" setting.
+ */
+
+/** TerminalCursorBlinkMode - An enumerated type which can be used to indicate
+ * the cursor blink mode for the terminal.
+ */
 _WRAP_ENUM(TerminalCursorBlinkMode, VteTerminalCursorBlinkMode)
+/** @var TerminalCursorBlinkMode CURSOR_BLINK_SYSTEM
+ * Follow GTK+ settings for cursor blinking.
+ */
+
+/** @var TerminalCursorBlinkMode CURSOR_BLINK_ON
+ * Cursor blinks.
+ */
+
+/** @var TerminalCursorBlinkMode CURSOR_BLINK_OFF
+ * Cursor does not blink.
+ */
+
+/** TerminalCursorShape - An enumerated type which can be used to indicate what
+ * should the terminal draw at the cursor position.
+ */
 _WRAP_ENUM(TerminalCursorShape, VteTerminalCursorShape)
+/** @var TerminalCursorShape CURSOR_SHAPE_BLOCK
+ * Draw a block cursor - this is the default.
+ */
+
+/** @var TerminalCursorShape CURSOR_SHAPE_IBEAM
+ * Draw a vertical bar on the left side of character - this is similar to the
+ * default cursor for other GTK+ widgets.
+ */
+
+/** @var TerminalCursorShape CURSOR_SHAPE_UNDERLINE
+ * Draw a horizontal bar below the character.
+ */
+
 
 /** Terminal - a terminal emulator implemented as a gtkmm widget.
  */
