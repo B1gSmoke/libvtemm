@@ -1,3 +1,10 @@
+0.23.1:
+
+* Documentation: added main page and documented enumerations.
+  (Krzesimir Nowak)
+* Terminal: added new method - write_contents(). This added dependency on giomm.
+  (Krzesimir Nowak)
+
 0.23.0:
 
 * Terminal::get_padding() method is deprecated in favor of using

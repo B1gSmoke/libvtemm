@@ -16,7 +16,13 @@ AC_ARG_VAR([ACLOCAL_FLAGS], [aclocal flags, e.g. -I <macro dir>])
 MM_PREREQ([0.8])
 MM_INIT_MODULE([libvtemm-1.2])
 
-AC_SUBST([LIBVTEMM_SO_VERSION], [10:0:1])
+# The string is of the form C:R:A.
+# - If interfaces have been changed or added, but binary compatibility has
+#   been preserved, change to C+1:0:A+1
+# - If binary compatibility has been broken (e.g. removed or changed interfaces)
+#   change to C+1:0:0
+# - If the interface is the same as the previous version, change to C:R+1:A
+AC_SUBST([LIBVTEMM_SO_VERSION], [11:0:2])
 
 # AC_DISABLE_STATIC
 # AC_LIBTOOL_WIN32_DLL

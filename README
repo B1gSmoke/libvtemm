@@ -1,11 +1,12 @@
-C++ wrapper for vte, version 0.23.0.
+C++ wrapper for vte, version 0.23.1.
 
 Current dependencies:
 - to build a library from tarball:
-  * vte >= 0.23.2
-  * glibmm >= 2.18.0
-  * pangomm >= 2.24.0
-  * gtkmm >= 2.19.2
+  * vte >= 0.23.5
+  * glibmm-2.4 >= 2.22.0
+  * pangomm-1.4 >= 2.24.0
+  * gtkmm-2.4 >= 2.19.2
+  * giomm-2.4
 - to build a documentation:
   * same as above and tools required by mm-common, that are:
     - perl
