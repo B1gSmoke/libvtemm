@@ -1,4 +1,4 @@
-AC_INIT([libvtemm], [0.23.1],
+AC_INIT([libvtemm], [0.23.2],
         [http://bugzilla.gnome.org/enter_bug.cgi?product=libvtemm],
         [libvtemm])
 AC_PREREQ([2.62])
