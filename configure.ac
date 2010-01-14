@@ -24,7 +24,7 @@ AC_SUBST([LIBVTEMM_SO_VERSION], [10:0:1])
 LT_INIT([win32-dll disable-static])
 AC_PROG_CXX
 
-AC_SUBST([LIBVTEMM_MODULES], ['glibmm-2.4 >= 2.18.0 pangomm-1.4 >= 2.24.0 gtkmm-2.4 >= 2.19.2 vte >= 0.23.2'])
+AC_SUBST([LIBVTEMM_MODULES], ['glibmm-2.4 >= 2.22.0 pangomm-1.4 >= 2.24.0 gtkmm-2.4 >= 2.19.2 vte >= 0.23.5 giomm-2.4'])
 PKG_CHECK_MODULES([LIBVTEMM], [$LIBVTEMM_MODULES])
 
 MM_PKG_CONFIG_SUBST([GTHREAD_CFLAGS], [--cflags-only-other gthread-2.0])

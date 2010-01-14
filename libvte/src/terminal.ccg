@@ -205,6 +205,56 @@ Terminal::get_padding() const
   return Padding(border.left + border.right, border.top + border.bottom);
 }
 
+#ifdef GLIBMM_EXCEPTIONS_ENABLED
+bool
+Terminal::write_contents(const Glib::RefPtr<Gio::OutputStream>& stream, const Glib::RefPtr<Gio::Cancellable>& cancellable, TerminalWriteFlags flags)
+#else
+bool
+Terminal::write_contents(const Glib::RefPtr<Gio::OutputStream>& stream, const Glib::RefPtr<Gio::Cancellable>& cancellable, TerminalWriteFlags flags, std::auto_ptr<Glib::Error>& error)
+#endif //GLIBMM_EXCEPTIONS_ENABLED
+{
+  GError* gerror = 0;
+  bool retvalue = vte_terminal_write_contents(gobj(), Glib::unwrap(stream), static_cast<VteTerminalWriteFlags>(flags), Glib::unwrap(cancellable), &gerror);
+#ifdef GLIBMM_EXCEPTIONS_ENABLED
+  if (gerror)
+  {
+    ::Glib::Error::throw_exception(gerror);
+  }
+#else
+  if (gerror)
+  {
+    error = ::Glib::Error::throw_exception(gerror);
+  }
+#endif //GLIBMM_EXCEPTIONS_ENABLED
+
+  return retvalue;
+}
+
+#ifdef GLIBMM_EXCEPTIONS_ENABLED
+bool
+Terminal::write_contents(const Glib::RefPtr<Gio::OutputStream>& stream, TerminalWriteFlags flags)
+#else
+bool
+Terminal::write_contents(const Glib::RefPtr<Gio::OutputStream>& stream, TerminalWriteFlags flags, std::auto_ptr<Glib::Error>& error)
+#endif //GLIBMM_EXCEPTIONS_ENABLED
+{
+  GError* gerror = 0;
+  bool retvalue = vte_terminal_write_contents(gobj(), Glib::unwrap(stream), static_cast<VteTerminalWriteFlags>(flags), 0, &gerror);
+#ifdef GLIBMM_EXCEPTIONS_ENABLED
+  if (gerror)
+  {
+    ::Glib::Error::throw_exception(gerror);
+  }
+#else
+  if (gerror)
+  {
+    error = ::Glib::Error::throw_exception(gerror);
+  }
+#endif //GLIBMM_EXCEPTIONS_ENABLED
+
+  return retvalue;
+}
+
 } // namespace Vte
 
 } // namespace Gnome

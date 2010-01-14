@@ -24,6 +24,8 @@ _DEFS(libvtemm,libvte)
 _PINCLUDE(gtkmm/private/widget_p.h)
 
 #include <sigc++/slot.h>
+#include <giomm/cancellable.h>
+#include <giomm/outputstream.h>
 #include <gdkmm/color.h>
 #include <gdkmm/pixbuf.h>
 #include <gdkmm/cursor.h>
@@ -106,19 +108,32 @@ _WRAP_ENUM(TerminalCursorShape, VteTerminalCursorShape)
  * Draw a horizontal bar below the character.
  */
 
+/** TerminalWriteFlags - A flag type to determine how terminal contents should
+ * be written to an output stream.
+ */
+_WRAP_ENUM(TerminalWriteFlags, VteTerminalWriteFlags)
+/** @var TerminalWriteFlags TERMINAL_WRITE_DEFAULT
+ * Write contents as UTF-8 text - this is the default.
+ */
+
 
 /** Terminal - a terminal emulator implemented as a gtkmm widget.
  */
 class Terminal : public Gtk::Widget
 {
   _CLASS_GTKOBJECT(Terminal, VteTerminal, VTE_TERMINAL, Gtk::Widget, GtkWidget)
+  // wrapped by hand
   _IGNORE(vte_terminal_feed, vte_terminal_feed_child, vte_terminal_feed_child_binary,
           vte_terminal_set_colors, vte_terminal_get_text, vte_terminal_get_text_include_trailing_spaces,
           vte_terminal_get_text_range, vte_terminal_get_cursor_position, vte_terminal_match_check,
-          vte_terminal_get_padding, vte_terminal_fork_command, vte_terminal_forkpty)
+          vte_terminal_get_padding, vte_terminal_fork_command, vte_terminal_forkpty,
+          vte_terminal_write_contents)
+  // deprecated
   _IGNORE(vte_terminal_set_cursor_blinks, vte_terminal_set_font_full, vte_terminal_get_using_xft,
           vte_terminal_set_font_from_string_full, vte_terminal_match_add, vte_terminal_get_char_ascent,
           vte_terminal_get_char_descent)
+  // bogus
+  _IGNORE(vte_terminal_accessible_new)
 public:
   _CTOR_DEFAULT()
 
@@ -610,6 +625,49 @@ public:
    * @return The child's exit status.
    */
   _WRAP_METHOD(int get_child_exit_status() const, vte_terminal_get_child_exit_status)
+
+  /** Write contents of the current contents of terminal (including any
+   *  scrollback history) to @a stream according to @a flags.
+   *
+   * The operation can be cancelled by triggering the cancellable object from
+   * another thread. If the operation was cancelled, the Gio::Error with
+   * CANCELLED will be thrown.
+   *
+   * This is a synchronous operation and will make the widget (and input
+   * processing) during the write operation, which may take a long time
+   * depending on scrollback history and @a stream availability for writing.
+   *
+   * @param stream A Gio::OutputStream to write to.
+   * @param cancellable Optional Gio::Cancellable object.
+   * @param flags A set of TerminalWriteFlags.
+   * @return @c true on success, @c false if there was an error.
+   *
+   * @newin{0,24}
+   */
+#ifdef GLIBMM_EXCEPTIONS_ENABLED
+  bool write_contents(const Glib::RefPtr<Gio::OutputStream>& stream, const Glib::RefPtr<Gio::Cancellable>& cancellable, TerminalWriteFlags flags = TERMINAL_WRITE_DEFAULT);
+#else
+  bool write_contents(const Glib::RefPtr<Gio::OutputStream>& stream, const Glib::RefPtr<Gio::Cancellable>& cancellable, TerminalWriteFlags flags, std::auto_ptr<Glib::Error>& error);
+#endif //GLIBMM_EXCEPTIONS_ENABLED
+
+  /** Write contents of the current contents of terminal (including any
+   *  scrollback history) to @a stream according to @a flags.
+   *
+   * This is a synchronous operation and will make the widget (and input
+   * processing) during the write operation, which may take a long time
+   * depending on scrollback history and @a stream availability for writing.
+   *
+   * @param stream A Gio::OutputStream to write to.
+   * @param flags A set of TerminalWriteFlags.
+   * @return @c true on success, @c false if there was an error.
+   *
+   * @newin{0,24}
+   */
+#ifdef GLIBMM_EXCEPTIONS_ENABLED
+  bool write_contents(const Glib::RefPtr<Gio::OutputStream>& stream, TerminalWriteFlags flags = TERMINAL_WRITE_DEFAULT);
+#else
+  bool write_contents(const Glib::RefPtr<Gio::OutputStream>& stream, TerminalWriteFlags flags, std::auto_ptr<Glib::Error>& error);
+#endif //GLIBMM_EXCEPTIONS_ENABLED
 
   _WRAP_SIGNAL(void eof(), "eof")
   _WRAP_SIGNAL(void child_exited(), "child-exited")
