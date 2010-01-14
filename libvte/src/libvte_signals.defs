@@ -1,5 +1,11 @@
 ;; From VteTerminal
 
+(define-signal child-exited
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
+)
+
 (define-signal set-scroll-adjustments
   (of-object "VteTerminal")
   (return-type "void")
@@ -8,18 +14,6 @@
     '("GtkAdjustment*" "p0")
     '("GtkAdjustment*" "p1")
   )
-)
-
-(define-signal selection-changed
-  (of-object "VteTerminal")
-  (return-type "void")
-  (when "last")
-)
-
-(define-signal child-exited
-  (of-object "VteTerminal")
-  (return-type "void")
-  (when "last")
 )
 
 (define-signal eof
@@ -70,6 +64,12 @@
     '("guint" "p0")
     '("guint" "p1")
   )
+)
+
+(define-signal selection-changed
+  (of-object "VteTerminal")
+  (return-type "void")
+  (when "last")
 )
 
 (define-signal contents-changed
@@ -413,6 +413,15 @@
   (docs "The widget's window if it is realized")
   (readable #t)
   (writable #f)
+  (construct-only #f)
+)
+
+(define-property double-buffered
+  (of-object "VteTerminal")
+  (prop-type "GParamBoolean")
+  (docs "Whether or not the widget is double buffered")
+  (readable #t)
+  (writable #t)
   (construct-only #f)
 )
 

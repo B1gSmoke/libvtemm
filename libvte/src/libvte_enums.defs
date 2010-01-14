@@ -57,6 +57,19 @@
 
 ;; Original typedef:
 ;; typedef enum {
+;;   VTE_TERMINAL_WRITE_DEFAULT = 0
+;; } VteTerminalWriteFlags;
+
+(define-flags-extended TerminalWriteFlags
+  (in-module "Vte")
+  (c-name "VteTerminalWriteFlags")
+  (values
+    '("default" "VTE_TERMINAL_WRITE_DEFAULT" "0x0")
+  )
+)
+
+;; Original typedef:
+;; typedef enum {
 ;; 	VTE_ANTI_ALIAS_USE_DEFAULT,
 ;; 	VTE_ANTI_ALIAS_FORCE_ENABLE,
 ;; 	VTE_ANTI_ALIAS_FORCE_DISABLE

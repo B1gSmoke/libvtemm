@@ -65,6 +65,15 @@
   )
 )
 
+(define-enum TerminalWriteFlags
+  (in-module "Vte")
+  (c-name "VteTerminalWriteFlags")
+  (gtype-id "VTE_TYPE_TERMINAL_WRITE_FLAGS")
+  (values
+    '("default" "VTE_TERMINAL_WRITE_DEFAULT")
+  )
+)
+
 (define-enum TerminalAntiAlias
   (in-module "Vte")
   (c-name "VteTerminalAntiAlias")
@@ -110,15 +119,10 @@
   (return-type "GType")
 )
 
-; it should be constructor of VteTerminalAccessible, not method of VteTerminal -
-; corrected manually
-(define-function vte_terminal_accessible_new
+(define-method accessible_new
+  (of-object "VteTerminal")
   (c-name "vte_terminal_accessible_new")
-  (is-constructor-of "VteTerminalAccessible")
   (return-type "AtkObject*")
-  (parameters
-    '("VteTerminal*" "terminal")
-  )
 )
 
 (define-function vte_terminal_accessible_factory_get_type
@@ -816,6 +820,18 @@
   (return-type "int")
 )
 
+(define-method write_contents
+  (of-object "VteTerminal")
+  (c-name "vte_terminal_write_contents")
+  (return-type "gboolean")
+  (parameters
+    '("GOutputStream*" "stream")
+    '("VteTerminalWriteFlags" "flags")
+    '("GCancellable*" "cancellable")
+    '("GError**" "error")
+  )
+)
+
 (define-method set_cursor_blinks
   (of-object "VteTerminal")
   (c-name "vte_terminal_set_cursor_blinks")
@@ -888,6 +904,11 @@
 
 (define-function vte_terminal_cursor_shape_get_type
   (c-name "vte_terminal_cursor_shape_get_type")
+  (return-type "GType")
+)
+
+(define-function vte_terminal_write_flags_get_type
+  (c-name "vte_terminal_write_flags_get_type")
   (return-type "GType")
 )
 

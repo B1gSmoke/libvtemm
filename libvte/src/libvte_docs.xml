@@ -1,11 +1,9 @@
 <root>
 <function name="VteTerminal">
 <description>
-Controls whether the terminal will present a visible bell to the
-user when the child outputs the &quot;bl&quot; sequence.  The terminal
-will clear itself to the default foreground color and then repaint itself.
+Sets the border around the terminal.
 
-Since: 0.19.1
+Since: 0.24
 
 </description>
 <parameters>
@@ -94,48 +92,40 @@ Deprecated: 0.19.1
 </return>
 </function>
 
-<function name="vte_terminal_forkpty">
+<function name="_vte_ring_remove">
 <description>
-Starts a new child process under a newly-allocated controlling
-pseudo-terminal.  TERM is automatically set to reflect the terminal widget's
-emulation setting.  If @lastlog, @utmp, or @wtmp are %TRUE, logs the session
-to the specified system log files.
-
+Removes the @position'th item from @ring.
 
 </description>
 <parameters>
-<parameter name="terminal">
-<parameter_description> a #VteTerminal
+<parameter name="ring">
+<parameter_description> a #VteRing
 </parameter_description>
 </parameter>
-<parameter name="envv">
-<parameter_description> a list of environment variables to be added to the environment before
-starting returning in the child process, or %NULL
-</parameter_description>
-</parameter>
-<parameter name="directory">
-<parameter_description> the name of a directory the child process should change to, or
-%NULL
-</parameter_description>
-</parameter>
-<parameter name="lastlog">
-<parameter_description> %TRUE if the session should be logged to the lastlog
-</parameter_description>
-</parameter>
-<parameter name="utmp">
-<parameter_description> %TRUE if the session should be logged to the utmp/utmpx log
-</parameter_description>
-</parameter>
-<parameter name="wtmp">
-<parameter_description> %TRUE if the session should be logged to the wtmp/wtmpx log
+<parameter name="position">
+<parameter_description> an index
 </parameter_description>
 </parameter>
 </parameters>
-<return> the ID of the new process in the parent, 0 in the child, and -1 if
-there was an error
+<return></return>
+</function>
 
-Since: 0.11.11
-</return>
+<function name="_vte_ring_resize">
+<description>
+Changes the number of lines the ring can contain.
+
+</description>
+<parameters>
+<parameter name="ring">
+<parameter_description> a #VteRing
+</parameter_description>
+</parameter>
+<parameter name="max_rows">
+<parameter_description> new maximum numbers of rows in the ring
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
 </function>
 
 <function name="vte_terminal_match_check">
@@ -171,6 +161,49 @@ which they were added.
 </parameters>
 <return> a string which matches one of the previously set regular
 expressions, and which must be freed by the caller.
+</return>
+</function>
+
+<function name="vte_terminal_write_contents">
+<description>
+Write contents of the current contents of @terminal (including any
+scrollback history) to @stream according to @flags.
+
+If @cancellable is not %NULL, then the operation can be cancelled by triggering
+the cancellable object from another thread. If the operation was cancelled,
+the error %G_IO_ERROR_CANCELLED will be returned in @error.
+
+This is a synchronous operation and will make the widget (and input
+processing) during the write operation, which may take a long time
+depending on scrollback history and @stream availability for writing.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="stream">
+<parameter_description> a #GOutputStream to write to
+</parameter_description>
+</parameter>
+<parameter name="flags">
+<parameter_description> a set of #VteTerminalWriteFlags
+</parameter_description>
+</parameter>
+<parameter name="cancellable">
+<parameter_description> optional #GCancellable object, %NULL to ignore
+</parameter_description>
+</parameter>
+<parameter name="error">
+<parameter_description> a #GError location to store the error occuring, or %NULL to ignore
+</parameter_description>
+</parameter>
+</parameters>
+<return> %TRUE on success, %FALSE if there was an error
+
+Since: 0.24
 </return>
 </function>
 
@@ -282,9 +315,9 @@ in-memory copy of the image before applying it to the terminal.
 
 <function name="_vte_ring_append">
 <description>
-Appends a new item to the ring.  If an item must be removed to make room for
-the new item, it is freed.
+Appends a new item to the ring.
 
+Return: the newly added row.
 
 </description>
 <parameters>
@@ -356,12 +389,13 @@ Determines the amount of additional space the widget is using to pad the
 edges of its visible area.  This is necessary for cases where characters in
 the selected font don't themselves include a padding area and the text
 itself would otherwise be contiguous with the window border.  Applications
-which use the widget's #row_count, #column_count, #char_height, and
-#char_width fields to set geometry hints using
+which use the widget's %row_count, %column_count, %char_height, and
+%char_width fields to set geometry hints using
 gtk_window_set_geometry_hints() will need to add this value to the base
 size.  The values returned in @xpad and @ypad are the total padding used in
 each direction, and do not need to be doubled.
 
+@Deprecated: 0.24: Get the VteTerminal:inner-border style property instead
 
 </description>
 <parameters>
@@ -608,12 +642,37 @@ Since: 0.17.6
 </return>
 </function>
 
+<function name="_vte_ring_insert_internal">
+<description>
+Inserts a new, empty, row into @ring at the @position'th offset.
+The item at that position and any items after that are shifted down.
+
+Return: the newly added row.
+
+</description>
+<parameters>
+<parameter name="ring">
+<parameter_description> a #VteRing
+</parameter_description>
+</parameter>
+<parameter name="position">
+<parameter_description> an index
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
 <function name="vte_terminal_set_scrollback_lines">
 <description>
 Sets the length of the scrollback buffer used by the terminal.  The size of
 the scrollback buffer will be set to the larger of this value and the number
 of visible rows the widget can display, so 0 can safely be used to disable
-scrollback.  Note that this setting only affects the normal screen buffer.
+scrollback.
+
+A negative value means &quot;infinite scrollback&quot;.
+
+Note that this setting only affects the normal screen buffer.
 For terminal types which have an alternate screen buffer, no scrollback is
 allowed on the alternate screen buffer.
 
@@ -666,32 +725,6 @@ Creates a new accessibility peer for the terminal widget.
 </parameters>
 <return> the new #AtkObject
 </return>
-</function>
-
-<function name="_vte_ring_insert_preserve">
-<description>
-Inserts a new item (@data) into @ring at the @position'th offset.  If @ring
-already has an item stored at the desired location, it (and any successive
-items) will be moved down, items that need to be removed will be removed
-from the *top*.
-
-
-</description>
-<parameters>
-<parameter name="ring">
-<parameter_description> a #VteRing
-</parameter_description>
-</parameter>
-<parameter name="position">
-<parameter_description> an index
-</parameter_description>
-</parameter>
-<parameter name="data">
-<parameter_description> the new item
-</parameter_description>
-</parameter>
-</parameters>
-<return></return>
 </function>
 
 <function name="vte_terminal_get_visible_bell">
@@ -797,6 +830,38 @@ Deprecated: 0.19.1
 <return></return>
 </function>
 
+<function name="_vte_ring_write_contents">
+<description>
+Write entire ring contents to @stream according to @flags.
+
+Return: %TRUE on success, %FALSE if there was an error
+
+</description>
+<parameters>
+<parameter name="ring">
+<parameter_description> a #VteRing
+</parameter_description>
+</parameter>
+<parameter name="stream">
+<parameter_description> a #GOutputStream to write to
+</parameter_description>
+</parameter>
+<parameter name="flags">
+<parameter_description> a set of #VteTerminalWriteFlags
+</parameter_description>
+</parameter>
+<parameter name="cancellable">
+<parameter_description> optional #GCancellable object, %NULL to ignore
+</parameter_description>
+</parameter>
+<parameter name="error">
+<parameter_description> a #GError location to store the error occuring, or %NULL to ignore
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
 <function name="vte_terminal_new">
 <description>
 Create a new terminal widget.
@@ -892,53 +957,48 @@ Since: 0.11.11
 </return>
 </function>
 
-<function name="_vte_ring_remove">
+<function name="vte_terminal_forkpty">
 <description>
-Removes the @position'th item from @ring, freeing it only if @free_element is
-%TRUE.
+Starts a new child process under a newly-allocated controlling
+pseudo-terminal.  TERM is automatically set to reflect the terminal widget's
+emulation setting.  If @lastlog, @utmp, or @wtmp are %TRUE, logs the session
+to the specified system log files.
 
 
 </description>
 <parameters>
-<parameter name="ring">
-<parameter_description> a #VteRing
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
 </parameter_description>
 </parameter>
-<parameter name="position">
-<parameter_description> an index
+<parameter name="envv">
+<parameter_description> a list of environment variables to be added to the environment before
+starting returning in the child process, or %NULL
 </parameter_description>
 </parameter>
-<parameter name="free_element">
-<parameter_description> %TRUE if the item should be freed
+<parameter name="directory">
+<parameter_description> the name of a directory the child process should change to, or
+%NULL
 </parameter_description>
 </parameter>
-</parameters>
-<return></return>
-</function>
-
-<function name="_vte_ring_insert">
-<description>
-Inserts a new item (@data) into @ring at the @position'th offset.  If @ring
-already has an item stored at the desired location, it will be freed before
-being replaced by the new @data.
-
-
-</description>
-<parameters>
-<parameter name="ring">
-<parameter_description> a #VteRing
+<parameter name="lastlog">
+<parameter_description> %TRUE if the session should be logged to the lastlog
 </parameter_description>
 </parameter>
-<parameter name="position">
-<parameter_description> an index
+<parameter name="utmp">
+<parameter_description> %TRUE if the session should be logged to the utmp/utmpx log
 </parameter_description>
 </parameter>
-<parameter name="data">
-<parameter_description> the new item
+<parameter name="wtmp">
+<parameter_description> %TRUE if the session should be logged to the wtmp/wtmpx log
 </parameter_description>
 </parameter>
 </parameters>
-<return></return>
+<return> the ID of the new process in the parent, 0 in the child, and -1 if
+there was an error
+
+Since: 0.11.11
+</return>
 </function>
 
 <function name="vte_terminal_is_word_char">
@@ -981,7 +1041,7 @@ the &quot;child-exited&quot; signal.
 </parameters>
 <return> the child's exit status
 
-Since: 0.19.1
+Since: 0.20
 </return>
 </function>
 
@@ -1005,32 +1065,6 @@ application's locale settings.
 </parameter>
 </parameters>
 <return></return>
-</function>
-
-<function name="_vte_ring_new">
-<description>
-Allocates a new ring capable of holding up to @max_elements elements at a
-time, using @free to free them when they are removed from the ring.  The
-@data pointer is passed to the @free callback whenever it is called.
-
-
-</description>
-<parameters>
-<parameter name="max_elements">
-<parameter_description> the maximum size the new ring will be allowed to reach
-</parameter_description>
-</parameter>
-<parameter name="free_func">
-<parameter_description> a #VteRingFreeFunc
-</parameter_description>
-</parameter>
-<parameter name="data">
-<parameter_description> user data for @free
-</parameter_description>
-</parameter>
-</parameters>
-<return> a new ring
-</return>
 </function>
 
 <function name="vte_terminal_copy_clipboard">
@@ -1072,7 +1106,8 @@ and background colors, the bold foreground color, the dim foreground
 color, an eight color palette, bold versions of the eight color palette,
 and a dim version of the the eight color palette.
 
-@palette_size must be either 0, 8, 16, or 24.  If @foreground is %NULL and
+@palette_size must be either 0, 8, 16, or 24, or between 25 and 255 inclusive.
+If @foreground is %NULL and
 @palette_size is greater than 0, the new foreground color is taken from
 @palette[7].  If @background is %NULL and @palette_size is greater than 0,
 the new background color is taken from @palette[0].  If
@@ -1133,25 +1168,17 @@ Since: 0.11.9
 <return></return>
 </function>
 
-<function name="vte_terminal_im_append_menuitems">
+<function name="vte_reaper_get">
 <description>
-Appends menu items for various input methods to the given menu.  The
-user can select one of these items to modify the input method used by
-the terminal.
+Finds the address of the global #VteReaper object, creating the object if
+necessary.
 
 
 </description>
 <parameters>
-<parameter name="terminal">
-<parameter_description> a #VteTerminal
-</parameter_description>
-</parameter>
-<parameter name="menushell">
-<parameter_description> a GtkMenuShell
-</parameter_description>
-</parameter>
 </parameters>
-<return></return>
+<return> the global #VteReaper object, which should not be unreffed.
+</return>
 </function>
 
 <function name="vte_terminal_get_cursor_position">
@@ -1244,6 +1271,27 @@ mouse button.
 <parameters>
 <parameter name="terminal">
 <parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+</parameters>
+<return></return>
+</function>
+
+<function name="vte_terminal_im_append_menuitems">
+<description>
+Appends menu items for various input methods to the given menu.  The
+user can select one of these items to modify the input method used by
+the terminal.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> a #VteTerminal
+</parameter_description>
+</parameter>
+<parameter name="menushell">
+<parameter_description> a GtkMenuShell
 </parameter_description>
 </parameter>
 </parameters>
@@ -1636,6 +1684,35 @@ and columns.
 </parameter>
 </parameters>
 <return></return>
+</function>
+
+<function name="VteSelectionFunc">
+<description>
+Specifies the type of a selection function used to check whether
+a cell has to be selected or not.
+
+
+</description>
+<parameters>
+<parameter name="terminal">
+<parameter_description> terminal in which the cell is.
+</parameter_description>
+</parameter>
+<parameter name="column">
+<parameter_description> column in which the cell is.
+</parameter_description>
+</parameter>
+<parameter name="row">
+<parameter_description> row in which the cell is.
+</parameter_description>
+</parameter>
+<parameter name="data">
+<parameter_description> user data.
+</parameter_description>
+</parameter>
+</parameters>
+<return> %TRUE if cell has to be selected; %FALSE if otherwise.
+</return>
 </function>
 
 <function name="vte_terminal_match_add">
@@ -2223,19 +2300,6 @@ necessary.
 </return>
 </function>
 
-<function name="vte_reaper_get">
-<description>
-Finds the address of the global #VteReaper object, creating the object if
-necessary.
-
-
-</description>
-<parameters>
-</parameters>
-<return> the global #VteReaper object, which should not be unreffed.
-</return>
-</function>
-
 <function name="vte_terminal_set_color_bold">
 <description>
 Sets the color used to draw bold text in the default foreground color.
@@ -2300,25 +2364,6 @@ the attempt succeeds, the widget will resize itself to the proper size.
 <return></return>
 </function>
 
-<function name="_vte_ring_free">
-<description>
-Frees the ring and, optionally, each of the items it contains.
-
-
-</description>
-<parameters>
-<parameter name="ring">
-<parameter_description> a #VteRing
-</parameter_description>
-</parameter>
-<parameter name="free_elements">
-<parameter_description> %TRUE if items in the ring should be freed
-</parameter_description>
-</parameter>
-</parameters>
-<return></return>
-</function>
-
 <function name="vte_terminal_get_pty">
 <description>
 Return value: the file descriptor, or -1 if the terminal has no PTY.
@@ -2332,7 +2377,7 @@ Return value: the file descriptor, or -1 if the terminal has no PTY.
 </parameters>
 <return> the file descriptor, or -1 if the terminal has no PTY.
 
-Since: 0.19.1
+Since: 0.20
 </return>
 </function>
 
@@ -2340,7 +2385,7 @@ Since: 0.19.1
 <description>
 Sets the shape of the cursor drawn.
 
-Since: 0.19.1
+Since: 0.20
 
 </description>
 <parameters>
