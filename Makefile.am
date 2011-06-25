@@ -1,7 +1,8 @@
 ## Copyright (c) 2009 libvtemm development team.
 
 ACLOCAL_AMFLAGS = -I build ${ACLOCAL_FLAGS}
-DISTCHECK_CONFIGURE_FLAGS = --enable-warnings=fatal
+# We are using some deprecated stuff for now.
+DISTCHECK_CONFIGURE_FLAGS = --enable-warnings=max
 
 if MAINTAINER_MODE
 src_subdirs = codegen libvte/src
