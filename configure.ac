@@ -27,7 +27,7 @@ MM_CONFIG_DOCTOOL_DIR([docs])
 # - If binary compatibility has been broken (e.g. removed or changed interfaces)
 #   change to C+1:0:0
 # - If the interface is the same as the previous version, change to C:R+1:A
-AC_SUBST([LIBVTEMM_SO_VERSION], [11:0:2])
+AC_SUBST([LIBVTEMM_SO_VERSION], [11:1:2])
 
 # AC_DISABLE_STATIC
 # AC_LIBTOOL_WIN32_DLL
@@ -35,7 +35,7 @@ AC_SUBST([LIBVTEMM_SO_VERSION], [11:0:2])
 LT_INIT([win32-dll disable-static])
 AC_PROG_CXX
 
-AC_SUBST([LIBVTEMM_MODULES], ['glibmm-2.4 >= 2.22.0 pangomm-1.4 >= 2.24.0 gtkmm-2.4 >= 2.20.0 vte >= 0.24.0 giomm-2.4'])
+AC_SUBST([LIBVTEMM_MODULES], ['glibmm-2.4 >= 2.22.0 pangomm-1.4 >= 2.24.0 gtkmm-2.4 >= 2.20.0 vte >= 0.26.0 giomm-2.4'])
 PKG_CHECK_MODULES([LIBVTEMM], [$LIBVTEMM_MODULES])
 
 MM_PKG_CONFIG_SUBST([GTHREAD_CFLAGS], [--cflags-only-other gthread-2.0])

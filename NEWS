@@ -1,3 +1,7 @@
+0.25.0:
+* Fixed building documentation with glibmm-2.28.
+  (Krzesimir Nowak)
+
 0.24.0:
 * Nothing has changed.
   (Krzesimir Nowak)
