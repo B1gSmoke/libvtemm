@@ -13,8 +13,13 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AM_MAINTAINER_MODE
 AC_ARG_VAR([ACLOCAL_FLAGS], [aclocal flags, e.g. -I <macro dir>])
 
-MM_PREREQ([0.8])
+MM_PREREQ([0.9.5])
 MM_INIT_MODULE([libvtemm-1.2])
+
+# Copy the mm-common .pl scripts into docs/,
+# and use them from there,
+# so we can dist them to avoid a tarball-build dependency.
+MM_CONFIG_DOCTOOL_DIR([docs])
 
 # The string is of the form C:R:A.
 # - If interfaces have been changed or added, but binary compatibility has
